@@ -90,13 +90,17 @@ nav a:hover{
     text-align: justify;
     color: #fff;
 }
-.contenedor-flexible div, img, .contenedor-flexible-invertido div, img{
+.contenedor-flexible div, .contenedor-flexible img{
     padding: 0 5px;
     width: 350px;
 }
 
 .contenedor-flexible-invertido{
     flex-direction: row-reverse;
+}
+.contenedor-flexible-invertido div, .contenedor-flexible-invertido img{
+    padding: 0 5px;
+    width: 350px;
 }
 
 .cont-text-sobre-imagen{
@@ -117,3 +121,4 @@ nav a:hover{
     para algunas imagenes no se ve mucho el texto que tiene encima */
     background-color: rgba(0, 0, 139, 0.4);
 }
+
