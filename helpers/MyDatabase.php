@@ -16,11 +16,19 @@ class MyDatabase{
     }
 
     public function query($sql){
-        $databaseResult = mysqli_query($this->connection, $sql);
 
+        $databaseResult = mysqli_query($this->connection, $sql);
+       /*
+        if($databaseResult){
+            echo "ENTRE A CONSULTAR";
+        }else{
+            echo "cagamos";
+        }
+*/
         if (mysqli_num_rows($databaseResult) <= 0)
             return [];
 
         return mysqli_fetch_all($databaseResult,MYSQLI_ASSOC);
+
     }
 }

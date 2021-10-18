@@ -28,7 +28,8 @@ class Configuration{
     }
     private  function createLoginModel(){
         require_once("model/LoginModel.php");
-        return new LoginModel();
+        $database=$this->getDatabase();
+        return new LoginModel($database);
     }
 
     private function createPrinter(){

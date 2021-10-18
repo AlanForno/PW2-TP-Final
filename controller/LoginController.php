@@ -1,11 +1,11 @@
 <?php
 class LoginController{
 
-    private $logginModel;
+    private $loginModel;
     private $printer;
 
     public function __construct($loginModel, $printer){
-        $this->logginModel = $loginModel;
+        $this->loginModel = $loginModel;
         $this->printer = $printer;
     }
 
@@ -13,4 +13,10 @@ class LoginController{
 
         echo $this->printer->render( "view/iniciarSesion.html");
     }
+    public function procesarLogin(){
+        $data["usuario"] = $_POST["usuario"];
+        $data["password"] =  $_POST["password"];
+        $this->loginModel->logearUsuario($data["usuario"],$data["password"]);
+    }
+
 }

@@ -27,14 +27,14 @@
         
 
         <h2>Login</h2>
-        <form action="login.php" method="post" enctype="application/x-www-form-urlencoded">
+        <form action="/LoginController.php/procesarLogin" method="POST" enctype="multipart/form-data">
       
         
-          <label for="nombre"></label>
-          <input type="text" id="nombre" placeholder="Enter Username" name="nombre" >
+          <label for="usuario"></label>
+          <input type="text" id="usuario" placeholder="Enter Username" name="usuario" >
       
-          <label for="clave"></label>
-          <input type="password" id="clave" placeholder="Enter Password" name="clave" >
+          <label for="password"></label>
+          <input type="password" id="password" placeholder="Enter Password" name="password" >
        
           <input type="submit" name="enviar" value="enviar">
       </form>
