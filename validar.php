@@ -12,6 +12,6 @@ if ($db->query($consulta) === TRUE) {
     echo "Error al validar el mail: " . $db->error;
   }
 
-echo "<a href= 'iniciarSesion.html'>Volver atras</a>";
+echo "<a href= 'view/iniciarSesion.html'>Volver atras</a>";
 echo "<br>". $hash;
  

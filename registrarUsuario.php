@@ -5,11 +5,11 @@ if($db->connect_error){
     echo "ha ocurrido un error". $db->connect_error;
 }
 if(!isset($_POST['nombre'], $_POST['clave'])){
-  echo "<a href= 'iniciarSesion.html'>Volver atras</a><br>";
+  echo "<a href= 'view/iniciarSesion.html'>Volver atras</a><br>";
   exit('Ingrese un nombre y clave');
 }
 if(empty($_POST['nombre']) ||  empty($_POST['clave'])){
-  echo "<a href= 'iniciarSesion.html'>Volver atras</a><br>";
+  echo "<a href= 'view/iniciarSesion.html'>Volver atras</a><br>";
   exit('formulario incompleto');
 }
 
