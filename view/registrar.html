@@ -1,0 +1,23 @@
+{{>header}}
+
+<!-- HAY QUE ACOMODAR BIEN LOS ESTILOS -->
+
+<link rel="stylesheet" href="/public/css/estilos-login.css">
+<div class="login">
+
+  <h2>Registrarse</h2>
+  <form action="/registrar/registrarUsuario" method="post" enctype="application/x-www-form-urlencoded">
+
+    <label for="nombre"><i class="fas fa-user"></i></label>
+    <input type="text" id="nombre" placeholder="Enter Username" name="usuario" >
+
+    <label for="clave"><i class="fas fa-lock"></i></label>
+    <input type="password" id="clave" placeholder="Enter Password" name="password" >
+
+    <input type="submit" name="enviar" value="Enviar">
+  </form>
+
+</div>
+
+</body>
+</html>
