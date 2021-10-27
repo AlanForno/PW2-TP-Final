@@ -10,17 +10,17 @@ class LoginModel
         $this->database = $database;
     }
 
-
     /* METER VALIDACIONES Y DEMAS METODOS DE LOGIN*/
     public function logearUsuario($usuario,$password){
+        session_start();
         $sql="SELECT * FROM usuario";
         $this->resultado=$this->database->query($sql);
-        $this->validar($usuario,$password,$this->resultado);
+        $this->validar($usuario,$password);
     }
 
-    private function validacionUsuario($resultado, $usuario)
+    private function validacionUsuario($usuario)
     {
-        foreach ($resultado as $primerUsuario) {
+        foreach ($this->resultado as $primerUsuario) {
             $nombre=$primerUsuario["nombre"];
             if (strcmp($usuario, $nombre) == 0) {
                 return true;
@@ -28,10 +28,10 @@ class LoginModel
         }
         return false;
     }
-    private function validacionPassword($resultado,$password)
+    private function validacionPassword($password)
     {
         $md5= md5($password);
-        foreach ($resultado as $primerUsuario) {
+        foreach ($this->resultado as $primerUsuario) {
             $passwordDB=$primerUsuario['password'];
             $passwordDB=md5($passwordDB);
             if (strcmp($md5, $passwordDB) == 0) {
@@ -40,9 +40,11 @@ class LoginModel
         }
         return false;
     }
-    private function validar($usuario,$password,$resultado){
-        if($this->validacionUsuario($resultado,$usuario)&&$this->validacionPassword($resultado,$password)){
-            echo "te logeaste";
+    private function validar($usuario,$password){
+        if($this->validacionUsuario($usuario)&&$this->validacionPassword($password)){
+            $_SESSION["usuario"]=$usuario;
+            header("location:http://localhost/home");
+            exit();
         }
         else {
             echo "fallo";
