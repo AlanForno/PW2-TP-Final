@@ -16,7 +16,7 @@ class RegistrarModel
        // echo "enviado";
       //  mail($email,"correo de confirmacion",$mensaje);
         $confirmacion=1;
-        $sql="INSERT INTO `usuario` (`usuario`, `password`, `validacion`,`confirmado` ) VALUES ('".$usuario."', '".$md5password."', '".$validacion."','".$confirmacion."')";
+        $sql="INSERT INTO `usuario` (`usuario`, `password`, `validacion`,`confirmado` ) VALUES ('".[$usuario]."', '".[$md5password]."', '".[$validacion]."','".[$confirmacion]."')";
         $this->database->insert($sql);
     }
     /*
