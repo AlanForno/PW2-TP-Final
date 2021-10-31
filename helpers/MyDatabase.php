@@ -17,18 +17,21 @@ class MyDatabase{
 
     public function query($sql){
         $databaseResult = mysqli_query($this->connection, $sql);
+
         if (mysqli_num_rows($databaseResult) <= 0)
             return [];
+
         return mysqli_fetch_all($databaseResult,MYSQLI_ASSOC);
-    }
-    public function insert($sql){
-        mysqli_query($this->connection, $sql);
 
     }
-    public function update($sql){
-        if(mysqli_query($this->connection, $sql))
-            echo "se mando";
-        echo "Error";
+
+    public function insert($sql){
+<<<<<<< HEAD
+        mysqli_query($this->connection, $sql);
+=======
+>>>>>>> 429ed1cebce5835e75830ec474f924ce4e9bcdf0
+
+        mysqli_query($this->connection, $sql);
     }
     public function select($sql){
 

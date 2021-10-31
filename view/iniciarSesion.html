@@ -9,12 +9,22 @@
     <title>Sesiones</title>
 </head>
 
+    {{#error}}
+
+    <div >
+        <div class="w3-panel w3-red w3-display-container w3-round" style="width: 30%; margin-left: auto; margin-right: auto">
+            <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
+            <p class="w3-center">Datos incorrectos</p>
+
+        </div>
+    </div>
+    {{/error}}
 
     <div class="login">
         
 
         <h2>Login</h2>
-        <form action="/LoginController.php/procesarLogin" method="post" enctype="multipart/form-data">
+        <form action="/login/procesarLogin" method="post" enctype="multipart/form-data">
       
         
           <label for="usuario"></label>
