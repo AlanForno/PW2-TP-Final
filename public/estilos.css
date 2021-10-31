@@ -2,14 +2,13 @@
     margin: 0;
     padding: 0;
 }
-
 body{
-    background-color: #140B37;
+    background-color: grey;
     font-family: 'Montserrat';
     /* background: rgb(26,13,48);
     background: linear-gradient(180deg, rgba(26,13,48,1) 0%, rgba(4,7,48,1) 100%); */
 }
-
+/*
 header{
     background-color: #020726;
     position: relative;
@@ -64,21 +63,13 @@ nav a:hover{
     top: 10px;
     left: 85%;
     width: 180px;
-}
-.reg-login-btn h2{
-    /* No se le aplica un margin-top porque ya esta hay un top empujando
-    en el contenedor de este h2 */
-    margin-bottom: 5px;
-    background-color: #6B74A5;
-    text-align: center;
-    border-radius: 2px;
-    color: #fff;
-}
+}*/
+
 
 /* section{
     width: 70%;
     margin: auto;
-} */
+}
 
 .contenedor-flexible, .contenedor-flexible-invertido{
     display: flex;
@@ -115,5 +106,4 @@ nav a:hover{
     color: #fff;
     /* El cuadrado de fondo se pueda sacar despues,
     para algunas imagenes no se ve mucho el texto que tiene encima */
-    background-color: rgba(0, 0, 139, 0.4);
-}
+
