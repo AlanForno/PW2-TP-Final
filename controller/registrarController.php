@@ -12,7 +12,6 @@ class RegistrarController{
 
     public function show(){
 
-        // ESTO ES SOLO PARA PROBAR QUE LA SESION FUNCIONA, HAY QUE SACARLO
         if (!isset($_SESSION["rol"])){
         echo $this->printer->render( "view/registrar.html");}
         else{
