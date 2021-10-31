@@ -13,4 +13,5 @@ class HomeController{
 
         echo $this->printer->render( "view/home.html");
     }
+
 }

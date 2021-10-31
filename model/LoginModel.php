@@ -15,37 +15,29 @@ class LoginModel
     public function logearUsuario($usuario,$password){
         $sql="SELECT * FROM usuario";
         $this->resultado=$this->database->query($sql);
-        $this->validar($usuario,$password,$this->resultado);
+        return $this->validar($usuario,$password,$this->resultado);
     }
 
-    private function validacionUsuario($resultado, $usuario)
-    {
+    public function validar($usuario,$password,$resultado){
+        $password=md5($password);
         foreach ($resultado as $primerUsuario) {
-            $nombre=$primerUsuario["nombre"];
-            if (strcmp($usuario, $nombre) == 0) {
+            $usuarioAComparar=$primerUsuario['usuario'];
+            $passwordAComparar=$primerUsuario['password'];
+
+            if (strcmp($usuario, $usuarioAComparar) == 0 && strcmp($password, $passwordAComparar) == 0 && is_null($primerUsuario['validacion']) ) {
                 return true;
             }
         }
         return false;
     }
-    private function validacionPassword($resultado,$password)
-    {
-        $md5= md5($password);
-        foreach ($resultado as $primerUsuario) {
-            $passwordDB=$primerUsuario['password'];
-            $passwordDB=md5($passwordDB);
-            if (strcmp($md5, $passwordDB) == 0) {
-                return true;
-            }
-        }
-        return false;
-    }
-    private function validar($usuario,$password,$resultado){
-        if($this->validacionUsuario($resultado,$usuario)&&$this->validacionPassword($resultado,$password)){
-            echo "te logeaste";
-        }
-        else {
-            echo "fallo";
+
+    public function iniciarSesion($usuario){
+        $sql="SELECT * FROM usuario WHERE `usuario` LIKE '".$usuario."'";
+        $this->resultado=$this->database->query($sql);
+        foreach ($this->resultado as $usuarioRecorrido){
+            $_SESSION["rol"]=$usuarioRecorrido["rol"];
+            $_SESSION["usuario"]=$usuarioRecorrido["usuario"];
         }
     }
+
 }

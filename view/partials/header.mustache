@@ -7,20 +7,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/css/estilos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
 
+    <style>
+        .city {display:none}
+    </style>
 </head>
 
 <body>
 
 <header>
     <h1>Gaucho Rocket</h1>
-    <a href="/home"><img src="public/isotipo.png" alt=""></a>
+    <a href="/home"><img src="/public/isotipo.png" alt=""></a>
     <div class="reg-login-btn">
-        <a href="/registrar"><h2>Registrarme</h2></a>
-        <a href="/login"><h2>Ingresar</h2></a>
+
+        <div class="w3-container">
+            <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Cerrar Sesion</button>
+
+            <div id="id01" class="w3-modal w3-padding-16">
+                <div class="w3-modal-content w3-animate-top w3-card-4" style="width: 30%; margin-top: 10%">
+                    <header class="w3-container w3-blue">
+                        <span onclick="document.getElementById('id01').style.display='none'"
+                              class="w3-button w3-display-topright">&times;</span>
+                        <h4>Esta seguro que quiere cerrar sesion?</h4>
+                    </header>
+                    <footer class="w3-container w3-light-blue w3-center">
+                        <a class="w3-button w3-red w3-margin" href="/login/cerrarSesion">Cerrar sesion</a>
+                    </footer>
+                </div>
+            </div>
+        </div>
+            <a href="/registrar"><h2 class="reg-btn">Registrarme</h2></a>
+            <a href="/login"><h2 class="reg-btn">Ingresar</h2></a>
+
     </div>
 </header>

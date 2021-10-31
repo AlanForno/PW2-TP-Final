@@ -65,7 +65,7 @@ nav a:hover{
     left: 85%;
     width: 180px;
 }
-.reg-login-btn h2{
+.reg-btn{
     /* No se le aplica un margin-top porque ya esta hay un top empujando
     en el contenedor de este h2 */
     margin-bottom: 5px;

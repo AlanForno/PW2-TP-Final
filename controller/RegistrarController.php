@@ -1,6 +1,7 @@
 <?php
 class RegistrarController{
 
+
     private $registrarModel;
     private $printer;
 
@@ -11,15 +12,43 @@ class RegistrarController{
 
     public function show(){
 
-        echo $this->printer->render( "view/registrar.html");
+        // ESTO ES SOLO PARA PROBAR QUE LA SESION FUNCIONA, HAY QUE SACARLO
+        if (!isset($_SESSION["rol"])){
+        echo $this->printer->render( "view/registrar.html");}
+        else{
+            header("Location: /home");
+        }
     }
 
     public function registrarUsuario(){
         $data["usuario"] = $_POST["usuario"];
         $data["password"] =  $_POST["password"];
-        $this->registrarModel->registrarUsuario($data["usuario"],$data["password"]);
-        header("Location: /home");
+        $data["email"] =  $_POST["email"];
+        $data["rol"] = "cliente";
+        $data["validacion"]=md5(time());
+        $this->registrarModel->registrarUsuario($data["usuario"],$data["password"],$data["rol"], $data["email"], $data["validacion"]);
+        $this->mostrarValidacion( $data["validacion"], $data["email"]);
         die();
 
     }
+
+    public function mostrarValidacion($validacion, $email){
+        $data["validacion"] = $validacion;
+        $data["email"]=$email;
+
+        echo $this->printer->render( "view/validacion.html", $data);
+    }
+
+    public function validarCuenta(){
+        $data["validacion"] = $_GET["validacion"];
+        $data["email"]=$_GET["email"];
+
+        $this->registrarModel->validarUsuario( $data["validacion"], $data["email"]);
+        header("Location: /home");
+        die();
+    }
+
+
+
+
 }
