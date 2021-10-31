@@ -11,8 +11,12 @@ class LoginController{
 
     public function show(){
 
-        $data["error"]=false;
-        echo $this->printer->render( "view/iniciarSesion.html", $data);
+        if (!isset($_SESSION["rol"])) {
+            $data["error"] = false;
+            echo $this->printer->render("view/iniciarSesion.html", $data);
+        }else{
+            header("Location: /home");
+        }
     }
 
 
