@@ -13,7 +13,7 @@ class RegistrarController{
     public function show(){
 
         if (!isset($_SESSION["rol"])){
-        echo $this->printer->render( "view/registrar.html");}
+            echo $this->printer->render( "view/registrar.html");}
         else{
             header("Location: /home");
         }
