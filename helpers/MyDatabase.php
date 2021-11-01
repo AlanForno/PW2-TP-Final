@@ -22,5 +22,19 @@ class MyDatabase{
             return [];
 
         return mysqli_fetch_all($databaseResult,MYSQLI_ASSOC);
+
+    }
+
+    public function insert($sql){
+
+        if(mysqli_query($this->connection, $sql))
+        {
+
+        }else echo "error";
+
+    }
+    public function select($sql){
+
+        return mysqli_fetch_row( mysqli_query($this->connection,$sql));
     }
 }

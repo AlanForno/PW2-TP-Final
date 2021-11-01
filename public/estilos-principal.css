@@ -1,0 +1,119 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #435165;
+    font-family: 'Montserrat';
+    /* background: rgb(26,13,48);
+    background: linear-gradient(180deg, rgba(26,13,48,1) 0%, rgba(4,7,48,1) 100%); */
+}
+
+header{
+    background-color: #020726;
+    position: relative;
+}
+
+h1{
+    font-weight: lighter;
+    font-size: 55px;
+    color: #fff;
+    text-align: center;
+}
+
+header img{
+    width: 400px;
+    display: block;
+    margin: auto;
+    border-top: 1px solid #fff;
+}
+
+nav{
+    display: inline;
+    background-color: #000;
+}
+
+nav ul{
+    list-style: none;
+    text-align: center;
+}
+
+nav li{
+    margin: 0 10px;
+    width: 150px;
+    display: inline-block;
+}
+
+nav a{
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    background-color: #63458C;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 2px;
+}
+nav a:hover{
+    opacity: 0.8;
+}
+
+.reg-login-btn{
+    position: absolute;
+    bottom: 80px;
+    top: 10px;
+    left: 85%;
+    width: 180px;
+}
+.reg-login-btn h2{
+    /* No se le aplica un margin-top porque ya esta hay un top empujando
+    en el contenedor de este h2 */
+    margin-bottom: 5px;
+    background-color: #6B74A5;
+    text-align: center;
+    border-radius: 2px;
+    color: #fff;
+}
+
+/* section{
+    width: 70%;
+    margin: auto;
+} */
+
+.contenedor-flexible, .contenedor-flexible-invertido{
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+.contenedor-flexible p, .contenedor-flexible-invertido p{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: justify;
+    color: #fff;
+}
+.contenedor-flexible div, img, .contenedor-flexible-invertido div, img{
+    padding: 0 5px;
+    width: 350px;
+}
+
+.contenedor-flexible-invertido{
+    flex-direction: row-reverse;
+}
+
+.cont-text-sobre-imagen{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.cont-text-sobre-imagen h3{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Montserrat';
+    font-size: 50px;
+    color: #fff;
+    /* El cuadrado de fondo se pueda sacar despues,
+    para algunas imagenes no se ve mucho el texto que tiene encima */
+    background-color: rgba(0, 0, 139, 0.4);
+}
