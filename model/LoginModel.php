@@ -10,44 +10,34 @@ class LoginModel
         $this->database = $database;
     }
 
+
     /* METER VALIDACIONES Y DEMAS METODOS DE LOGIN*/
     public function logearUsuario($usuario,$password){
-        session_start();
         $sql="SELECT * FROM usuario";
         $this->resultado=$this->database->query($sql);
-        $this->validar($usuario,$password);
+        return $this->validar($usuario,$password,$this->resultado);
     }
 
-    private function validacionUsuario($usuario)
-    {
-        foreach ($this->resultado as $primerUsuario) {
-            $nombre=$primerUsuario["nombre"];
-            if (strcmp($usuario, $nombre) == 0) {
+    public function validar($usuario,$password,$resultado){
+        $password=md5($password);
+        foreach ($resultado as $primerUsuario) {
+            $usuarioAComparar=$primerUsuario['usuario'];
+            $passwordAComparar=$primerUsuario['password'];
+
+            if (strcmp($usuario, $usuarioAComparar) == 0 && strcmp($password, $passwordAComparar) == 0 && is_null($primerUsuario['validacion']) ) {
                 return true;
             }
         }
         return false;
     }
-    private function validacionPassword($password)
-    {
-        $md5= md5($password);
-        foreach ($this->resultado as $primerUsuario) {
-            $passwordDB=$primerUsuario['password'];
-            $passwordDB=md5($passwordDB);
-            if (strcmp($md5, $passwordDB) == 0) {
-                return true;
-            }
-        }
-        return false;
-    }
-    private function validar($usuario,$password){
-        if($this->validacionUsuario($usuario)&&$this->validacionPassword($password)){
-            $_SESSION["usuario"]=$usuario;
-            header("location:http://localhost/home");
-            exit();
-        }
-        else {
-            echo "fallo";
+
+    public function iniciarSesion($usuario){
+        $sql="SELECT * FROM usuario WHERE `usuario` LIKE '".$usuario."'";
+        $this->resultado=$this->database->query($sql);
+        foreach ($this->resultado as $usuarioRecorrido){
+            $_SESSION["rol"]=$usuarioRecorrido["rol"];
+            $_SESSION["usuario"]=$usuarioRecorrido["usuario"];
         }
     }
+
 }

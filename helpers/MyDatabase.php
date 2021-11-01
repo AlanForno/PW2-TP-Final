@@ -16,21 +16,25 @@ class MyDatabase{
     }
 
     public function query($sql){
-
         $databaseResult = mysqli_query($this->connection, $sql);
+
         if (mysqli_num_rows($databaseResult) <= 0)
             return [];
+
         return mysqli_fetch_all($databaseResult,MYSQLI_ASSOC);
-    }
-    public function insert($sql){
-        echo $sql;
-        mysqli_query($this->connection, $sql);
-            echo "se mando";
 
     }
-    public function update($sql){
+
+    public function insert($sql){
+
         if(mysqli_query($this->connection, $sql))
-            echo "se mando";
-        echo "Error";
+        {
+
+        }else echo "error";
+
+    }
+    public function select($sql){
+
+        return mysqli_fetch_row( mysqli_query($this->connection,$sql));
     }
 }
