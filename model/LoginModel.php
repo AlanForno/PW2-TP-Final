@@ -37,6 +37,7 @@ class LoginModel
         foreach ($this->resultado as $usuarioRecorrido){
             $_SESSION["rol"]=$usuarioRecorrido["rol"];
             $_SESSION["usuario"]=$usuarioRecorrido["usuario"];
+            $_SESSION["id"]=$usuarioRecorrido["idUsuario"];
         }
     }
 

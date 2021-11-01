@@ -13,7 +13,8 @@ class RegistrarController{
     public function show(){
 
         if (!isset($_SESSION["rol"])){
-            echo $this->printer->render( "view/registrar.html");}
+            $data["error"]=false;
+            echo $this->printer->render( "view/registrar.html", $data);}
         else{
             header("Location: /home");
         }
@@ -25,9 +26,14 @@ class RegistrarController{
         $data["email"] =  $_POST["email"];
         $data["rol"] = "cliente";
         $data["validacion"]=md5(time());
-        $this->registrarModel->registrarUsuario($data["usuario"],$data["password"],$data["rol"], $data["email"], $data["validacion"]);
-        $this->mostrarValidacion( $data["validacion"], $data["email"]);
-        die();
+        if($this->registrarModel->registrarUsuario($data["usuario"],$data["password"],$data["rol"], $data["email"], $data["validacion"])){
+            $this->mostrarValidacion( $data["validacion"], $data["email"]);
+            die();
+        }else{
+            $data["error"]=true;
+            echo $this->printer->render( "view/registrar.html", $data);
+        }
+
 
     }
 

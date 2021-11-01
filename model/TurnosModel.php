@@ -50,7 +50,7 @@ class TurnosModel
             foreach ($idturno as $id){
                 return $id;
             }
-        }else(header("turnos"));
+        }else(header("Location: /turnos"));
     }
 
     private function generarResultado(){
@@ -58,7 +58,7 @@ class TurnosModel
     }
 
     public function buscarTurno($id){
-        $sql='SELECT * FROM turnos WHERE idturnos ='.$id;
+        $sql='select * from turnos join hospitales on turnos.hospital=hospitales.id where idturnos='.$id;
         return $this->database->query($sql);
     }
 

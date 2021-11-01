@@ -15,7 +15,7 @@ class AdminModel
     }
 
     public function getUsuariosFiltradosPor($filtro){
-        $SQL = "SELECT * FROM usuario WHERE usuario LIKE '%".$filtro."%' OR email LIKE '%".$filtro."%' OR rol = '".$filtro."'";
+        $SQL = "SELECT * FROM usuario WHERE `validacion` is NULL AND ( usuario LIKE '%".$filtro."%' OR email LIKE '%".$filtro."%' OR rol = '".$filtro."')";
         return $this->database->query($SQL);
     }
 
