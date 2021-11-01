@@ -17,6 +17,15 @@ class TurnosController{
         $usuario=$_SESSION['usuario'];
         $hospital=$_POST['hospital'];
         $fecha= $_POST['turno'];
-        $this->model->procesarTurno($hospital,$fecha,$usuario);
+        $idDelTurno=$this->model->procesarTurno($hospital,$fecha,$usuario);
+        $this->mostrarResultado($idDelTurno);
+    }
+
+    public function mostrarResultado($idDelTurno){
+        $turno=$this->model->buscarTurno($idDelTurno);
+
+        $data["turno"]=$turno;
+
+        echo $this->printer->render( "view/resultado.html", $data);
     }
 }

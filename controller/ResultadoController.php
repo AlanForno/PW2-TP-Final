@@ -13,6 +13,8 @@ class resultadoController
 
     public function show(){
 
+
+
         echo $this->printer->render( "view/resultado.html");
     }
     public function mostrarResultado(){
