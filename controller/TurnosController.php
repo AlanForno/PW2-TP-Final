@@ -14,8 +14,9 @@ class TurnosController{
         echo $this->printer->render( "view/Turnos-y-chequeos-medicos.html");
     }
     public function procesarTurno(){
-        $hospital=$_POST["hospital"];
+        $usuario=$_SESSION['usuario'];
+        $hospital=$_POST['hospital'];
         $fecha= $_POST['turno'];
-        $this->model->procesarTurno($hospital,$fecha);
+        $this->model->procesarTurno($hospital,$fecha,$usuario);
     }
 }

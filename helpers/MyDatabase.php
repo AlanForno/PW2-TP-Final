@@ -26,12 +26,12 @@ class MyDatabase{
     }
 
     public function insert($sql){
-<<<<<<< HEAD
-        mysqli_query($this->connection, $sql);
-=======
->>>>>>> 429ed1cebce5835e75830ec474f924ce4e9bcdf0
 
-        mysqli_query($this->connection, $sql);
+        if(mysqli_query($this->connection, $sql))
+        {
+
+        }else echo "error";
+
     }
     public function select($sql){
 

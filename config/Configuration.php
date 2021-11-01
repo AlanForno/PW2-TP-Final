@@ -27,6 +27,11 @@ class Configuration{
         require_once ("controller/TurnosController.php");
         return new TurnosController($this->createTurnosModel(),$this->createPrinter());
     }
+    public function  createResultadoController()
+    {
+        require_once ("controller/resultadoController.php");
+        return new resultadoController($this->createResultadoModel(),$this->createPrinter());
+    }
     public  function createHomeController(){
         require_once ("controller/HomeController.php");
         return new HomeController($this->createHomeModel(),$this->createPrinter());
@@ -43,6 +48,11 @@ class Configuration{
         require_once("model/LoginModel.php");
         $database=$this->getDatabase();
         return new LoginModel($database);
+    }
+    private  function createResultadoModel(){
+        require_once("model/ResultadoModel.php");
+        $database=$this->getDatabase();
+        return new ResultadoModel($database);
     }
     private  function createTurnosModel(){
         require_once("model/TurnosModel.php");

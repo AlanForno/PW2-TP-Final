@@ -27,7 +27,6 @@ class RegistrarController{
         $data["validacion"]=md5(time());
         $this->registrarModel->registrarUsuario($data["usuario"],$data["password"],$data["rol"], $data["email"], $data["validacion"]);
         $this->mostrarValidacion( $data["validacion"], $data["email"]);
-        die();
 
     }
 
@@ -43,8 +42,8 @@ class RegistrarController{
         $data["email"]=$_GET["email"];
 
         $this->registrarModel->validarUsuario( $data["validacion"], $data["email"]);
-        header("Location: /home");
-        die();
+        //header("Location: /home");
+
     }
 
 

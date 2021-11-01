@@ -15,18 +15,15 @@ class RegistrarModel
     public function registrarUsuario($usuario,$password, $rol, $email, $validacion){
 
         $md5password=md5($password);
-<<<<<<< HEAD
+
        // $mensaje= "hola!" . $usuario . "este es su codigo de confirmacion" . $validacion;
        // echo "enviado";
       //  mail($email,"correo de confirmacion",$mensaje);
         $confirmacion=1;
-        $sql="INSERT INTO `usuario` (`usuario`, `password`, `validacion`,`confirmado` ) VALUES ('".[$usuario]."', '".[$md5password]."', '".[$validacion]."','".[$confirmacion]."')";
-=======
-        $sql="INSERT INTO `pw2`.`usuario` (`usuario`, `password`, `validacion`, `rol`, `email`  ) VALUES ('".$usuario."', '".$md5password."', '".$validacion."', '".$rol."' , '".$email."')";
->>>>>>> 429ed1cebce5835e75830ec474f924ce4e9bcdf0
+       // $sql="INSERT INTO `usuario` (`usuario`, `password`, `validacion`,`confirmado` ) VALUES ('".[$usuario]."', '".[$md5password]."', '".[$validacion]."','".[$confirmacion]."')";
+
+        $sql="INSERT INTO `usuario` (`id`,`usuario`, `password`, `validacion`, `rol`,`tipoAceptado`, `email`  ) VALUES (NULL ,'$usuario', '$md5password', '$validacion', '$rol', NULL , '$email')";
         $this->database->insert($sql);
-
-
     }
 
     public function validarUsuario($validacion, $email){
@@ -54,8 +51,9 @@ class RegistrarModel
 
     public function validacionCorrecta($email)
     {
-        $sql="UPDATE `pw2`.`usuario` SET `validacion` = NULL WHERE (`email` = '".$email."')";
+        $sql="UPDATE `usuario` SET `validacion` = NULL WHERE (`email` = '".$email."')";
         $this->database->insert($sql);
+        header("location:http://localhost/");
     }
 
 }
