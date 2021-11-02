@@ -3,15 +3,23 @@ class TurnosController{
 
     private $model;
     private $printer;
+    private $sesion;
 
-    public function __construct($model, $printer){
+    public function __construct($model, $printer, $sesion){
         $this->model = $model;
         $this->printer = $printer;
+        $this->sesion = $sesion;
     }
 
     public function show(){
 
-        echo $this->printer->render( "view/Turnos-y-chequeos-medicos.html");
+        $data=$this->sesion->obtenerPermisos();
+        if ($data["sesion"]) {
+            echo $this->printer->render( "view/Turnos-y-chequeos-medicos.html", $data);
+        }else{
+            header("Location: /home");
+        }
+
     }
     public function procesarTurno(){
         $usuario=$_SESSION['usuario'];
@@ -22,6 +30,9 @@ class TurnosController{
     }
 
     public function mostrarResultado($idDelTurno){
+
+        $data=$this->sesion->obtenerPermisos();
+
         $turno=$this->model->buscarTurno($idDelTurno);
 
         $data["turno"]=$turno;
