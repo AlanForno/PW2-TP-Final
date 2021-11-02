@@ -15,7 +15,11 @@ class TurnosController{
 
         $data=$this->sesion->obtenerPermisos();
         if ($data["sesion"]) {
-            echo $this->printer->render( "view/Turnos-y-chequeos-medicos.html", $data);
+            if(!$this->model->yaRealizoChequeo($_SESSION["usuario"])){
+                echo $this->printer->render( "view/Turnos-y-chequeos-medicos.html", $data);
+            }else{
+                $this->mostrarResultado();
+            }
         }else{
             header("Location: /home");
         }
@@ -25,18 +29,19 @@ class TurnosController{
         $usuario=$_SESSION['usuario'];
         $hospital=$_POST['hospital'];
         $fecha= $_POST['turno'];
-        $idDelTurno=$this->model->procesarTurno($hospital,$fecha,$usuario);
-        $this->mostrarResultado($idDelTurno);
+        $this->model->procesarTurno($hospital,$fecha,$usuario);
+        $this->mostrarResultado();
     }
 
-    public function mostrarResultado($idDelTurno){
+    public function mostrarResultado(){
 
         $data=$this->sesion->obtenerPermisos();
 
-        $turno=$this->model->buscarTurno($idDelTurno);
+        $turno=$this->model->buscarTurno($_SESSION['usuario']);
 
         $data["turno"]=$turno;
 
         echo $this->printer->render( "view/resultado.html", $data);
     }
+
 }
