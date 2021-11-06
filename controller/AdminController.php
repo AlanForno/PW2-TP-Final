@@ -3,15 +3,19 @@ class AdminController{
 
     private $adminModel;
     private $printer;
+    private $sesion;
 
-    public function __construct($adminModel, $printer){
+    public function __construct($adminModel, $printer, $sesion){
         $this->adminModel = $adminModel;
         $this->printer = $printer;
+        $this->sesion = $sesion;
     }
 
     public function show(){
 
-        if($_SESSION["rol"]=="admin"){
+        $data=$this->sesion->obtenerPermisos();
+
+        if($data["admin"]){
             $usuarios=$this->adminModel->getUsuarios();
 
             $data["usuarios"]=$usuarios;

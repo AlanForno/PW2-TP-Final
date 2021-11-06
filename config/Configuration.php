@@ -20,29 +20,29 @@ class Configuration{
     public function  createLoginController()
     {
         require_once ("controller/LoginController.php");
-        return new LoginController($this->createLoginModel(),$this->createPrinter());
+        return new LoginController($this->createLoginModel(),$this->createPrinter(), $this->createManejoDeSession());
     }
     public function  createTurnosController()
     {
         require_once ("controller/TurnosController.php");
-        return new TurnosController($this->createTurnosModel(),$this->createPrinter());
+        return new TurnosController($this->createTurnosModel(),$this->createPrinter(), $this->createManejoDeSession());
     }
     public function  createResultadoController()
     {
         require_once ("controller/resultadoController.php");
-        return new resultadoController($this->createResultadoModel(),$this->createPrinter());
+        return new resultadoController($this->createResultadoModel(),$this->createPrinter(), $this->createManejoDeSession());
     }
     public  function createHomeController(){
         require_once ("controller/HomeController.php");
-        return new HomeController($this->createHomeModel(),$this->createPrinter());
+        return new HomeController($this->createHomeModel(),$this->createPrinter(), $this->createManejoDeSession());
     }
     public function createRegistrarController(){
         require_once("controller/RegistrarController.php");
-        return new registrarController($this->createRegistrarModel(),$this->createPrinter());
+        return new registrarController($this->createRegistrarModel(),$this->createPrinter(), $this->createManejoDeSession());
     }
     public  function createAdminController(){
         require_once ("controller/AdminController.php");
-        return new AdminController($this->createAdminModel(),$this->createPrinter());
+        return new AdminController($this->createAdminModel(),$this->createPrinter(), $this->createManejoDeSession());
     }
     private  function createLoginModel(){
         require_once("model/LoginModel.php");
@@ -86,6 +86,11 @@ class Configuration{
     {
         require_once("model/HomeModel.php");
         return new HomeModel();
+    }
+
+    private function createManejoDeSession(){
+        require_once ("helpers/ManejoDeSession.php");
+        return new ManejoDeSession();
     }
 
 

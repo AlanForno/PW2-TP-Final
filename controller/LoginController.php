@@ -3,15 +3,18 @@ class LoginController{
 
     private $loginModel;
     private $printer;
+    private $sesion;
 
-    public function __construct($loginModel, $printer){
+    public function __construct($loginModel, $printer, $sesion){
         $this->loginModel = $loginModel;
         $this->printer = $printer;
+        $this->sesion = $sesion;
     }
 
     public function show(){
 
-        if (!isset($_SESSION["rol"])) {
+        $data=$this->sesion->obtenerPermisos();
+        if (!$data["sesion"]) {
             $data["error"] = false;
             echo $this->printer->render("view/iniciarSesion.html", $data);
         }else{
