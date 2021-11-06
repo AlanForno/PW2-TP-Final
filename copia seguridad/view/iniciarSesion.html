@@ -1,0 +1,42 @@
+{{>header}}
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="../public/estilos.css">
+    <link rel="stylesheet" href="../public/estilos-login.css">
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+    <title>Sesiones</title>
+</head>
+
+    {{#error}}
+
+    <div >
+        <div class="w3-panel w3-red w3-display-container w3-round" style="width: 30%; margin-left: auto; margin-right: auto">
+            <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
+            <p class="w3-center">Datos incorrectos</p>
+
+        </div>
+    </div>
+    {{/error}}
+
+    <div class="login">
+        
+
+        <h2>Login</h2>
+        <form action="/login/procesarLogin" method="post" enctype="multipart/form-data">
+      
+        
+          <label for="usuario"></label>
+          <input type="text" id="usuario" placeholder="Enter Username" name="usuario" >
+      
+          <label for="password"></label>
+          <input type="password" id="password" placeholder="Enter Password" name="password" >
+       
+          <input type="submit" name="enviar" value="enviar">
+      </form>
+
+    </div>
+
+
+
