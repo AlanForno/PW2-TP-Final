@@ -1,0 +1,56 @@
+{{>header}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="../public/css/estilos.css">
+<link rel="stylesheet" href="../public/estilos-login.css">
+<!-- Fuentes -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+<body>
+        {{#error}}
+            <div>
+                <div class="w3-panel w3-red w3-display-container w3-round" style="width: 30%; margin-left: auto; margin-right: auto">
+                    <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
+                    <p class="w3-center">POR FAVOR INICIE SESION O REGISTRESE</p>
+
+                </div>
+            </div>
+        {{/error}}
+    <div class="w3-container w3-card w3-content w3-center w3-padding-64 w3-text-black w3-2020-navy-blazer w3-margin-top">
+        <form action="/reserva" method="get" enctype="multipart/form-data">
+            <table class="w3-table w3-bordered w3-centered w3-text-white">
+                <tr>
+                    <th>id</th>
+                    <th>Vuelo</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Fecha</th>
+                    <th>Tipo</th>
+                    <th>Disponible</th>
+                    <th>RESERVAR</th>
+
+                </tr>
+                {{#vuelos}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{nombreVuelo}}</td>
+                    <td>{{origen}}</td>
+                    <td>{{destino}}</td>
+                    <td>{{fecha}}</td>
+                    <td>{{tipo}}</td>
+
+                    <td>{{capacidad}}</td>
+
+
+                    <td><input type="radio" name="id" value="{{id}}"><p>RESERVAR</p></a></td>
+                </tr>
+                {{/vuelos}}
+            </table>
+                <button type="submit">reservar</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
+</body>
+</html>

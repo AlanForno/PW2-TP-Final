@@ -17,6 +17,16 @@ class Configuration{
 
         return  $this->config;
     }
+    public function  createReservaController()
+    {
+        require_once ("controller/reservaController.php");
+        return new reservaController($this->createReservaModel(),$this->createPrinter(), $this->createManejoDeSession());
+    }
+    public function  createVuelosController()
+    {
+        require_once ("controller/vuelosController.php");
+        return new vuelosController($this->createVuelosModel(),$this->createPrinter(), $this->createManejoDeSession());
+    }
     public function  createLoginController()
     {
         require_once ("controller/LoginController.php");
@@ -70,6 +80,11 @@ class Configuration{
         $database=$this->getDatabase();
         return new AdminModel($database);
     }
+    private  function createVuelosModel(){
+        require_once("model/vuelosModel.php");
+        $database=$this->getDatabase();
+        return new vuelosModel($database);
+    }
 
 
     private function createPrinter(){
@@ -86,6 +101,13 @@ class Configuration{
     {
         require_once("model/HomeModel.php");
         return new HomeModel();
+    }
+
+    private function createReservaModel()
+    {
+        require_once("model/reservaModel.php");
+        $database=$this->getDatabase();
+        return new reservaModel($database);
     }
 
     private function createManejoDeSession(){
