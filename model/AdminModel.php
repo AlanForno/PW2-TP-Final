@@ -28,5 +28,9 @@ class AdminModel
             $this->database->insert($sql);
         }
     }
+    public function darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$capacidad,$tipo,$cabinaFamiliar,$cabinaSuite,$cabinaGeneral){
+        $sql= "INSERT INTO `vuelo` (`nombreVuelo`,`origen`,`destino`,`fecha`,`duracion`,`precio`,`capacidad`,`tipo`,`cabinaFamiliar`,`cabinaSuite`,`cabinaGeneral`) VALUES ('$nombreVuelo','$origen','$destino','$fecha','$duracion','$precio','$capacidad','$tipo','$cabinaFamiliar','$cabinaSuite','$cabinaGeneral')";
+        $this->database->insert($sql);
+    }
 
 }

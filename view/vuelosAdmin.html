@@ -1,0 +1,96 @@
+{{>header}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="../public/css/estilos.css">
+<link rel="stylesheet" href="../public/estilos-login.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2020.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2021.css">
+<!-- Fuentes -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+<script>
+    function myFunction(id) {
+        var x = document.getElementById(id);
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+</script>
+<body>
+<div class="w3-center">
+    <div class="w3-bar" style="width: 50%">
+        <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-center-align w3-margin-top w3-text-white w3-2020-navy-blazer" style="width: 100%">Dar de alta un vuelo</button>
+
+            <div id="Demo1" class="w3-container w3-hide w3-2020-navy-blazer w3-margin w3-padding">
+                <form action="/admin/darDeAlta " enctype="multipart/form-data" method="post">
+
+                    <div class="w3-margin">
+                        <label for="nombreVuelo"class="w3-left "><p><strong>Nombre de vuelo :</strong></p></label>
+                        <input class="w3-input w3-2020-navy-blazer w3-hover-grey" type="text" id="nombreVuelo" name="nombreVuelo">
+                    </div>
+                    <div class="w3-row-padding w3-margin-top">
+                        <div class="w3-third">
+                            <label for="origen"class="w3-left"><p><strong>Origen :</strong></p></label>
+                            <input class="w3-input w3-2020-navy-blazer w3-hover-grey "id="origen" name="origen" type="text">
+                        </div>
+                        <div class="w3-third">
+                            <label for="destino"class="w3-left"><p><strong>Destino :</strong></p></label>
+                            <input class="w3-input w3-2020-navy-blazer w3-hover-grey" id="destino" name="destino" type="text">
+                        </div>
+                        <div class="w3-third">
+                            <label for="fecha"class="w3-left"><p><strong>Fecha :</strong></p></label>
+                            <input class="w3-input w3-2020-navy-blazer w3-hover-grey" id="fecha" name="fecha" type="date">
+                        </div>
+                    </div>
+                    <div class="w3-row-padding w3-margin-top">
+                        <div class="w3-half " >
+                            <label for="duracion"class="w3-left"><p><strong>Duracion (en horas) :</strong></p></label>
+                            <input class="w3-input w3-2020-navy-blazer w3-hover-grey" id="duracion" name="duracion" type="number">
+                        </div>
+                        <div class="w3-third w3-margin-left w3-margin-right">
+                            <label for="precio"class="w3-left"><p><strong>Precio :</strong></p></label>
+                            <input class="w3-input w3-2020-navy-blazer w3-hover-grey" id="precio" name="precio"  type="number">
+                        </div>
+                    </div>
+                    <div class="w3-row-padding w3-margin-top w3-margin-bottom">
+                            <div class="w3-half">
+                                <label for="capacidad"class="w3-left"><p><strong>Capacidad:</strong></p></label>
+                                <input class="w3-input w3-2020-navy-blazer w3-hover-grey "id="capacidad" name="capacidad" type="number">
+                            </div>
+                        <div class="w3-half">
+                            <label for="tipo"class="w3-left "><p><strong>Tipo :</strong></p></label>
+                            <select name="tipo" class="w3-margin" style="width: 100%" id="tipo">
+                                <option value="orbital">orbital</option>
+                                <option value="suborbital">suborbital</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-third">
+                            <label for="cabina-familiar"class="w3-left"><p><strong>Cabina familiar</strong></p></label>
+                            <input class="w3-input w3-2020-navy-blazer w3-hover-grey" id="cabina-familiar" name="cabinaFamiliar" type="number">
+                        </div>
+                        <div class="w3-third">
+                            <label for="cabina-suite"class="w3-left"><p><strong>Cabina suite</strong></p></label>
+                            <input class="w3-input w3-2020-navy-blazer w3-hover-grey" id="cabina-suite" name="cabinaSuite" type="number">
+                        </div>
+                        <div class="w3-third">
+                            <label for="cabina-general"class="w3-left"><p><strong>Cabina general</strong></p></label>
+                            <input class="w3-input w3-2020-navy-blazer w3-hover-grey" id="cabina-general" name="cabinaGeneral" type="number">
+                        </div>
+                    </div>
+                    <button type="submit" class="w3-text-white w3-button w3-block w3-margin-top" style="background-color: #5B5B75";> Confirmar</button>
+                </form>
+            </div>
+        <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-center-align w3-margin-top w3-text-white w3-2020-navy-blazer" style="width: 100%">administrar vuelo</button>
+
+        <div id="Demo2" class="w3-container w3-hide">
+            <p>Some text..</p>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

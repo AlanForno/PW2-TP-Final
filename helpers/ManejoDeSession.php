@@ -5,7 +5,6 @@ class ManejoDeSession{
     public function __construct(){
 
     }
-
     public function obtenerPermisos(){
         $data=array();
         $data["sesion"]=false;
