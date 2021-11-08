@@ -35,7 +35,7 @@ class Configuration{
     public function  createTurnosController()
     {
         require_once ("controller/TurnosController.php");
-        return new TurnosController($this->createTurnosModel(),$this->createPrinter(), $this->createManejoDeSession());
+        return new TurnosController($this->createTurnosModel(),$this->createPrinter(), $this->createManejoDeSession(), $this->createMailer());
     }
     public function  createResultadoController()
     {
@@ -113,6 +113,12 @@ class Configuration{
     private function createManejoDeSession(){
         require_once ("helpers/ManejoDeSession.php");
         return new ManejoDeSession();
+    }
+
+    private function createMailer(){
+        require_once ("helpers/Mailer.php");
+        return  new Mailer();
+        
     }
 
 
