@@ -6,7 +6,7 @@
          $this->database=$database;
      }
      public function obtenerVuelos(){
-         $sql = "select * from vuelo";
+         $sql = "SELECT * FROM vuelo ORDER BY origen";
          return $this->database->query($sql);
      }
 

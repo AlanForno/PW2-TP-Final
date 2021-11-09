@@ -14,7 +14,7 @@ class TurnosModel
     public function procesarTurno($idHospital,$fecha,$idUsuario){
 
         $sql = "SELECT * FROM `turnos` where hospital='$idHospital' and fecha='$fecha'";
-        $sql2= "SELECT `cantidadDeTurnos` FROM `hospitales` WHERE id='$idHospital'";
+        $sql2= "SELECT `cantidadDeTurnos` FROM `hospital` WHERE id='$idHospital'";
         $turnosActuales=$this->database->query($sql);
         $cantidadTurnosDiarios=$this->database->query($sql2);
         $this->validacionDeTurno($turnosActuales,$cantidadTurnosDiarios,$idHospital,$fecha,$idUsuario);
@@ -38,18 +38,14 @@ class TurnosModel
     }
 
     private function validacionDeTurno($resultado,$cantidadTurnosDiarios,$idHospital,$fecha,$idUsuario){
-        if($this->contarTurnos($resultado)<$this->extraerTurnosDiarios($cantidadTurnosDiarios)){
+
+        if($this->contarTurnos($resultado)<=$this->extraerTurnosDiarios($cantidadTurnosDiarios)){
             $resultado=$this->generarResultado();
-            $sql= "INSERT INTO `turnos` (`reserva`, `fecha`, `hospital`, `usuario`,`resultado`) VALUES (NULL, '$fecha', '$idHospital', '$idUsuario','$resultado')";
-            $sql2= "update `usuario` set `tipoAceptado`=$resultado where `idUsuario`='$idUsuario'";
+            $sql= "INSERT INTO `turnos` ( `fecha`, `hospital`, `usuario`,`resultado`) VALUES ( '".$fecha."', '".$idHospital."', '".$idUsuario."','".$resultado."')";
+            $sql2= "update `usuario` set `tipoAceptado`='".$resultado."' where `id`='".$idUsuario."'";
+
             $this->database->insert($sql);
             $this->database->insert($sql2);
-            //echo "hola señor '$idUsuario' su autorizacion para los vuelos es el tipo " . $resultado;
-            //echo "<br><button type='submit'><a href='/home'>Volver</a></button>";
-            //$idturno = $this->database->select('SELECT MAX(idturnos) AS id FROM turnos');
-            //foreach ($idturno as $id){
-            //    return $id;
-            //}
         }else(header("Location: /turnos"));
     }
 
@@ -58,7 +54,7 @@ class TurnosModel
     }
 
     public function buscarTurno($nombre){
-        $sql='select * from turnos join hospitales on turnos.hospital=hospitales.id where usuario="'.$nombre.'"';
+        $sql='select * from turnos join hospital on turnos.hospital=hospital.id where usuario="'.$nombre.'"';
         return $this->database->query($sql);
     }
 

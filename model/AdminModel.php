@@ -11,7 +11,7 @@ class AdminModel
     }
 
     public function getUsuarios(){
-        return $this->database->query("SELECT * FROM usuario WHERE `validacion` is NULL ORDER BY rol");
+        return $this->database->query("SELECT * FROM usuario WHERE `validacion` = '' ORDER BY rol");
     }
 
     public function getUsuariosFiltradosPor($filtro){

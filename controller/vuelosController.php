@@ -14,7 +14,7 @@ class vuelosController
     }
 
     public function show(){
-        $data["sesion"]=$this->sesion->obtenerPermisos();
+        $data=$this->sesion->obtenerPermisos();
         $data["vuelos"]=$this->model->obtenerVuelos();
         echo $this->printer->render( "view/vuelosCliente.html", $data);
     }
@@ -26,7 +26,7 @@ class vuelosController
             $data["error"]=true;
             echo $this->printer->render("view/vuelosCliente.html", $data);
         }else {
-            header("location:http://localhost/reserva");
+            header("Location: /reserva");
         }
     }
 }

@@ -24,7 +24,7 @@ class LoginModel
             $usuarioAComparar=$primerUsuario['usuario'];
             $passwordAComparar=$primerUsuario['password'];
 
-            if (strcmp($usuario, $usuarioAComparar) == 0 && strcmp($password, $passwordAComparar) == 0 && is_null($primerUsuario['validacion']) ) {
+            if (strcmp($usuario, $usuarioAComparar) == 0 && strcmp($password, $passwordAComparar) == 0 && $primerUsuario['validacion']==NULL)  {
                 return true;
             }
         }

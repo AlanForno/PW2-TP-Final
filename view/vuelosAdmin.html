@@ -1,14 +1,14 @@
 {{>header}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="../public/css/estilos.css">
-<link rel="stylesheet" href="../public/estilos-login.css">
+<link rel="stylesheet" href="public/estilos-general.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2020.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2021.css">
 <!-- Fuentes -->
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
 <script>
-    function myFunction(id) {
+    function myFunction1(id) {
         var x = document.getElementById(id);
         if (x.className.indexOf("w3-show") == -1) {
             x.className += " w3-show";
@@ -17,10 +17,10 @@
         }
     }
 </script>
-<body>
+<body class="w3-indigo">
 <div class="w3-center">
-    <div class="w3-bar" style="width: 50%">
-        <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-center-align w3-margin-top w3-text-white w3-2020-navy-blazer" style="width: 100%">Dar de alta un vuelo</button>
+    <div class="w3-bar" style="width: 75%">
+        <button onclick="myFunction1('Demo1')" class="w3-button w3-block w3-center-align w3-margin-top w3-text-white w3-2020-navy-blazer" style="width: 100%">Dar de alta un vuelo</button>
 
             <div id="Demo1" class="w3-container w3-hide w3-2020-navy-blazer w3-margin w3-padding">
                 <form action="/admin/darDeAlta " enctype="multipart/form-data" method="post">
@@ -83,10 +83,43 @@
                     <button type="submit" class="w3-text-white w3-button w3-block w3-margin-top" style="background-color: #5B5B75";> Confirmar</button>
                 </form>
             </div>
-        <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-center-align w3-margin-top w3-text-white w3-2020-navy-blazer" style="width: 100%">administrar vuelo</button>
+        <button onclick="myFunction1('Demo2')" class="w3-button w3-block w3-center-align w3-margin-top w3-text-white w3-2020-navy-blazer" style="width: 100%">administrar vuelo</button>
 
-        <div id="Demo2" class="w3-container w3-hide">
-            <p>Some text..</p>
+        <div id="Demo2" class="w3-container w3-hide w3-2020-navy-blazer">
+            <table class="w3-table-all w3-centered">
+                <tr class="w3-black">
+                    <th>Nombre</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Fecha</th>
+                    <th>Duracion (hs)</th>
+                    <th>Precio</th>
+                    <th>Capacidad</th>
+                    <th>Tipo</th>
+                    <th>Cabina Familiar</th>
+                    <th>Cabina Suite</th>
+                    <th>Cabina General</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {{#vuelos}}
+                <tr style="background-color: #435165">
+                    <td>{{nombreVuelo}}</td>
+                    <td>{{origen}}</td>
+                    <td>{{destino}}</td>
+                    <td>{{fecha}}</td>
+                    <td>{{duracion}}</td>
+                    <td>{{precio}}
+                    <td>{{capacidad}}</td>
+                    <td>{{tipo}}</td>
+                    <td>{{cabinaFamiliar}}</td>
+                    <td>{{cabinaSuite}}</td>
+                    <td>{{cabinaGeneral}}</td>
+                    <td><a href="/admin/cambiarPermisos?email={{email}}&accion=1">+</a></td>
+                    <td><a href="/admin/cambiarPermisos?email={{email}}&accion=2">-</a></td>
+                </tr>
+                {{/vuelos}}
+            </table>
         </div>
     </div>
 

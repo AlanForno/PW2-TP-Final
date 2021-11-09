@@ -26,10 +26,10 @@ class TurnosController{
 
     }
     public function procesarTurno(){
-        $usuario=$_SESSION['usuario'];
+        $idUsuario=$_SESSION['id'];
         $hospital=$_POST['hospital'];
         $fecha= $_POST['turno'];
-        $this->model->procesarTurno($hospital,$fecha,$usuario);
+        $this->model->procesarTurno($hospital,$fecha,$idUsuario);
         $this->mostrarResultado();
     }
 

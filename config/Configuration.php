@@ -52,7 +52,7 @@ class Configuration{
     }
     public  function createAdminController(){
         require_once ("controller/AdminController.php");
-        return new AdminController($this->createAdminModel(),$this->createPrinter(), $this->createManejoDeSession());
+        return new AdminController($this->createAdminModel(),$this->createVuelosModel(),$this->createPrinter(), $this->createManejoDeSession());
     }
     private  function createLoginModel(){
         require_once("model/LoginModel.php");
