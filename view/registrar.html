@@ -1,8 +1,7 @@
 {{>header}}
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="../public/css/estilos.css">
-  <link rel="stylesheet" href="../public/estilos-login.css">
+  <link rel="stylesheet" href="public/css/estilos-general.css">
   <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
@@ -18,24 +17,27 @@
   </div>
 </div>
 {{/error}}
-<div class="login">
 
-  <h2>Registrarse</h2>
+<div style="width: 40%; margin: auto" class="w3-white w3-margin-top w3-card-4 w3-center w3-padding-16">
+
+  <div class="w3-container w3-blue">
+    <h2>Registrarse</h2>
+  </div>
   <form action="registrar/registrarUsuario" method="post"
         enctype="application/x-www-form-urlencoded">
 
 
-    <label for="nombre"><i class="fas fa-user"></i></label>
-    <input type="text" id="nombre" placeholder="Enter Username" name="usuario" >
+    <label style="font-size: x-large" for="nombre"><b>Nombre de usuario</b></label>
+    <input class="w3-input" type="text" id="nombre" placeholder="Ingrese Usuario" name="usuario" >
 
-    <label for="email"><i class="fas fa-email"></i></label>
-    <input type="email" id="email" placeholder="Enter Email" name="email" >
+    <label style="font-size: x-large" for="nombre"><b>Email</b></label>
+    <input class="w3-input" type="email" id="email" placeholder="Ingrese Email" name="email" >
 
-    <label for="clave"><i class="fas fa-lock"></i></label>
-    <input type="password" id="clave" placeholder="Enter Password" name="password" >
+    <label style="font-size: x-large" for="nombre"><b>Clave</b></label>
+    <input class="w3-input" type="password" id="clave" placeholder="Ingrese Clave" name="password" >
 
 
-    <input type="submit" name="enviar" value="Enviar">
+    <input class="w3-btn w3-blue w3-margin-top" type="submit" name="enviar" value="Enviar">
   </form>
 
 </div>
