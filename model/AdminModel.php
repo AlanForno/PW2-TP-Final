@@ -21,12 +21,16 @@ class AdminModel
 
     public function cambiarPermisos($email, $accion){
         if($accion==1){
-            $sql= "UPDATE `pw2`.`usuario` SET `rol` = 'admin' WHERE (`email` = '".$email."')";
+            $sql= "UPDATE `usuario` SET `rol` = 'admin' WHERE (`email` = '".$email."')";
             $this->database->insert($sql);
         }else{
-            $sql= "UPDATE `pw2`.`usuario` SET `rol` = 'cliente' WHERE (`email` = '".$email."')";
+            $sql= "UPDATE `usuario` SET `rol` = 'cliente' WHERE (`email` = '".$email."')";
             $this->database->insert($sql);
         }
+    }
+    public function darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$capacidad,$tipo,$cabinaFamiliar,$cabinaSuite,$cabinaGeneral){
+        $sql= "INSERT INTO `vuelo` (`nombreVuelo`,`origen`,`destino`,`fecha`,`duracion`,`precio`,`capacidad`,`tipo`,`cabinaFamiliar`,`cabinaSuite`,`cabinaGeneral`) VALUES ('$nombreVuelo','$origen','$destino','$fecha','$duracion','$precio','$capacidad','$tipo','$cabinaFamiliar','$cabinaSuite','$cabinaGeneral')";
+        $this->database->insert($sql);
     }
 
 }

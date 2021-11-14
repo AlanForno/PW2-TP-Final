@@ -16,7 +16,7 @@ class RegistrarModel
 
         if(!$this->existeUsuario($email, $usuario)){
             $md5password=md5($password);
-            $sql="INSERT INTO `pw2`.`usuario` (`usuario`, `password`, `validacion`, `rol`, `email`  ) VALUES ('".$usuario."', '".$md5password."', '".$validacion."', '".$rol."' , '".$email."')";
+            $sql="INSERT INTO `usuario` (`usuario`, `password`, `validacion`, `rol`, `email`  ) VALUES ('".$usuario."', '".$md5password."', '".$validacion."', '".$rol."' , '".$email."')";
             $this->database->insert($sql);
             return true;
         }else{
@@ -51,7 +51,7 @@ class RegistrarModel
 
     public function validacionCorrecta($email)
     {
-        $sql="UPDATE `pw2`.`usuario` SET `validacion` = NULL WHERE (`email` = '".$email."')";
+        $sql="UPDATE `usuario` SET `validacion` = NULL WHERE (`email` = '".$email."')";
         $this->database->insert($sql);
     }
 

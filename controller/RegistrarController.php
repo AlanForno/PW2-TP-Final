@@ -4,15 +4,19 @@ class RegistrarController{
 
     private $registrarModel;
     private $printer;
+    private $sesion;
 
-    public function __construct($registrarModel, $printer){
+    public function __construct($registrarModel, $printer, $sesion){
         $this->registrarModel = $registrarModel;
         $this->printer = $printer;
+        $this->sesion = $sesion;
     }
 
     public function show(){
 
-        if (!isset($_SESSION["rol"])){
+        $data=$this->sesion->obtenerPermisos();
+
+        if (!$data["sesion"]){
             $data["error"]=false;
             echo $this->printer->render( "view/registrar.html", $data);}
         else{
@@ -28,7 +32,7 @@ class RegistrarController{
         $data["validacion"]=md5(time());
         if($this->registrarModel->registrarUsuario($data["usuario"],$data["password"],$data["rol"], $data["email"], $data["validacion"])){
             $this->mostrarValidacion( $data["validacion"], $data["email"]);
-            die();
+
         }else{
             $data["error"]=true;
             echo $this->printer->render( "view/registrar.html", $data);
@@ -38,6 +42,8 @@ class RegistrarController{
     }
 
     public function mostrarValidacion($validacion, $email){
+        $data=$this->sesion->obtenerPermisos();
+
         $data["validacion"] = $validacion;
         $data["email"]=$email;
 
