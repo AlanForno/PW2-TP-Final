@@ -37,22 +37,43 @@ class TurnosModel
         return $turnosReservados;
     }
 
-    private function validacionDeTurno($resultado,$cantidadTurnosDiarios,$idHospital,$fecha,$idUsuario){
-        if($this->contarTurnos($resultado)<=$this->extraerTurnosDiarios($cantidadTurnosDiarios)){
+    private function validacionDeTurno($turnosActuales,$cantidadTurnosDiarios,$idHospital,$fecha,$idUsuario){
+        if($this->contarTurnos($turnosActuales)<$this->extraerTurnosDiarios($cantidadTurnosDiarios)){
             $resultado=$this->generarResultado();
             $sql= "INSERT INTO `turnos` (`reserva`, `fecha`, `hospital`, `usuario`,`resultado`) VALUES (NULL, '$fecha', '$idHospital', '$idUsuario','$resultado')";
-            $sql2= "update `usuario` set `tipoAceptado`=$resultado where `usuario`='$idUsuario'";
+            $sql2= "update `usuario` set `tipoAceptado`='$resultado' where `usuario`='$idUsuario'";
             $this->database->insert($sql);
             $this->database->insert($sql2);
-            echo "hola señor '$idUsuario' su autorizacion para los vuelos es el tipo " . $resultado;
-            echo "<br><button type='submit'><a href='/home'>Volver</a></button>";
-        }else(header("location:http://localhost/Turnos"));
+
+        }else(header("Location: /turnos"));
     }
 
     private function generarResultado(){
         return rand(1,3);
     }
-    /* DEMAS METODOS DE turnos*/
+
+    public function buscarTurno($nombre){
+        $sql='select * from turnos join hospitales on turnos.hospital=hospitales.id where usuario="'.$nombre.'"';
+        return $this->database->query($sql);
+    }
+
+    public function yaRealizoChequeo($nombre){
+        $sql='select * from turnos';
+        $turnos = $this->database->query($sql);
+        foreach ($turnos as $turno){
+            if($turno["usuario"]==$nombre){
+                return true;
+            }
+        }
+        return false;
+    }
+    public function buscarTurnoConMail($nombre){
+        $sql='select * from turnos join hospitales on turnos.hospital=hospitales.id 
+        join usuario on usuario.usuario = turnos.usuario 
+        where turnos.usuario="'.$nombre.'"';
+        $data=$this->database->query($sql);
+        return $data;
+    }
 
 
 }

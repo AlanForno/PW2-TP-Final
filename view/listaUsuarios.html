@@ -1,8 +1,8 @@
 {{>header}}
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="../public/estilos.css">
-    <link rel="stylesheet" href="../public/estilos-login.css">
+    <link rel="stylesheet" href="../public/css/estilos.css">
+    <link rel="stylesheet" href="../public/css/estilos-login.css">
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
@@ -10,8 +10,8 @@
 </head>
 <div class="login" style="width: 50%">
 
-    <div class="w3-container w3-content w3-center w3-padding-64 w3-text-black" style=" background-color: rgba(51,184,255,0.7)" >
-        <h2>Lista de Usuarios</h2>
+    <div class="w3-container w3-content w3-center w3-padding-64 w3-text-black w3-2020-navy-blazer"  >
+        <h2 class="w3-text-white">Lista de Usuarios</h2>
 
         <form action="/Admin/buscar" method="get">
             <div>
@@ -51,5 +51,6 @@
             </tr>
             {{/usuarios}}
         </table>
+        <a href="/admin" class="w3-text-white w3-button w3-block w3-margin-top " style="background-color: #5B5B75;">Volver</a>
     </div>
 </div>

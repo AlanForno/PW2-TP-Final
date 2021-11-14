@@ -14,9 +14,14 @@ class RegistrarModel
 
     public function registrarUsuario($usuario,$password, $rol, $email, $validacion){
 
-        $md5password=md5($password);
-        $sql="INSERT INTO `pw2`.`usuario` (`usuario`, `password`, `validacion`, `rol`, `email`  ) VALUES ('".$usuario."', '".$md5password."', '".$validacion."', '".$rol."' , '".$email."')";
-        $this->database->insert($sql);
+        if(!$this->existeUsuario($email, $usuario)){
+            $md5password=md5($password);
+            $sql="INSERT INTO `usuario` (`usuario`, `password`, `validacion`, `rol`, `email`  ) VALUES ('".$usuario."', '".$md5password."', '".$validacion."', '".$rol."' , '".$email."')";
+            $this->database->insert($sql);
+            return true;
+        }else{
+            return false;
+        }
 
 
     }
@@ -46,8 +51,20 @@ class RegistrarModel
 
     public function validacionCorrecta($email)
     {
-        $sql="UPDATE `pw2`.`usuario` SET `validacion` = NULL WHERE (`email` = '".$email."')";
+        $sql="UPDATE `usuario` SET `validacion` = NULL WHERE (`email` = '".$email."')";
         $this->database->insert($sql);
+    }
+
+    public function existeUsuario($email, $nombre)
+    {
+        $sql="SELECT * FROM usuario";
+        $usuarios=$this->database->query($sql);
+        foreach ($usuarios as $usuarioBuscado){
+            if($usuarioBuscado["email"] == $email || $usuarioBuscado["usuario"] == $nombre){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

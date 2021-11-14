@@ -3,15 +3,20 @@ class AdminController{
 
     private $adminModel;
     private $printer;
+    private $sesion;
 
-    public function __construct($adminModel, $printer){
+    public function __construct($adminModel, $printer, $sesion){
         $this->adminModel = $adminModel;
         $this->printer = $printer;
+        $this->sesion = $sesion;
     }
 
     public function show(){
-
-        if($_SESSION["rol"]=="admin"){
+        echo $this->printer->render( "view/menuAdmin.html");
+    }
+    public function lista(){
+        $data=$this->sesion->obtenerPermisos();
+        if($data["admin"]){
             $usuarios=$this->adminModel->getUsuarios();
 
             $data["usuarios"]=$usuarios;
@@ -21,6 +26,9 @@ class AdminController{
             header("Location: /home");
         }
 
+    }
+    public function vuelos(){
+        echo $this->printer->render( "view/vuelosAdmin.html");
     }
 
     public function buscar(){
@@ -40,6 +48,21 @@ class AdminController{
         $accionAEfectuar=$_GET["accion"];
         $this->adminModel->cambiarPermisos($emailBuscado, $accionAEfectuar);
         $this->show();
+    }
+    public function darDeAlta(){
+        $nombreVuelo=$_POST["nombreVuelo"];
+        $origen=$_POST["origen"];
+        $destino=$_POST["destino"];
+        $fecha=$_POST["fecha"];
+        $duracion=$_POST["duracion"];
+        $precio=$_POST["precio"];
+        $capacidad=$_POST["capacidad"];
+        $tipo=$_POST["tipo"];
+        $cabinaFamiliar=$_POST["cabinaFamiliar"];
+        $cabinaSuite=$_POST["cabinaSuite"];
+        $cabinaGeneral=$_POST["cabinaGeneral"];
+        $this->adminModel->darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$capacidad,$tipo,$cabinaFamiliar,$cabinaSuite,$cabinaGeneral);
+
     }
 
 }

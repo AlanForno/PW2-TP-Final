@@ -1,6 +1,21 @@
 {{>header}}
 
-<body>
-  su resultado es ...
+<body style="background-color: #435165;">
+
+  {{#turno}}
+  <div class="w3-container w3-center w3-blue w3-padding-16 w3-margin-top" style="width: 75%; margin:auto">
+
+      <h3>Hospital de : {{hospital}}</h3>
+      <h3>Fecha : {{fecha}}</h3>
+      <h3>Usuario : {{usuario}}</h3>
+      <h3>Resultado : {{resultado}}</h3>
+
+  </div>
+  {{/turno}}
+
+    <div class="w3-center">
+        <a href="/home" ><button class="w3-button w3-margin-top w3-red ">Volver</button></a>
+    </div>
+
 </body>
 </html>
