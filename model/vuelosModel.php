@@ -10,4 +10,9 @@
          return $this->database->query($sql);
      }
 
+     public function eliminarVuelo($id){
+         $sql = "DELETE FROM `vuelo` WHERE `vuelo`.`id` = ".$id;
+         $this->database->insert($sql);
+     }
+
  }

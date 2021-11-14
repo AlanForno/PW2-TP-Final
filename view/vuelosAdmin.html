@@ -82,9 +82,9 @@
                     <button type="submit" class="w3-text-white w3-button w3-block w3-margin-top" style="background-color: #5B5B75";> Confirmar</button>
                 </form>
             </div>
-        <button onclick="myFunction1('Demo2')" class="w3-button w3-block w3-center-align w3-margin-top w3-text-white w3-2020-navy-blazer" style="width: 100%">administrar vuelo</button>
+        <button onclick="myFunction1('Demo2')" class="w3-button w3-block w3-center-align w3-margin-top w3-text-white w3-2020-navy-blazer" style="width: 100%">Administrar Vuelos</button>
 
-        <div id="Demo2" class="w3-container w3-hide w3-2020-navy-blazer">
+        <div id="Demo2" class="w3-container w3-padding-16 w3-hide w3-2020-navy-blazer">
             <table class="w3-table-all w3-centered">
                 <tr class="w3-black">
                     <th>Nombre</th>
@@ -114,12 +114,25 @@
                     <td>{{cabinaFamiliar}}</td>
                     <td>{{cabinaSuite}}</td>
                     <td>{{cabinaGeneral}}</td>
-                    <td><a href="/admin/cambiarPermisos?email={{email}}&accion=1">+</a></td>
-                    <td><a href="/admin/cambiarPermisos?email={{email}}&accion=2">-</a></td>
+                    <td><a onclick="document.getElementById('eliminar').style.display='block'">Eliminar</a></td>
+                    <div id="eliminar" class="w3-modal w3-padding-16">
+                        <div class="w3-modal-content w3-animate-top w3-card-4" style="width: 40%; margin-top: 10%">
+                            <header class="w3-container w3-blue">
+                        <span onclick="document.getElementById('eliminar').style.display='none'"
+                              class="w3-button w3-display-topright">&times;</span>
+                                <h4>Esta seguro que quiere elminar el vuelo?</h4>
+                            </header>
+                            <footer class="w3-container w3-light-blue w3-center">
+                                <a class="w3-button w3-red w3-margin" href="/admin/eliminarVuelo?idVuelo={{id}}">Eliminar</a>
+                            </footer>
+                        </div>
+                    </div>
                 </tr>
                 {{/vuelos}}
             </table>
         </div>
+
+        <a href="/admin" class="w3-btn w3-container w3-2020-navy-blazer w3-margin w3-padding">Volver</a>
     </div>
 
 

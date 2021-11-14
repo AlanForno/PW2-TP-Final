@@ -33,6 +33,7 @@ class MyDatabase{
         }else echo "error";
 
     }
+
     public function select($sql){
 
         return mysqli_fetch_row( mysqli_query($this->connection,$sql));

@@ -73,4 +73,10 @@ class AdminController{
         $this->vuelos();
     }
 
+    public function eliminarVuelo(){
+        $idVuelo=$_GET["idVuelo"];
+        $this->vuelosModel->eliminarVuelo($idVuelo);
+        $this->vuelos();
+    }
+
 }
