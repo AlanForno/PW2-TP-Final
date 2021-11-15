@@ -120,6 +120,11 @@ class Configuration{
         return  new Mailer();
         
     }
+    
+    private function createDOMPDF(){
+        require_once ("helpers/DOMPDF.php");
+        return new PDFPrinter();
+    }
 
 
 }
