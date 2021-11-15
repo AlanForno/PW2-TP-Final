@@ -70,7 +70,7 @@ class TurnosModel
     }
 
     public function buscarTurnoConMail($nombre){
-        $sql='select * from turnos join hospitales on turnos.hospital=hospitales.id 
+        $sql='select * from turnos join hospital on turnos.hospital=hospital.id 
         join usuario on usuario.usuario = turnos.usuario 
         where turnos.usuario="'.$nombre.'"';
         $data=$this->database->query($sql);

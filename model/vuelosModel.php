@@ -7,18 +7,18 @@
      }
      public function obtenerVuelos(){
          $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id join `origen` as o on vuelo.origen=o.id join `destinos`  as d on vuelo.destino=d.id";
-         return $this->database->query($sql);
+         return $this->database->select($sql);
      }
      public function obtenerVuelosPorId($idVuelo){
          $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id join `origen` as o on vuelo.origen=o.id join `destinos`  as d on vuelo.destino=d.id where idVuelo='$idVuelo'";
-         return $this->database->query($sql);
+         return $this->database->select($sql);
      }
      public function procesarReserva($idVuelo,$idUsuario,$asiento,$cabina){
          //return $this->chequearDisponibiladDeAsiento($idVuelo,$asiento,$cabina);
          //return $this->chequearCompatibilidadDeTipo($idUsuario,$idVuelo);
          //return$this->chequearCapacidad($idVuelo);
          $sql="select idAeronave from `vuelo` where idVuelo='$idVuelo'";
-         $idAeronave=$this->database->query($sql);
+         $idAeronave=$this->database->select($sql);
          foreach ($idAeronave as $id){
              $idAeronave=$id["idAeronave"];
          }
@@ -34,12 +34,12 @@
      }
      private function reducirCapacidad($idVuelo,$cabina){
          $sql="select idAeronave from `vuelo` where idVuelo='$idVuelo'";
-         $idAeronave=$this->database->query($sql);
+         $idAeronave=$this->database->select($sql);
          foreach ($idAeronave as $id){
              $idAeronave=$id["idAeronave"];
          }
          $sql="select capacidad from `aeronave` where id='$idAeronave'";
-         $capacidad=$this->database->query($sql);
+         $capacidad=$this->database->select($sql);
          foreach ($capacidad as $capacidadActual){
              $capacidadActual=$capacidadActual["capacidad"];
          }
@@ -48,7 +48,7 @@
          $this->database->insert($sql);
          switch ($cabina){
              case "cabinaFamiliar":  $sql="select cabinaFamiliar from `aeronave` where id='$idAeronave'";
-                 $cabina=$this->database->query($sql);
+                 $cabina=$this->database->select($sql);
                  foreach ($cabina as $cabinaActual){
                      $cabinaActual=$cabinaActual["cabinaFamiliar"];
                  } $cabinaActual=intval($cabinaActual)-1;
@@ -57,7 +57,7 @@
                  break;
 
              case "cabinaSuite": $sql="select cabinaSuite from `aeronave` where id='$idAeronave'";
-                 $cabina=$this->database->query($sql);
+                 $cabina=$this->database->select($sql);
                  foreach ($cabina as $cabinaActual){
                      $cabinaActual=$cabinaActual["cabinaSuite"];
                  } $cabinaActual=intval($cabinaActual)-1;
@@ -66,7 +66,7 @@
                  break;
 
              case "cabinaGeneral": $sql="select cabinaGeneral from `aeronave` where id='$idAeronave'";
-                 $cabina=$this->database->query($sql);
+                 $cabina=$this->database->select($sql);
                  foreach ($cabina as $cabinaActual){
                      $cabinaActual=$cabinaActual["cabinaGeneral"];
                  } $cabinaActual=intval($cabinaActual)-1;
@@ -77,12 +77,12 @@
      }
      private function chequearCompatibilidadDeTipo($idUsuario,$idVuelo){
          $sql="select tipo from `vuelo` inner join `aeronave` on vuelo.idAeronave=aeronave.id where idVuelo='$idVuelo'";
-         $tipoVuelo= $this->database->query($sql);
+         $tipoVuelo= $this->database->select($sql);
          foreach ($tipoVuelo as $tipoActual){
              $tipoVuelo=$tipoActual['tipo'];
          }
          $sql1= "select tipoAceptado from usuario where id='$idUsuario'";
-         $tipoUsuario= $this->database->query($sql1);
+         $tipoUsuario= $this->database->select($sql1);
          foreach ($tipoUsuario as $tipoActual){
              $tipoUsuario=$tipoActual['tipoAceptado'];
          }
@@ -95,7 +95,7 @@
      private function chequearDisponibiladDeAsiento($idVuelo,$asiento,$cabina)
      {
          $sql = "select asiento,cabina from `reservavuelo` where `idVuelo`='$idVuelo'";
-            $result = $this->database->query($sql);
+            $result = $this->database->select($sql);
          foreach ($result as $resultActual) {
              $cabinaActual = $resultActual['cabina'];
              $asientoActual = $resultActual['asiento'];
@@ -107,7 +107,7 @@
      }
      private function chequearCapacidad($idVuelo){
         $sql="select * from vuelo join aeronave on vuelo.idAeronave=aeronave.id where idVuelo='$idVuelo' ";
-        $capacidad=$this->database->query($sql);
+        $capacidad=$this->database->select($sql);
         foreach ($capacidad as $capacidadActual){
             $capacidadActual=$capacidadActual['capacidad'];
             if(intval($capacidadActual)==0){

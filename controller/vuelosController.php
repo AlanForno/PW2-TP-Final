@@ -16,8 +16,12 @@ class vuelosController
 
     public function show(){
         $data=$this->sesion->obtenerPermisos();
-        $data["vuelos"]=$this->model->obtenerVuelos();
-        echo $this->printer->render( "view/vuelosCliente.html", $data);
+        if($data["sesion"]){
+            $data["vuelos"]=$this->model->obtenerVuelos();
+            echo $this->printer->render( "view/vuelosCliente.html", $data);
+        }else{
+            header("Location: /home");
+        }
     }
     public function vuelosDisponibles(){
 
