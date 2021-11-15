@@ -30,7 +30,7 @@ class MyDatabase{
         if(mysqli_query($this->connection, $sql))
         {
 
-        }else echo "error";
+        }else {echo "error";}
 
     }
 

@@ -7,7 +7,7 @@ require 'PHPMailer.php';
 require 'SMTP.php';
 
 $mailOrigen = "ejemplo@dominio.com";
-$password = "claveDelCorreo"
+$password = "claveDelCorreo";
 
 //Crear una instancia de PHPMailer
 $mail = new PHPMailer();

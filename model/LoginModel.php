@@ -32,12 +32,14 @@ class LoginModel
     }
 
     public function iniciarSesion($usuario){
-        $sql="SELECT * FROM usuario WHERE `usuario` LIKE '".$usuario."'";
+        $sql="SELECT * FROM usuario WHERE `usuario`='$usuario'";
         $this->resultado=$this->database->query($sql);
         foreach ($this->resultado as $usuarioRecorrido){
+            $_SESSION["id"]=$usuarioRecorrido["id"];
             $_SESSION["rol"]=$usuarioRecorrido["rol"];
             $_SESSION["usuario"]=$usuarioRecorrido["usuario"];
-            $_SESSION["id"]=$usuarioRecorrido["idUsuario"];
+            //$_SESSION["id"]=$usuarioRecorrido["idUsuario"];
+            // en las tablas tengamos solo ID, en todos los identificadores
         }
     }
 
