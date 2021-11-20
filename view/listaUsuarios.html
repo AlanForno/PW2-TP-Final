@@ -1,56 +1,50 @@
 {{>header}}
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="../public/css/estilos.css">
-    <link rel="stylesheet" href="../public/estilos-login.css">
-    <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
-    <title>Sesiones</title>
-</head>
-<div class="login" style="width: 50%">
 
-    <div class="w3-container w3-content w3-center w3-padding-64 w3-text-black w3-2020-navy-blazer"  >
-        <h2 class="w3-text-white">Lista de Usuarios</h2>
+<body style="background-color: #5B5B75">
+    <div class="w3-container" style="width: 50%; margin: auto">
 
-        <form action="/Admin/buscar" method="get">
+        <div class="w3-container w3-content w3-center w3-padding-64 w3-text-black"  >
+            <h2 class="w3-text-white">Lista de Usuarios</h2>
+
+            <form class="w3-margin-bottom" action="/Admin/buscar" method="get">
+                <div>
+                    <input type="text" name="buscado" placeholder="Buscar Usuario ...">
+                    <button type="submit" class="w3-button w3-pale-red">Buscar</button>
+                </div>
+            </form>
+
             <div>
-                <input type="text" name="buscado" placeholder="Buscar Usuario ...">
-                <button type="submit" class="w3-button w3-pale-red">Buscar</button>
-            </div>
-        </form>
+                {{#error}}
 
-        <div>
-            {{#error}}
+                <div class="w3-panel w3-red w3-display-container w3-round-xlarge">
+                    <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
+                    <p>La busqueda realizada no arrojo resultados</p>
 
-            <div class="w3-panel w3-red w3-display-container w3-round-xlarge">
-                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
-                <p>La busqueda realizada no arrojo resultados</p>
+                </div>
 
+
+                {{/error}}
             </div>
 
-
-            {{/error}}
+            <table class="w3-table-all w3-centered">
+                <tr class="w3-black">
+                    <th>Email</th>
+                    <th>Nombre de Usuario</th>
+                    <th>Rol</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {{#usuarios}}
+                <tr>
+                    <td>{{email}}</td>
+                    <td>{{usuario}}</td>
+                    <td>{{rol}}</td>
+                    <td><a href="/admin/cambiarPermisos?email={{email}}&accion=1">+</a></td>
+                    <td><a href="/admin/cambiarPermisos?email={{email}}&accion=2">-</a></td>
+                </tr>
+                {{/usuarios}}
+            </table>
+            <a href="/admin" class="w3-text-white w3-btn w3-black w3-block w3-margin-top " >Volver</a>
         </div>
-
-        <table class="w3-table-all w3-centered">
-            <tr class="w3-black">
-                <th>Email</th>
-                <th>Nombre de Usuario</th>
-                <th>Rol</th>
-                <th></th>
-                <th></th>
-            </tr>
-            {{#usuarios}}
-            <tr>
-                <td>{{email}}</td>
-                <td>{{usuario}}</td>
-                <td>{{rol}}</td>
-                <td><a href="/admin/cambiarPermisos?email={{email}}&accion=1">+</a></td>
-                <td><a href="/admin/cambiarPermisos?email={{email}}&accion=2">-</a></td>
-            </tr>
-            {{/usuarios}}
-        </table>
-        <a href="/admin" class="w3-text-white w3-button w3-block w3-margin-top " style="background-color: #5B5B75;">Volver</a>
     </div>
-</div>
+</body>

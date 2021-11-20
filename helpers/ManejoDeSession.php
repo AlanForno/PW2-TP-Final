@@ -12,10 +12,11 @@ class ManejoDeSession{
 
         if(isset($_SESSION["rol"])){
             $data["sesion"]=true;
+            if($_SESSION["rol"]=="admin"){
+                $data["admin"]=true;
+            }
         }
-        if($_SESSION["rol"]=="admin"){
-            $data["admin"]=true;
-        }
+
         return $data;
     }
 

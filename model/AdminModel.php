@@ -11,7 +11,7 @@ class AdminModel
     }
 
     public function getUsuarios(){
-        return $this->database->query("SELECT * FROM usuario WHERE `validacion` is NULL ORDER BY rol");
+        return $this->database->query("SELECT * FROM usuario WHERE validacion is NULL ORDER BY rol");
     }
 
     public function getUsuariosFiltradosPor($filtro){
@@ -28,9 +28,17 @@ class AdminModel
             $this->database->insert($sql);
         }
     }
-    public function darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$capacidad,$tipo,$cabinaFamiliar,$cabinaSuite,$cabinaGeneral){
-        $sql= "INSERT INTO `vuelo` (`nombreVuelo`,`origen`,`destino`,`fecha`,`duracion`,`precio`,`capacidad`,`tipo`,`cabinaFamiliar`,`cabinaSuite`,`cabinaGeneral`) VALUES ('$nombreVuelo','$origen','$destino','$fecha','$duracion','$precio','$capacidad','$tipo','$cabinaFamiliar','$cabinaSuite','$cabinaGeneral')";
+    public function darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$idAeronave){
+        $sql= "INSERT INTO `vuelo` (`nombreVuelo`,`origen`,`destino`,`fecha`,`duracion`,`precio`,`idAeronave`) VALUES ('$nombreVuelo','$origen','$destino','$fecha','$duracion','$precio','$idAeronave')";
         $this->database->insert($sql);
+    }
+    public function eliminarVuelo($id){
+
+        $sql="DELETE FROM reservavuelo WHERE idVuelo='$id'";
+        $this->database->insert($sql);
+        $sql="DELETE FROM vuelo WHERE idVuelo='$id'";
+        $this->database->insert($sql);
+
     }
 
 }
