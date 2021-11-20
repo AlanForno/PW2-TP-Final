@@ -50,7 +50,11 @@ class vuelosController
         }else {
             echo "RESERVASTE EL PASAJE";
             // aca poner lo que se haga con el pdf .
-
+            $html = "<h2>Reserva</h2>
+                     <h3>Vuelo: $idVuelo</h3>
+                     <h3>Asiento: $asiento</h3>
+                     <h3>Cabina: $cabina</h3>";
+            $this->pdf->render($html, "archivardo.pdf", 0);
         }
     }
 }
