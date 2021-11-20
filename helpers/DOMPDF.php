@@ -17,6 +17,8 @@
             $dompdf->loadHtml($textoHTML);
 
             $dompdf->setPaper('A4', 'portrait');
+            
+            $dompdf->render();
 
             $dompdf->stream($nombreArchivo, ['Attachment' => $opcion]);
 

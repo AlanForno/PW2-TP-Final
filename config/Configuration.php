@@ -53,7 +53,7 @@ class Configuration{
     }
     public function createRegistrarController(){
         require_once("controller/RegistrarController.php");
-        return new registrarController($this->createRegistrarModel(),$this->createPrinter(), $this->createManejoDeSession());
+        return new registrarController($this->createRegistrarModel(),$this->createPrinter(), $this->createManejoDeSession(), $this->createMailer());
     }
     public  function createAdminController(){
         require_once ("controller/AdminController.php");
@@ -129,11 +129,6 @@ class Configuration{
         require_once ("helpers/Mailer.php");
         return  new Mailer();
         
-    }
-    
-    private function createDOMPDF(){
-        require_once ("helpers/DOMPDF.php");
-        return new PDFPrinter();
     }
 
 

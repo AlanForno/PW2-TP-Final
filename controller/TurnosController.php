@@ -17,7 +17,7 @@ class TurnosController{
 
         $data=$this->sesion->obtenerPermisos();
         if ($data["sesion"]) {
-            if(!$this->model->yaRealizoChequeo($_SESSION["usuario"])){
+            if(!$this->model->yaRealizoChequeo($_SESSION["id"])){
                 echo $this->printer->render( "view/Turnos-y-chequeos-medicos.html", $data);
             }else{
                 $this->mostrarResultado();
@@ -43,8 +43,8 @@ class TurnosController{
 
         $emailUsuario =$data[0]["email"];
         $asunto= "Validacion y resultado de su turno medico";
-        $mensaje='Buenos dias, '.$data[0]["usuario"].'<br>Su turno es esta programado para el dia '. $data[0]['fecha'] 
-        .'<br> En el hospital: '.$data[0]['hospital']. '<br> Su resultado es: '.$data[0]['resultado'];
+        $mensaje='Buenos dias, '.$data[0]["usuario"].'<br>Su turno es esta programado para el dia '. $data[0]['fecha']
+            .'<br> En el hospital: '.$data[0]['hospital']. '<br> Su resultado es: '.$data[0]['resultado'];
         $nombreUsuario=$data[0]["usuario"];
 
         $this->mail->enviarMail($emailUsuario, $asunto, $mensaje, $nombreUsuario);
