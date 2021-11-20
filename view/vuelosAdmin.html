@@ -34,8 +34,9 @@
                         <div class="w3-third">
                             <label for="origen"class="w3-left"><p><strong>Origen :</strong></p></label>
                             <select name="origen" class="w3-margin" style="width: 100%" id="origen">
-                                <option value="1"><h3>Buenos Aires</h3></option>
-                                <option value="1"><h3>Ankara</h3></option>
+                                {{#origen}}
+                                    <option value="{{id}}"><h3>{{origen}}</h3></option>
+                                {{/origen}}
                             </select>
                         </div>
 
@@ -43,15 +44,9 @@
                         <div class="w3-third">
                             <label for="destino"class="w3-left"><p><strong>Destino :</strong></p></label>
                             <select name="destino" class="w3-margin" style="width: 100%" id="destino">
-                                <option value="1"><h3>EEI</h3></option>
-                                <option value="3"><h3>Orbital Hotel</h3></option>
-                                <option value="5"><h3>luna</h3></option>
-                                <option value="6"><h3>marte</h3></option>
-                                <option value="7"><h3>ganimedes</h3></option>
-                                <option value="8"><h3>Europa</h3></option>
-                                <option value="9"><h3>io</h3></option>
-                                <option value="10"><h3>encendalo</h3></option>
-                                <option value="11"><h3>titan</h3></option>
+                                {{#destinos}}
+                                    <option value="{{id}}"><h3>{{destino}}</h3></option>
+                                {{/destinos}}
                             </select>
                         </div>
                         <div class="w3-third">
@@ -73,13 +68,10 @@
                             <div class="w3-half">
                                 <label for="aeronave"class="w3-left"><p><strong>Aeronave:</strong></p></label>
                                 <select name="aeronave" class="w3-margin" style="width: 100%" id="aeronave">
-                                <option value="1">1-colibri</option>
-                                <option value="2">2-colibri</option>
-                                <option value="3">3-colibri</option>
-                                <option value="4">4-calandria</option>
-                                <option value="5">5-calandria</option>
-                                <option value="6">6-calandria</option>
-                                 </select>
+                                    {{#aeronave}}
+                                        <option value="{{id}}">{{nombre}}</option>
+                                    {{/aeronave}}
+                                </select>
                             </div>
                     </div>
 
@@ -90,49 +82,40 @@
 
 
         <div id="Demo2" class="w3-container w3-padding-16 w3-hide w3-2020-navy-blazer">
-            <table class="w3-table-all w3-centered">
-                <tr class="w3-black">
-                    <th>Nombre</th>
-                    <th>Origen</th>
-                    <th>Destino</th>
-                    <th>Fecha</th>
-                    <th>Duracion (hs)</th>
-                    <th>Precio</th>
+            <form action="/admin/eliminarVuelo" enctype="multipart/form-data" method="POST">
+                <table class="w3-table-all w3-centered">
+                    <tr class="w3-black">
+                        <th>Nombre</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Fecha</th>
+                        <th>Duracion (hs)</th>
+                        <th>Precio</th>
 
-                    <th></th>
-                    <th></th>
+                        <th></th>
+                        <th></th>
 
-                </tr>
-                 {{#vuelos}}
-                <tr style="background-color: #435165">
-                    <td>{{nombreVuelo}}</td>
-                    <td>{{origen}}</td>
-                    <td>{{destino}}</td>
-                    <td>{{fecha}}</td>
-                    <td>{{duracion}}</td>
-                    <td>{{precio}}
-
-
-
-                    <td><a onclick="document.getElementById('eliminar').style.display='block'">Eliminar</a></td>
-                    <div id="eliminar" class="w3-modal w3-padding-16">
-                        <div class="w3-modal-content w3-animate-top w3-card-4" style="width: 40%; margin-top: 10%">
-                            <header class="w3-container w3-blue">
-                        <span onclick="document.getElementById('eliminar').style.display='none'"
-                              class="w3-button w3-display-topright">&times;</span>
-                                <h4>Esta seguro que quiere elminar el vuelo?</h4>
-                            </header>
-                            <footer class="w3-container w3-light-blue w3-center">
-                                <a class="w3-button w3-red w3-margin" href="/admin/eliminarVuelo?idVuelo={{idVuelo}}">Eliminar</a>
-                            </footer>
-                        </div>
-                    </div>
-                </tr>
-                {{/vuelos}}
-            </table>
+                    </tr>
+                     {{#vuelos}}
+                    <tr style="background-color: #435165">
+                        <td>{{nombreVuelo}}</td>
+                        <td>{{origen}}</td>
+                        <td>{{destino}}</td>
+                        <td>{{fecha}}</td>
+                        <td>{{duracion}}</td>
+                        <td>{{precio}}
 
 
+
+                       <td><input type="radio" name="idVuelo" value="{{idVuelo}}"class="w3-text-white w3-button w3-block w3-margin-top " style="background-color: #5B5B75;">eliminar</td>
+
+                    </tr>
+                    {{/vuelos}}
+                </table>
+                <button type="submit" class="w3-text-white w3-button w3-block w3-margin-top" style="background-color: #5B5B75"> Eliminar</button>
+            </form>
         </div>
+
 
         <a href="/admin" class="w3-btn w3-container w3-2020-navy-blazer w3-margin w3-padding">Volver</a>
     </div>
