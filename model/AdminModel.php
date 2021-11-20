@@ -11,7 +11,9 @@ class AdminModel
     }
 
     public function getUsuarios(){
+
         return $this->database->query("SELECT * FROM usuario WHERE validacion is NULL ORDER BY rol");
+
     }
 
     public function getUsuariosFiltradosPor($filtro){
@@ -28,8 +30,10 @@ class AdminModel
             $this->database->insert($sql);
         }
     }
+
     public function darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$idAeronave){
         $sql= "INSERT INTO `vuelo` (`nombreVuelo`,`origen`,`destino`,`fecha`,`duracion`,`precio`,`idAeronave`) VALUES ('$nombreVuelo','$origen','$destino','$fecha','$duracion','$precio','$idAeronave')";
+
         $this->database->insert($sql);
     }
     public function eliminarVuelo($id){

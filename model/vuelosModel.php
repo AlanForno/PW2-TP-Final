@@ -7,7 +7,9 @@
      }
      public function obtenerVuelos(){
          $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id join `origen` as o on vuelo.origen=o.id join `destinos`  as d on vuelo.destino=d.id";
+
          return $this->database->query($sql);
+
      }
      public function obtenerVuelosPorId($idVuelo){
         $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id join `origen` as o on vuelo.origen=o.id join `destinos`  as d on vuelo.destino=d.id where idVuelo='$idVuelo'";

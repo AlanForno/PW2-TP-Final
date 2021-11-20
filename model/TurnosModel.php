@@ -43,6 +43,7 @@ class TurnosModel
         return $turnosReservados;
     }
 
+
     private function validacionDeTurno($turnosActuales, $cantidadTurnosDiarios, $idHospital, $fecha, $idUsuario)
     {
         if ($this->contarTurnos($turnosActuales) <= $this->extraerTurnosDiarios($cantidadTurnosDiarios)) {
@@ -53,6 +54,7 @@ class TurnosModel
             $this->database->insert($sql2);
 
         } else(header("Location: /turnos"));
+
     }
 
     private function generarResultado()
@@ -60,9 +62,11 @@ class TurnosModel
         return rand(1, 3);
     }
 
+
     public function buscarTurno($nombre)
     {
         $sql = 'select * from turnos join hospitales on turnos.hospital=hospitales.id join usuario on turnos.usuario=usuario.id where turnos.usuario="' . $nombre . '"';
+
         return $this->database->query($sql);
     }
     public function yaRealizoChequeo($nombre){
@@ -75,10 +79,12 @@ class TurnosModel
         }
         return false;
     }
+
     public function buscarTurnoConMail($nombre){
         $sql='select * from turnos join hospitales on turnos.hospital=hospitales.id 
         join usuario on usuario.id = turnos.usuario 
         where turnos.usuario="'.$nombre.'"';
+
         $data=$this->database->query($sql);
         return $data;
     }

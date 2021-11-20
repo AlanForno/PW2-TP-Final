@@ -36,7 +36,6 @@ class AdminController{
 
         $data["vuelos"]=$this->vuelosModel->obtenerVuelos();
 
-
         echo $this->printer->render( "view/vuelosAdmin.html", $data);
     }
 
@@ -65,15 +64,19 @@ class AdminController{
         $fecha=$_POST["fecha"];
         $duracion=$_POST["duracion"];
         $precio=$_POST["precio"];
+
         $idAeronave=$_POST["aeronave"];
 
         $this->adminModel->darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$idAeronave);
+
         $this->vuelos();
     }
 
     public function eliminarVuelo(){
         $idVuelo=$_GET["idVuelo"];
+
         $this->adminModel->eliminarVuelo($idVuelo);
+
         $this->vuelos();
     }
 
