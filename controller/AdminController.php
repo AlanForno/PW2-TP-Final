@@ -33,8 +33,8 @@ class AdminController{
     }
     public function vuelos(){
         $data= $this->sesion->obtenerPermisos();
-        $vuelos=$this->vuelosModel->obtenerVuelos();
-        $data["vuelos"]=$vuelos;
+
+        $data["vuelos"]=$this->vuelosModel->obtenerVuelos();
 
         echo $this->printer->render( "view/vuelosAdmin.html", $data);
     }
@@ -64,18 +64,19 @@ class AdminController{
         $fecha=$_POST["fecha"];
         $duracion=$_POST["duracion"];
         $precio=$_POST["precio"];
-        $capacidad=$_POST["capacidad"];
-        $tipo=$_POST["tipo"];
-        $cabinaFamiliar=$_POST["cabinaFamiliar"];
-        $cabinaSuite=$_POST["cabinaSuite"];
-        $cabinaGeneral=$_POST["cabinaGeneral"];
-        $this->adminModel->darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$capacidad,$tipo,$cabinaFamiliar,$cabinaSuite,$cabinaGeneral);
+
+        $idAeronave=$_POST["aeronave"];
+
+        $this->adminModel->darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$idAeronave);
+
         $this->vuelos();
     }
 
     public function eliminarVuelo(){
         $idVuelo=$_GET["idVuelo"];
-        $this->vuelosModel->eliminarVuelo($idVuelo);
+
+        $this->adminModel->eliminarVuelo($idVuelo);
+
         $this->vuelos();
     }
 

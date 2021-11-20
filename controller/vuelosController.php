@@ -14,14 +14,12 @@ class vuelosController
         $this->sesion = $sesion;
     }
 
-    public function show(){
+
+       public function show(){
         $data=$this->sesion->obtenerPermisos();
-        if($data["sesion"]){
-            $data["vuelos"]=$this->model->obtenerVuelos();
-            echo $this->printer->render( "view/vuelosCliente.html", $data);
-        }else{
-            header("Location: /home");
-        }
+        $data["vuelos"]=$this->model->obtenerVuelos();
+        echo $this->printer->render( "view/vuelosCliente.html", $data);
+
     }
     public function vuelosDisponibles(){
 
@@ -50,11 +48,8 @@ class vuelosController
         }else {
             echo "RESERVASTE EL PASAJE";
             // aca poner lo que se haga con el pdf .
-            $html = "<h2>Reserva</h2>
-                     <h3>Vuelo: $idVuelo</h3>
-                     <h3>Asiento: $asiento</h3>
-                     <h3>Cabina: $cabina</h3>";
-            $this->pdf->render($html, "archivardo.pdf", 0);
+
+
         }
     }
 }
