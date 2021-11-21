@@ -25,7 +25,7 @@ class Configuration{
     public function  createPerfilController()
     {
         require_once ("controller/perfilController.php");
-        return new perfilController($this->createPerfilModel(),$this->createPrinter(), $this->createManejoDeSession());
+        return new perfilController($this->createPerfilModel(),$this->createPrinter(), $this->createManejoDeSession(), $this->createPDFPrinter());
     }
     public function  createVuelosController()
     {
@@ -123,6 +123,11 @@ class Configuration{
     private function createManejoDeSession(){
         require_once ("helpers/ManejoDeSession.php");
         return new ManejoDeSession();
+    }
+
+    private function createPDFPrinter(){
+        require_once ("helpers/PDFPrinter.php");
+        return new PDFPrinter();
     }
 
     private function createMailer(){

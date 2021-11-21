@@ -2,6 +2,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="stylesheet" href="public/css/estilos-general.css">
+<link rel="stylesheet" href="../public/css/estilos-general.css">
 
 <!-- Fuentes -->
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,10 +18,10 @@
     </div>
 </div>
 {{/error}}
-<div class="w3-container w3-card w3-content w3-center w3-padding-64 w3-text-black w3-2020-navy-blazer w3-margin-top ">
+<div id="perfil-div" class="w3-container w3-card w3-content w3-center w3-padding-64 w3-text-black w3-2020-navy-blazer w3-margin-top ">
 
     {{#infoUsuario}}
-    <div class="w3-container w3-white w3-row" style="font-weight: bold !important; font-size: large !important;">
+    <div class="w3-container w3-white w3-row" >
         <div class=" w3-topbar w3-bottombar w3-border-blue">
             <h2> {{usuario}} </h2>
             <ul style="list-style: none">
@@ -58,7 +59,7 @@
                     <td>{{destino}}</td>
                     <td>{{fecha}}</td>
                     <td><a onclick="document.getElementById('pago').style.display='block'"><i class="fas fa-receipt"></i></a></td>
-                    <td>Eliminar</td>
+                    <td><i class="fas fa-minus-circle"></i></td>
 
 
                 </tr>
@@ -70,10 +71,12 @@
                               class="w3-button w3-display-topright">&times;</span>
                             <h4>Introduzca los datos para acreditar el pago</h4>
                         </header>
+                        <!-- Form del Pago -->
                         <div class="row">
                             <div class="col-75">
                                 <div class="container">
-                                    <form action="/">
+                                    <form  action="/perfil/acreditarPago" method="post"
+                                           enctype="application/x-www-form-urlencoded">
 
                                         <div class="row">
                                             <div class="col-50">
@@ -86,6 +89,7 @@
                                                 <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
                                                 <label for="city"><i class="fa fa-institution"></i> City</label>
                                                 <input type="text" id="city" name="city" placeholder="New York">
+                                                <input id="prodId" name="idReserva" type="hidden" value="{{id}}">
 
                                                 <div class="row">
                                                     <div class="col-50">
@@ -155,7 +159,7 @@
                     <th>Origen</th>
                     <th>Destino</th>
                     <th>Fecha</th>
-
+                    <th>Comprobante</th>
                     <th>Dar de Baja</th>
 
 
@@ -170,8 +174,8 @@
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
                     <td>{{fecha}}</td>
-
-                    <td>Eliminar</td>
+                    <td><a href="perfil/generarComprobante?id={{id}}"><i class="fas fa-file-alt"></i></a></td>
+                    <td><i class="fas fa-minus-circle"></i></td>
 
 
                 </tr>

@@ -27,4 +27,9 @@ class PerfilModel
         $resultado=$this->database->query($sql);
         return $resultado;
     }
+
+    public function acreditarPago($id){
+        $sql='UPDATE `reservavuelo` SET `Acreditada` = 1 WHERE `reservavuelo`.`id` = '.$id;
+        $this->database->insert($sql);
+    }
 }
