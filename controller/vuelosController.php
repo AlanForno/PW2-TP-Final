@@ -18,13 +18,18 @@ class vuelosController
        public function show(){
         $data=$this->sesion->obtenerPermisos();
         $data["vuelos"]=$this->model->obtenerVuelos();
-        echo $this->printer->render( "view/vuelosCliente.html", $data);
+        $data["origen"]=$this->model->obtenerOrigenes();
 
+        $data["destino"]=$this->model->obtenerDestinos();
+
+        $data["fecha"]=$this->model->obtenerFechas();
+
+        echo $this->printer->render( "view/vuelosCliente.html", $data);
     }
     public function vuelosDisponibles(){
 
         $data=$this->sesion->obtenerPermisos();
-        $data["vuelos"]=$this->model->obtenerVuelos();
+
         if($data["sesion"]==false && $data["admin"]==false){
             $data["error"]=true;
             echo $this->printer->render("view/vuelosCliente.html", $data);
@@ -48,8 +53,21 @@ class vuelosController
         }else {
             echo "RESERVASTE EL PASAJE";
             // aca poner lo que se haga con el pdf .
-
-
         }
+    }
+    public function buscarVuelosFiltrados(){
+        $data=$this->sesion->obtenerPermisos();
+
+
+        $origen=$_POST['origen'];
+        $destino=$_POST['destino'];
+        $fecha=$_POST['fecha'];
+
+
+        $data['vuelos']=$this->model->getVuelosFiltradosPor($origen,$destino,$fecha);
+        $data["origen"]=$this->model->obtenerOrigenes();
+        $data["destino"]=$this->model->obtenerDestinos();
+        $data["fecha"]=$this->model->obtenerFechas();
+        echo $this->printer->render("view/vuelosCliente.html", $data);
     }
 }
