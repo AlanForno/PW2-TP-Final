@@ -17,10 +17,14 @@ class PerfilModel
         return $resultado;
     }
 
-    public function obtenerReservas($id){
-        $sql='SELECT * FROM reservavuelo JOIN vuelo ON vuelo.idVuelo=reservavuelo.idVuelo WHERE reservavuelo.idUsuario='.$id;
+    public function obtenerReservasAcreditadas($id){
+        $sql='SELECT * FROM reservavuelo JOIN vuelo ON vuelo.idVuelo=reservavuelo.idVuelo WHERE reservavuelo.idUsuario='.$id.' AND Acreditada=true';
         $resultado=$this->database->query($sql);
-        
+        return $resultado;
+    }
+    public function obtenerReservasNoAcreditadas($id){
+        $sql='SELECT * FROM reservavuelo JOIN vuelo ON vuelo.idVuelo=reservavuelo.idVuelo WHERE reservavuelo.idUsuario='.$id.' AND Acreditada=false';
+        $resultado=$this->database->query($sql);
         return $resultado;
     }
 }

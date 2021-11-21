@@ -15,6 +15,9 @@
         $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id join `origen` as o on vuelo.origen=o.id join `destinos`  as d on vuelo.destino=d.id where idVuelo='$idVuelo'";
          return $this->database->query($sql);
      }
+     //         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+     //        echo substr(str_shuffle($permitted_chars), 0, 16);
+     // Para la generacion de codigos alfanumericos
      public function procesarReserva($idVuelo,$idUsuario,$asiento,$cabina){
          //return $this->chequearDisponibiladDeAsiento($idVuelo,$asiento,$cabina);
          //return $this->chequearCompatibilidadDeTipo($idUsuario,$idVuelo);

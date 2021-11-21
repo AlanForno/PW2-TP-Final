@@ -19,8 +19,10 @@ class PerfilController
         if(is_null($usuario[0]["tipoAceptado"])){
             $usuario[0]["tipoAceptado"]='Realize su chequeo medico';
         }
-        $reservas=$this->model->obtenerReservas($_SESSION["id"]);
-        $data["reservas"]=$reservas;
+        $reservasAcreditadas=$this->model->obtenerReservasAcreditadas($_SESSION["id"]);
+        $reservasNoAcreditadas=$this->model->obtenerReservasNoAcreditadas($_SESSION["id"]);
+        $data["reservasAcreditadas"]=$reservasAcreditadas;
+        $data["reservasNoAcreditadas"]=$reservasNoAcreditadas;
         $data["infoUsuario"]=$usuario;
         if($data["sesion"]){
 
