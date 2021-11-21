@@ -45,6 +45,8 @@ class PerfilController
         $this->data=$this->sesion->obtenerPermisos();
         $this->cargarDatos();
 
+        //Falta validar los datos y enviar un mensaje de exito o error
+
         if($this->data["sesion"]){
             echo $this->printer->render( "view/perfil.html", $this->data);
             die();
