@@ -17,3 +17,8 @@ label{
 
     font-size: 15px;
 }
+
+#perfil-div{
+    font-weight: bold !important;
+    font-size: large !important;
+}
