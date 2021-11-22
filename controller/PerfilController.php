@@ -59,7 +59,9 @@ class PerfilController
 
     public function generarComprobante(){
         $id=$_GET["id"];
-        $this->PDFPrinter->render("HOLA IAN - ".$id, "documento.pdf", 1);
+        $html= file_get_contents("view/BoardingPass.html") ;
+        //echo var_dump($html);
+        $this->PDFPrinter->render($html, "documento.pdf", 0);
     }
     public function darDeBajaReserva(){
         $idReserva=$_GET['id'];

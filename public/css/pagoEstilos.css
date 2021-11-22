@@ -1,3 +1,4 @@
+
 .row {
     display: -ms-flexbox; /* IE10 */
     display: flex;
@@ -36,13 +37,13 @@
 
 input[type=text] {
     width: 100%;
-    margin-bottom: 20px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 3px;
 }
 
 label {
+    margin-top: 10px;
     margin-bottom: 10px;
     display: block;
 }
@@ -83,3 +84,8 @@ span.price {
         margin-bottom: 20px;
     }
 }
+
+#pago-div span{
+    color: rgba(255, 0, 0, 0.7);
+}
+
