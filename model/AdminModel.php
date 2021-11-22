@@ -32,8 +32,14 @@ class AdminModel
     }
 
     public function darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$idAeronave){
-        $sql= "INSERT INTO `vuelo` (`nombreVuelo`,`origen`,`destino`,`fecha`,`duracion`,`precio`,`idAeronave`) VALUES ('$nombreVuelo','$origen','$destino','$fecha','$duracion','$precio','$idAeronave')";
-        $this->database->insert($sql);
+        $sql="select * from vuelo where idAeronave='$idAeronave'";
+        if(!$this->database->query($sql)){
+            $sql= "INSERT INTO `vuelo` (`nombreVuelo`,`origen`,`destino`,`fecha`,`duracion`,`precio`,`idAeronave`) VALUES ('$nombreVuelo','$origen','$destino','$fecha','$duracion','$precio','$idAeronave')";
+            $this->database->insert($sql);
+        }else{
+            return false;
+        }
+
     }
     public function eliminarVuelo($id){
         $this->existeReservas($id);

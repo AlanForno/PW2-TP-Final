@@ -166,11 +166,7 @@
                     <th>Origen</th>
                     <th>Destino</th>
                     <th>Fecha</th>
-                    <th>Comprobante</th>
-
-
-
-
+                    <th>Boardin Pass</th>
                 </tr>
 
                 {{#reservasAcreditadas}}
@@ -181,10 +177,7 @@
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
                     <td>{{fecha}}</td>
-                    <td><a href="/perfil/generarComprobante?id={{id}}"><i class="fas fa-file-alt"></i></a></td>
-
-
-
+                    <td><a href="/perfil/generarComprobante?idReserva={{idReserva}}"><i class="fas fa-file-alt"></i></a></td>
                 </tr>
                 {{/reservasAcreditadas}}
 
@@ -193,18 +186,14 @@
         <div class="w3-table w3-bordered w3-centered w3-topbar w3-border-top w3-border-bottom">
             <table class="w3-table w3-bordered w3-centered ">
                 <h4>Aqui puede ver sus reservas En ESPERA y administrarlas</h4>
-                <tr>
+                <td>
 
                     <th>Vuelo</th>
                     <th>Origen</th>
                     <th>Destino</th>
                     <th>Fecha</th>
-                    <th>Comprobante</th>
                     <th>Dar de Baja</th>
-
-
-
-                </tr>
+                </td>
 
                 {{#reservasEnEspera}}
                 <tr>
@@ -214,7 +203,7 @@
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
                     <td>{{fecha}}</td>
-                    <td><a href="/perfil/generarComprobante?id={{id}}"><i class="fas fa-file-alt"></i></a></td>
+
                     <td><a href="/perfil/darDeBajaReservaEnEspera?id={{id}}"><i class="fas fa-minus-circle"></i></a></td>
 
 

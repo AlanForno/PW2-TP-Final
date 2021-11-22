@@ -61,7 +61,7 @@ class PerfilModel
             $sql="update aeronave set capacidad=capacidad-1 where id='$aeronave'";
             $this->database->insert($sql);
             foreach ($reservaEnEspera as $reserva) {
-                $idReserva = $reserva['id'];
+                $idReserva = $reserva['idReserva'];
                 $sql = "update reservavuelo set cabina='$cabina' where idReserva='$idReserva'";
                 $this->database->insert($sql);
                 $sql = "update reservavuelo set asiento='$asiento'where idReserva='$idReserva'";
@@ -73,14 +73,14 @@ class PerfilModel
         }
     }
 
-    public function CargaDatosDeComprobante($id){
+    public function CargaDatosDeComprobante($idUsuario,$idReserva){
         
         $PDFPrinter = new PDFPrinter();
         $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id 
         join `origen` as o on vuelo.origen=o.id 
         join `destinos`  as d on vuelo.destino=d.id 
         join `reservavuelo` as r on vuelo.idVuelo=r.idVuelo 
-        where r.idUsuario='$id'";
+        where r.idUsuario='$idUsuario' and r.codAlfanumerico='$idReserva'";
         $data=$this->database->query($sql);
 
         /** CODIGO QR  */

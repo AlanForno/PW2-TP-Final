@@ -57,17 +57,10 @@ class vuelosController
             $data["error"]=true;
             echo $this->printer->render("view/reservaVuelo.html", $data);
         }else {
-
-            ;
-            // aca poner lo que se haga con el pdf .
-
-            echo "RESERVASTE EL PASAJE";
             $attachment = $this->model->ProcesarPdfReserva($idVuelo);
             $data = $this->model->datosUsuario($idUsuario);
-       
             $this->mail->EnviarMailConArchivo($data[0]["email"],"Comprobante reserva",
-             "Comprobate de reserva del vuelo",$data[0]["usuario"] ,$attachment, "Comprobante reserva.pdf");
-
+                "Comprobate de reserva del vuelo",$data[0]["usuario"] ,$attachment, "Comprobante reserva.pdf");
             header("location:http://localhost/vuelos?exito=true");
         }
     }
