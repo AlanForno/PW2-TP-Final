@@ -33,12 +33,13 @@ class AdminController{
     }
     public function vuelos(){
         $data= $this->sesion->obtenerPermisos();
-
+        if(isset($_GET['avionNoDisponible'])){
+            $data["avionNoDisponible"]=$_GET['avionNoDisponible'];
+        }
         $data["vuelos"]=$this->vuelosModel->obtenerVuelos();
         $data["aeronave"]=$this->vuelosModel->obtenerAeronaves();
         $data["destinos"]=$this->vuelosModel->obtenerDestinos();
         $data["origen"]=$this->vuelosModel->obtenerOrigenes();
-
         echo $this->printer->render( "view/vuelosAdmin.html", $data);
     }
 
@@ -69,9 +70,9 @@ class AdminController{
         $precio=$_POST["precio"];
 
         $idAeronave=$_POST["aeronave"];
-
-        $this->adminModel->darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$idAeronave);
-
+        if(!$this->adminModel->darDeAlta($nombreVuelo,$origen,$destino,$fecha,$duracion,$precio,$idAeronave)){
+            header("location:http://localhost/admin/vuelos?avionNoDisponible=true");
+        }
         $this->vuelos();
     }
 

@@ -19,8 +19,7 @@ class PerfilController
     }
 
     public function show(){
-        if(isset($_GET['exito'])){
-        }
+
         $this->data=$this->sesion->obtenerPermisos();
         $this->cargarDatos();
         if($this->data["sesion"]){
@@ -63,9 +62,10 @@ class PerfilController
     }
 
     public function generarComprobante(){
-        $id=$_SESSION["id"];
-        $attachment = $this->model->CargaDatosDeComprobante($id);
-        $data = $this->model->obtenerUsuario($id);
+        $idUsuario=$_SESSION["id"];
+        $idReserva=$_GET["idReserva"];
+        $attachment = $this->model->CargaDatosDeComprobante($idUsuario,$idReserva);
+        $data = $this->model->obtenerUsuario($idUsuario);
         $body ="Boarding Pass";
 
         $this->mail->EnviarMailConArchivo($data[0]["email"],"Boarding Pass",

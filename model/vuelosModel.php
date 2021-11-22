@@ -168,11 +168,9 @@
         join `origen` as o on vuelo.origen=o.id 
         join `destinos`  as d on vuelo.destino=d.id 
         join `reservavuelo` as r on vuelo.idVuelo=r.idVuelo 
-        where vuelo.idVuelo='$idVuelo'";
-        $data = $this->database->query($sql);
-        
+        where vuelo.idVuelo='$idVuelo' ORDER BY idReserva DESC";
+       $data = $this->database->query($sql);
         $PDFPrinter = new PDFPrinter();
-        
         $html ="<h1>Comprobante reserva de vuelo</h1><br>
              Se reservo el vuelo:<br> COD: ".$data[0]["codAlfanumerico"] .", Nombre: ".$data[0]["nombreVuelo"].
              "<br> Cabina tipo:".$data[0]["cabina"]." , Asiento numero: ".$data[0]["asiento"].
@@ -180,7 +178,6 @@
              ", Destino: ".$data[0]["destino"].", duracion: ".
             $data[0]["duracion"]." horas <br>
             Valor: $".$data[0]["precio"];
-
         return $PDFPrinter->generarOutput($html);
      }
 

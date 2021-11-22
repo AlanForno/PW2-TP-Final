@@ -17,7 +17,16 @@
         }
     }
 </script>
+    {{#avionNoDisponible}}
+    <div>
+        <div class="w3-panel w3-red w3-display-container w3-round" style="width: 30%; margin-left: auto; margin-right: auto">
+            <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
+            <p class="w3-center">Avion no disponible.</p>
+        </div>
+    </div>
+    {{/avionNoDisponible}}
 <body style="background-color: #5B5B75">
+
 <div class="w3-center">
     <div class="w3-bar" style="width: 75%">
         <button onclick="myFunction1('Demo1')" class="w3-button w3-block w3-center-align w3-margin-top w3-text-white w3-2020-navy-blazer" style="width: 100%">Dar de alta un vuelo</button>
