@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" href="public/css/estilos-general.css">
 <link rel="stylesheet" href="../public/css/estilos-general.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2018.css">
 
 <!-- Fuentes -->
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,11 +19,11 @@
     </div>
 </div>
 {{/error}}
-<div id="perfil-div" class="w3-container w3-card w3-content w3-center w3-padding-64 w3-text-black w3-2020-navy-blazer w3-margin-top ">
+<div id="perfil-div" class="w3-container w3-card w3-content w3-center w3-padding-64 w3-text-black w3-2020-navy-blazer w3-margin-top">
 
     {{#infoUsuario}}
-    <div class="w3-container w3-white w3-row" >
-        <div class=" w3-topbar w3-bottombar w3-border-blue">
+    <div class="w3-container w3-text-white w3-row" >
+        <div class=" w3-topbar w3-border-top">
             <h2> {{usuario}} </h2>
             <ul style="list-style: none">
                 <li>
@@ -34,8 +35,8 @@
             </ul>
 
         </div>
-        <div class="w3-topbar">
-            <table class="w3-table w3-bordered w3-centered ">
+        <div class="w3-table w3-bordered w3-centered w3-topbar w3-border-top w3-border-bottom">
+            <table class="w3-table w3-bordered w3-centered">
                 <h4>Aqui puede ver sus reservas no acreditadas y pagarlas o darlas de baja</h4>
                 <tr>
 
@@ -45,23 +46,15 @@
                     <th>Fecha</th>
                     <th>Pagar</th>
                     <th>Dar de Baja</th>
-
-
-
                 </tr>
-
                 {{#reservasNoAcreditadas}}
                 <tr>
-
-
                     <td>{{nombreVuelo}}</td>
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
                     <td>{{fecha}}</td>
                     <td><a onclick="document.getElementById('pago').style.display='block'"><i class="fas fa-receipt"></i></a></td>
-                    <td><i class="fas fa-minus-circle"></i></td>
-
-
+                    <td><a href="/perfil/darDeBajaReserva?id={{id}}&cabina={{cabina}}&asiento={{asiento}}&aeronave={{aeronave}}&idVuelo={{idVuelo}}"><i class="fas fa-minus-circle"></i></a></td>
                 </tr>
 
                 <div id="pago" class="w3-modal w3-padding-16">
@@ -150,7 +143,7 @@
                 </div>
             </table>
         </div>
-        <div class="w3-topbar w3-bottombar">
+        <div class="w3-table w3-bordered w3-centered w3-topbar w3-border-top">
             <table class="w3-table w3-bordered w3-centered ">
                 <h4>Aqui puede ver sus reservas acreditadas y administrarlas</h4>
                 <tr>
@@ -160,7 +153,7 @@
                     <th>Destino</th>
                     <th>Fecha</th>
                     <th>Comprobante</th>
-                    <th>Dar de Baja</th>
+
 
 
 
@@ -174,12 +167,45 @@
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
                     <td>{{fecha}}</td>
-                    <td><a href="perfil/generarComprobante?id={{id}}"><i class="fas fa-file-alt"></i></a></td>
-                    <td><i class="fas fa-minus-circle"></i></td>
+                    <td><a href="/perfil/generarComprobante?id={{id}}"><i class="fas fa-file-alt"></i></a></td>
+
 
 
                 </tr>
                 {{/reservasAcreditadas}}
+
+            </table>
+        </div>
+        <div class="w3-table w3-bordered w3-centered w3-topbar w3-border-top w3-border-bottom">
+            <table class="w3-table w3-bordered w3-centered ">
+                <h4>Aqui puede ver sus reservas En ESPERA y administrarlas</h4>
+                <tr>
+
+                    <th>Vuelo</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Fecha</th>
+                    <th>Comprobante</th>
+                    <th>Dar de Baja</th>
+
+
+
+                </tr>
+
+                {{#reservasEnEspera}}
+                <tr>
+
+
+                    <td>{{nombreVuelo}}</td>
+                    <td>{{origen}}</td>
+                    <td>{{destino}}</td>
+                    <td>{{fecha}}</td>
+                    <td><a href="/perfil/generarComprobante?id={{id}}"><i class="fas fa-file-alt"></i></a></td>
+                    <td><a href="/perfil/darDeBajaReservaEnEspera?id={{id}}"><i class="fas fa-minus-circle"></i></a></td>
+
+
+                </tr>
+                {{/reservasEnEspera}}
 
             </table>
         </div>
@@ -192,3 +218,4 @@
 
 
 {{>footer}}
+</body>

@@ -34,6 +34,8 @@ class PerfilController
         }
         $reservasAcreditadas=$this->model->obtenerReservasAcreditadas($_SESSION["id"]);
         $reservasNoAcreditadas=$this->model->obtenerReservasNoAcreditadas($_SESSION["id"]);
+        $reservasEnEspera=$this->model->obtenerReservasEnEspera($_SESSION["id"]);
+        $this->data["reservasEnEspera"]=$reservasEnEspera;
         $this->data["reservasAcreditadas"]=$reservasAcreditadas;
         $this->data["reservasNoAcreditadas"]=$reservasNoAcreditadas;
         $this->data["infoUsuario"]=$usuario;
@@ -58,6 +60,18 @@ class PerfilController
     public function generarComprobante(){
         $id=$_GET["id"];
         $this->PDFPrinter->render("HOLA IAN - ".$id, "documento.pdf", 1);
+    }
+    public function darDeBajaReserva(){
+        $idReserva=$_GET['id'];
+        $cabina=$_GET['cabina'];
+        $aeronave=$_GET['aeronave'];
+        $asiento=$_GET['asiento'];
+        $idVuelo=$_GET['idVuelo'];
+        $this->model->darDeBajaReserva($idReserva,$cabina,$aeronave,$asiento,$idVuelo);
+    }
+    public function darDeBajaReservaEnEspera(){
+        $idReserva=$_GET['id'];
+        $this->model->darDeBajaReservaEnEspera($idReserva);
     }
 
 }

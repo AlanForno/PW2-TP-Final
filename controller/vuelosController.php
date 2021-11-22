@@ -41,6 +41,7 @@ class vuelosController
         }
     }
     public function procesarReserva(){
+        $data=$this->sesion->obtenerPermisos();
         $idUsuario=$_SESSION["id"];
         $idVuelo=$_POST["idVuelo"];
         $asiento=$_POST["asiento"];
@@ -57,17 +58,17 @@ class vuelosController
     }
     public function buscarVuelosFiltrados(){
         $data=$this->sesion->obtenerPermisos();
-
-
         $origen=$_POST['origen'];
         $destino=$_POST['destino'];
         $fecha=$_POST['fecha'];
-
-
         $data['vuelos']=$this->model->getVuelosFiltradosPor($origen,$destino,$fecha);
         $data["origen"]=$this->model->obtenerOrigenes();
         $data["destino"]=$this->model->obtenerDestinos();
         $data["fecha"]=$this->model->obtenerFechas();
         echo $this->printer->render("view/vuelosCliente.html", $data);
+    }
+    public function agregarReservaEnEspera(){
+        $idVuelo=$_GET['id'];
+        $this->model->agregarReservaEnEspera($idVuelo,$_SESSION['id']);
     }
 }

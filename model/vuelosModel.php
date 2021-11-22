@@ -146,5 +146,14 @@
          $SQL = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id join `origen` as o on vuelo.origen=o.id join `destinos`  as d on vuelo.destino=d.id where vuelo.origen='$origen'  OR vuelo.destino='$destino' OR vuelo.fecha = '$fecha'";
          return $this->database->query($SQL);
      }
+     public function agregarReservaEnEspera($idVuelo,$idUsuario){
+         $sql="select idAeronave from `vuelo` where idVuelo='$idVuelo'";
+         $idAeronave=$this->database->query($sql);
+         foreach ($idAeronave as $id){
+             $idAeronave=$id["idAeronave"];
+         }
+         $sql="INSERT INTO `reservavuelo` (`idUsuario`, `idVuelo`,`aeronave`,`enEspera`) VALUES ('$idUsuario', '$idVuelo','$idAeronave',true)";
+         $this->database->insert($sql);
+     }
 
  }
