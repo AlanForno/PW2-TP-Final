@@ -25,12 +25,12 @@ class Configuration{
     public function  createPerfilController()
     {
         require_once ("controller/perfilController.php");
-        return new perfilController($this->createPerfilModel(),$this->createPrinter(), $this->createManejoDeSession(), $this->createPDFPrinter());
+        return new perfilController($this->createPerfilModel(),$this->createPrinter(), $this->createManejoDeSession(), $this->createPDFPrinter(), $this->createMailer());
     }
     public function  createVuelosController()
     {
         require_once ("controller/vuelosController.php");
-        return new vuelosController($this->createVuelosModel(),$this->createPrinter(), $this->createManejoDeSession());
+        return new vuelosController($this->createVuelosModel(),$this->createPrinter(), $this->createManejoDeSession(), $this->createMailer());
     }
     public function  createLoginController()
     {
@@ -66,6 +66,8 @@ class Configuration{
     }
     private  function createPerfilModel(){
         require_once("model/PerfilModel.php");
+        require_once ('helpers/PDFPrinter.php');
+        include('third-party/phpqrcode/qrlib.php');
         $database=$this->getDatabase();
         return new PerfilModel($database);
     }
@@ -92,6 +94,7 @@ class Configuration{
     }
     private  function createVuelosModel(){
         require_once("model/vuelosModel.php");
+        require_once ('helpers/PDFPrinter.php');
         $database=$this->getDatabase();
         return new vuelosModel($database);
     }

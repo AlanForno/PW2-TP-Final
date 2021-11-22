@@ -47,8 +47,8 @@
              $idAeronave=$id["idAeronave"];
          }
         if($this->chequearCompatibilidadDeTipo($idUsuario,$idVuelo)==true && $this->chequearDisponibiladDeAsiento($idVuelo,$asiento,$cabina)==true && $this->chequearCapacidad($idVuelo)==true){
-
-            $sql="INSERT INTO `reservavuelo` (`idUsuario`, `idVuelo`,`aeronave`,`cabina`,`asiento`) VALUES ('$idUsuario', '$idVuelo','$idAeronave','$cabina','$asiento')";
+            $codAlfanumerico = $this->generateRandomString(8);
+            $sql="INSERT INTO `reservavuelo` (`idUsuario`, `idVuelo`,`aeronave`,`cabina`,`asiento`,`codAlfanumerico`) VALUES ('$idUsuario', '$idVuelo','$idAeronave','$cabina','$asiento','$codAlfanumerico')";
             $this->database->insert($sql);
             $this->reducirCapacidad($idVuelo,$cabina);
             return true;
@@ -56,6 +56,12 @@
             return false;
         }
      }
+     function generateRandomString($length) {
+        return substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
+    }
+
+
+
      private function reducirCapacidad($idVuelo,$cabina){
          $sql="select idAeronave from `vuelo` where idVuelo='$idVuelo'";
          $idAeronave=$this->database->query($sql);
@@ -152,8 +158,36 @@
          foreach ($idAeronave as $id){
              $idAeronave=$id["idAeronave"];
          }
-         $sql="INSERT INTO `reservavuelo` (`idUsuario`, `idVuelo`,`aeronave`,`enEspera`) VALUES ('$idUsuario', '$idVuelo','$idAeronave',true)";
+         $codAlfanumerico = $this->generateRandomString(8);
+         $sql="INSERT INTO `reservavuelo` (`idUsuario`, `idVuelo`,`aeronave`,`enEspera`,`codAlfanumerico`) VALUES ('$idUsuario', '$idVuelo','$idAeronave',true,'$codAlfanumerico')";
          $this->database->insert($sql);
+     }
+
+     public function ProcesarPdfReserva($idVuelo){
+        $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id 
+        join `origen` as o on vuelo.origen=o.id 
+        join `destinos`  as d on vuelo.destino=d.id 
+        join `reservavuelo` as r on vuelo.idVuelo=r.idVuelo 
+        where vuelo.idVuelo='$idVuelo'";
+        $data = $this->database->query($sql);
+        
+        $PDFPrinter = new PDFPrinter();
+        
+        $html ="<h1>Comprobante reserva de vuelo</h1><br>
+             Se reservo el vuelo:<br> COD: ".$data[0]["codAlfanumerico"] .", Nombre: ".$data[0]["nombreVuelo"].
+             "<br> Cabina tipo:".$data[0]["cabina"]." , Asiento numero: ".$data[0]["asiento"].
+             "<br> Origen: ".$data[0]["origen"].
+             ", Destino: ".$data[0]["destino"].", duracion: ".
+            $data[0]["duracion"]." horas <br>
+            Valor: $".$data[0]["precio"];
+
+        return $PDFPrinter->generarOutput($html);
+     }
+
+     public function datosUsuario($idUsuario){
+        $sql="select * from usuario where usuario.id=$idUsuario";
+        $data = $this->database->query($sql);
+        return $data;
      }
 
  }

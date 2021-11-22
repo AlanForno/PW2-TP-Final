@@ -6,12 +6,14 @@ class vuelosController
     private $model;
     private $printer;
     private $sesion;
+    private $mail;
 
 
-    public function __construct($model, $printer, $sesion){
+    public function __construct($model, $printer, $sesion, $mail){
         $this->model = $model;
         $this->printer = $printer;
         $this->sesion = $sesion;
+        $this->mail = $mail;
     }
 
 
@@ -55,8 +57,18 @@ class vuelosController
             $data["error"]=true;
             echo $this->printer->render("view/reservaVuelo.html", $data);
         }else {
-            header("location:http://localhost/vuelos?exito=true");
+
+            ;
             // aca poner lo que se haga con el pdf .
+
+            echo "RESERVASTE EL PASAJE";
+            $attachment = $this->model->ProcesarPdfReserva($idVuelo);
+            $data = $this->model->datosUsuario($idUsuario);
+       
+            $this->mail->EnviarMailConArchivo($data[0]["email"],"Comprobante reserva",
+             "Comprobate de reserva del vuelo",$data[0]["usuario"] ,$attachment, "Comprobante reserva.pdf");
+
+            header("location:http://localhost/vuelos?exito=true");
         }
     }
     public function buscarVuelosFiltrados(){
