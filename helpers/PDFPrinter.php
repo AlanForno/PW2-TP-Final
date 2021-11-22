@@ -23,6 +23,13 @@
             $dompdf->stream($nombreArchivo, ['Attachment' => $opcion]);
 
         }
+        public function generarOutput($textoHTML){
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml($textoHTML);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+            return $dompdf->output();
+        }
 
     }
 
