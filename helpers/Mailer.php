@@ -61,6 +61,21 @@ class Mailer {
         }
         
     }
+    public function EnviarMailConArchivo ($emailUsuario, $asunto, $mensaje, $nombreUsuario, $attachment, $nombreArchivo){
+
+        $this->mail->AddAddress($emailUsuario, $nombreUsuario);        
+        $this->mail->Subject = $asunto;
+        $this->mail->Body = $mensaje;
+
+        $this->mail->addStringAttachment($attachment,$nombreArchivo);
+        
+        if(!$this->mail->Send()) {
+            if(isset($_SESSION["debug"])){
+                echo "Ocurrio un error";
+            }
+        }
+        
+    }
  
 
 
