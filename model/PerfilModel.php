@@ -82,14 +82,35 @@ class PerfilModel
         where r.idUsuario='$id'";
         $data=$this->database->query($sql);
 
-        /**  FALTA CODIGO QR  */
-        $html = "<h1>Boarding Pass</h1><br> 
-        <p>Vuelo:<br> COD: ".$data[0]["codAlfanumerico"] .", Nombre: ".$data[0]["nombreVuelo"].
+        /** CODIGO QR  */
+        $tempDir = 'public/';
+        
+        $codeContents = "Boarding Pass
+        Vuelo: 
+        COD: ".$data[0]["codAlfanumerico"] .", Nombre: ".$data[0]["nombreVuelo"].
+        " Cabina tipo:".$data[0]["cabina"]." , Asiento numero: ".$data[0]["asiento"].
+        " Origen: ".$data[0]["origen"].
+        ", Destino: ".$data[0]["destino"].", duracion: ".
+       $data[0]["duracion"]." horas 
+       Valor Acreditado: $".$data[0]["precio"];
+        
+        $fileName = '005_file_'.md5($codeContents).'.png';   
+        $pngAbsoluteFilePath = $tempDir.$fileName;
+        $urlRelativeFilePath = $tempDir.$fileName;
+        if (!file_exists($pngAbsoluteFilePath)) {
+            QRcode::png($codeContents, $pngAbsoluteFilePath, QR_ECLEVEL_L, 3);
+        } else {
+        }
+        $imageData = base64_encode(file_get_contents($urlRelativeFilePath));           
+        $src = 'data:'.mime_content_type($urlRelativeFilePath).';base64,'.$imageData;
+
+        $html = "<h1>Boarding Pass</h1><br> '<img src=".$src.">
+        <p>Vuelo:<br> COD: ".$data[0]["codAlfanumerico"] ." ".$data[0]["nombreVuelo"].
         "<br> Cabina tipo:".$data[0]["cabina"]." , Asiento numero: ".$data[0]["asiento"].
         "<br> Origen: ".$data[0]["origen"].
-        ", Destino: ".$data[0]["destino"].", duracion: ".
-       $data[0]["duracion"]." horas <br>
-       Valor Acreditado: $".$data[0]["precio"];
+        "<br>Destino: ".$data[0]["destino"].
+        "<br>Duracion: ".$data[0]["duracion"]." horas 
+        <br>Valor Acreditado: $".$data[0]["precio"];
         return $PDFPrinter->generarOutput($html);
     }
 }

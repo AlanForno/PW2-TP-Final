@@ -67,6 +67,7 @@ class Configuration{
     private  function createPerfilModel(){
         require_once("model/PerfilModel.php");
         require_once ('helpers/PDFPrinter.php');
+        include('third-party/phpqrcode/qrlib.php');
         $database=$this->getDatabase();
         return new PerfilModel($database);
     }
