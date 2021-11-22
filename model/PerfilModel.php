@@ -12,7 +12,7 @@ class PerfilModel
     }
 
     public function obtenerUsuario($id){
-        $sql='SELECT * FROM usuario WHERE usuario.id='.$id;
+        $sql="SELECT * FROM usuario WHERE usuario.id=$id";
         $resultado=$this->database->query($sql);
         return $resultado;
     }
@@ -70,5 +70,26 @@ class PerfilModel
                 break;
             }
         }
+    }
+
+    public function CargaDatosDeComprobante($id){
+        
+        $PDFPrinter = new PDFPrinter();
+        $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id 
+        join `origen` as o on vuelo.origen=o.id 
+        join `destinos`  as d on vuelo.destino=d.id 
+        join `reservavuelo` as r on vuelo.idVuelo=r.idVuelo 
+        where r.idUsuario='$id'";
+        $data=$this->database->query($sql);
+
+        /**  FALTA CODIGO QR  */
+        $html = "<h1>Boarding Pass</h1><br> 
+        <p>Vuelo:<br> COD: ".$data[0]["codAlfanumerico"] .", Nombre: ".$data[0]["nombreVuelo"].
+        "<br> Cabina tipo:".$data[0]["cabina"]." , Asiento numero: ".$data[0]["asiento"].
+        "<br> Origen: ".$data[0]["origen"].
+        ", Destino: ".$data[0]["destino"].", duracion: ".
+       $data[0]["duracion"]." horas <br>
+       Valor Acreditado: $".$data[0]["precio"];
+        return $PDFPrinter->generarOutput($html);
     }
 }

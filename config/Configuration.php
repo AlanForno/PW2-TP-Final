@@ -25,7 +25,7 @@ class Configuration{
     public function  createPerfilController()
     {
         require_once ("controller/perfilController.php");
-        return new perfilController($this->createPerfilModel(),$this->createPrinter(), $this->createManejoDeSession(), $this->createPDFPrinter());
+        return new perfilController($this->createPerfilModel(),$this->createPrinter(), $this->createManejoDeSession(), $this->createPDFPrinter(), $this->createMailer());
     }
     public function  createVuelosController()
     {
@@ -66,6 +66,7 @@ class Configuration{
     }
     private  function createPerfilModel(){
         require_once("model/PerfilModel.php");
+        require_once ('helpers/PDFPrinter.php');
         $database=$this->getDatabase();
         return new PerfilModel($database);
     }
