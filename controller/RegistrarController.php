@@ -46,7 +46,7 @@ class RegistrarController{
 
     public function EnviarMailValidacion($usuario, $email, $validacion){
         $asunto = "Validacion de cuenta";
-        $mensaje = "Haga clic en el link para validar su cuenta: <br><br> 
+        $mensaje = "Haga copie el enlance siguiente en su barra de busqueda del navegador para validar su cuenta: <br><br> 
         http://localhost/registrar/validarCuenta?validacion=". $validacion. "&email=".$email;
         $this->mail->enviarMail($email, $asunto, $mensaje, $usuario);
 

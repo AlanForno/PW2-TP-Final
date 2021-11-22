@@ -20,13 +20,18 @@ class vuelosController
        public function show(){
         $data=$this->sesion->obtenerPermisos();
         $data["vuelos"]=$this->model->obtenerVuelos();
-        echo $this->printer->render( "view/vuelosCliente.html", $data);
+        $data["origen"]=$this->model->obtenerOrigenes();
 
+        $data["destino"]=$this->model->obtenerDestinos();
+
+        $data["fecha"]=$this->model->obtenerFechas();
+
+        echo $this->printer->render( "view/vuelosCliente.html", $data);
     }
     public function vuelosDisponibles(){
 
         $data=$this->sesion->obtenerPermisos();
-        $data["vuelos"]=$this->model->obtenerVuelos();
+
         if($data["sesion"]==false && $data["admin"]==false){
             $data["error"]=true;
             echo $this->printer->render("view/vuelosCliente.html", $data);
@@ -38,6 +43,7 @@ class vuelosController
         }
     }
     public function procesarReserva(){
+        $data=$this->sesion->obtenerPermisos();
         $idUsuario=$_SESSION["id"];
         $idVuelo=$_POST["idVuelo"];
         $asiento=$_POST["asiento"];
@@ -49,7 +55,6 @@ class vuelosController
             echo $this->printer->render("view/reservaVuelo.html", $data);
         }else {
             echo "RESERVASTE EL PASAJE";
-            // aca poner lo que se haga con el pdf .
 
             $attachment = $this->model->ProcesarPdfReserva($idVuelo);
             $data = $this->model->datosUsuario($idUsuario);
@@ -58,5 +63,20 @@ class vuelosController
              "Comprobate de reserva del vuelo",$data[0]["usuario"] ,$attachment, "Comprobante reserva.pdf");
 
         }
+    }
+    public function buscarVuelosFiltrados(){
+        $data=$this->sesion->obtenerPermisos();
+        $origen=$_POST['origen'];
+        $destino=$_POST['destino'];
+        $fecha=$_POST['fecha'];
+        $data['vuelos']=$this->model->getVuelosFiltradosPor($origen,$destino,$fecha);
+        $data["origen"]=$this->model->obtenerOrigenes();
+        $data["destino"]=$this->model->obtenerDestinos();
+        $data["fecha"]=$this->model->obtenerFechas();
+        echo $this->printer->render("view/vuelosCliente.html", $data);
+    }
+    public function agregarReservaEnEspera(){
+        $idVuelo=$_GET['id'];
+        $this->model->agregarReservaEnEspera($idVuelo,$_SESSION['id']);
     }
 }

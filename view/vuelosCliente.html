@@ -1,9 +1,5 @@
 {{>header}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="stylesheet" href="../public/css/estilos.css">
-<link rel="stylesheet" href="../public/css/estilos-login.css">
-
 <!-- Fuentes -->
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
@@ -19,11 +15,42 @@
         {{/error}}
     <div class="w3-container w3-card w3-content w3-center w3-padding-64 w3-text-black w3-2020-navy-blazer w3-margin-top">
 
+        <table class="w3-table w3-centered w3-text-white " style="background-color: #5B5B75;">
+
+                <tr>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Fecha</th>
+                </tr>
+
+                <form action="/vuelos/buscarVuelosFiltrados" method="post" enctype="multipart/form-data">
+                    <tr>
+                        <td><select name="origen" id="origen">
+                            {{#origen}}
+                            <option value="{{id}}">{{origen}}</option>
+                            {{/origen}}
+                        </select></td>
+                        <td><select name="destino" id="destino">
+                            {{#destino}}
+                            <option value="{{id}}">{{destino}}</option>
+                            {{/destino}}
+                        </select></td>
+                        <td><select name="fecha" id="fecha">
+                            {{#fecha}}
+                            <option value="{{id}}">{{fecha}}</option>
+                            {{/fecha}}
+                        </select></td>
+
+                        <td><button type="submit" class="w3-text-white w3-button w3-centered w3-2020-navy-blazer">Buscar</button></td>
+                    </tr>
+                </form>
+        </table>
+
         <form action="/vuelos/vuelosDisponibles" method="post" enctype="multipart/form-data">
 
             <table class="w3-table w3-bordered w3-centered w3-text-white">
                 <tr>
-                    <th>id</th>
+
                     <th>Vuelo</th>
                     <th>Origen</th>
                     <th>Destino</th>
@@ -36,6 +63,10 @@
 
                 {{#vuelos}}
                 <tr>
+
+
+
+
                     <td>{{idVuelo}}</td>
 
                     <td>{{nombreVuelo}}</td>
@@ -51,6 +82,7 @@
             </table>
             <button class="w3-text-white w3-button w3-block w3-margin-top " style="background-color: #5B5B75;">Reservar</button>
         </form>
+        <button class="w3-text-white w3-button w3-block w3-margin-top " style="background-color: #5B5B75;"><a href="/vuelos/show">volver</a></button>
     </div>
 
 </body>

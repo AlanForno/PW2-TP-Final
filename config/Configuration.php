@@ -22,6 +22,11 @@ class Configuration{
         require_once ("controller/reservaController.php");
         return new reservaController($this->createReservaModel(),$this->createPrinter(), $this->createManejoDeSession());
     }
+    public function  createPerfilController()
+    {
+        require_once ("controller/perfilController.php");
+        return new perfilController($this->createPerfilModel(),$this->createPrinter(), $this->createManejoDeSession(), $this->createPDFPrinter());
+    }
     public function  createVuelosController()
     {
         require_once ("controller/vuelosController.php");
@@ -58,6 +63,11 @@ class Configuration{
         require_once("model/LoginModel.php");
         $database=$this->getDatabase();
         return new LoginModel($database);
+    }
+    private  function createPerfilModel(){
+        require_once("model/PerfilModel.php");
+        $database=$this->getDatabase();
+        return new PerfilModel($database);
     }
     private  function createResultadoModel(){
         require_once("model/ResultadoModel.php");
@@ -114,6 +124,11 @@ class Configuration{
     private function createManejoDeSession(){
         require_once ("helpers/ManejoDeSession.php");
         return new ManejoDeSession();
+    }
+
+    private function createPDFPrinter(){
+        require_once ("helpers/PDFPrinter.php");
+        return new PDFPrinter();
     }
 
     private function createMailer(){

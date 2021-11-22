@@ -30,7 +30,6 @@
             $dompdf->render();
             return $dompdf->output();
         }
-
     }
 
 ?>

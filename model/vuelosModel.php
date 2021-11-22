@@ -7,18 +7,40 @@
      }
      public function obtenerVuelos(){
          $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id join `origen` as o on vuelo.origen=o.id join `destinos`  as d on vuelo.destino=d.id";
-
          return $this->database->query($sql);
-
      }
      public function obtenerVuelosPorId($idVuelo){
         $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id join `origen` as o on vuelo.origen=o.id join `destinos`  as d on vuelo.destino=d.id where idVuelo='$idVuelo'";
          return $this->database->query($sql);
      }
+
+     //         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+     //        echo substr(str_shuffle($permitted_chars), 0, 16);
+     // Para la generacion de codigos alfanumericos
+
+     public function obtenerDestinos(){
+         $sql="select * from `destinos` ";
+         return $this->database->query($sql);
+     }
+     public function obtenerOrigenes(){
+         $sql="select * from `origen` ";
+         return $this->database->query($sql);
+     }
+     public function obtenerAeronaves(){
+         $sql="select * from `aeronave` ";
+         return $this->database->query($sql);
+     }
+     public function obtenerTipos(){
+         $sql="select distinct tipo from aeronave";
+         return $this->database->query($sql);
+     }
+     public function obtenerFechas(){
+         $sql="select distinct fecha from vuelo";
+         return $this->database->query($sql);
+     }
+
      public function procesarReserva($idVuelo,$idUsuario,$asiento,$cabina){
-         //return $this->chequearDisponibiladDeAsiento($idVuelo,$asiento,$cabina);
-         //return $this->chequearCompatibilidadDeTipo($idUsuario,$idVuelo);
-         //return$this->chequearCapacidad($idVuelo);
+
          $sql="select idAeronave from `vuelo` where idVuelo='$idVuelo'";
          $idAeronave=$this->database->query($sql);
          foreach ($idAeronave as $id){
@@ -118,6 +140,20 @@
             }
         }
         return true;
+     }
+     public function getVuelosFiltradosPor($origen,$destino,$fecha){
+
+         $SQL = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id join `origen` as o on vuelo.origen=o.id join `destinos`  as d on vuelo.destino=d.id where vuelo.origen='$origen'  OR vuelo.destino='$destino' OR vuelo.fecha = '$fecha'";
+         return $this->database->query($SQL);
+     }
+     public function agregarReservaEnEspera($idVuelo,$idUsuario){
+         $sql="select idAeronave from `vuelo` where idVuelo='$idVuelo'";
+         $idAeronave=$this->database->query($sql);
+         foreach ($idAeronave as $id){
+             $idAeronave=$id["idAeronave"];
+         }
+         $sql="INSERT INTO `reservavuelo` (`idUsuario`, `idVuelo`,`aeronave`,`enEspera`) VALUES ('$idUsuario', '$idVuelo','$idAeronave',true)";
+         $this->database->insert($sql);
      }
 
      public function ProcesarPdfReserva($idVuelo){

@@ -1,7 +1,5 @@
 {{>header}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="../public/css/estilos.css">
-<link rel="stylesheet" href="../public/css/estilos-login.css">
 <!-- Fuentes -->
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
@@ -9,8 +7,18 @@
     {{#error}}
         <div>
             <div class="w3-panel w3-red w3-display-container w3-round" style="width: 30%; margin-left: auto; margin-right: auto">
-                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
+                <span onclick="this.parentElement.style.display='none'" class="w3-button  w3-hover-light-grey w3-round w3-display-right">X</span>
                 <p class="w3-center">las opciones que selecciono no estan disponibles, disculpe las molestias.</p>
+
+            </div>
+            <div class="w3-container w3-center w3-panel w3-red w3-display-container w3-round" style="width: 30%; margin-left: auto; margin-right: auto">
+                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-round-xlarge w3-display-right w3-hover-light-grey">X</span>
+                <p class="w3-center">desea anotarse en la lista de espera?</p>
+                {{#vuelo}}
+                 <a href="/vuelos/agregarReservaEnEspera?id={{idVuelo}}"><button class="w3-button w3-round-xlarge w3-hover-red  w3-hover-light-grey">SI</button></a>
+                {{/vuelo}}
+                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-round-xlarge w3-hover-light-grey">NO</span>
+
 
             </div>
         </div>
@@ -60,7 +68,7 @@
                 </select></td>
             </form>
 
-                <td><input type="radio" name="idVuelo" value="{{idVuelo}}"class="w3-text-white w3-button w3-block w3-margin-top "><p>RESERVAR</p></a></td>
+                <td><input type="radio" name="idVuelo" value="{{idVuelo}}"class="w3-text-white w3-button w3-block w3-margin-top " style="background-color: #5B5B75;"><p>RESERVAR</p></a></td>
             </tr>
             {{/vuelo}}
         </table>
