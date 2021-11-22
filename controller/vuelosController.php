@@ -17,6 +17,9 @@ class vuelosController
 
        public function show(){
         $data=$this->sesion->obtenerPermisos();
+        if(isset($_GET['exito'])){
+            $data["exito"]=$_GET['exito'];
+        }
         $data["vuelos"]=$this->model->obtenerVuelos();
         $data["origen"]=$this->model->obtenerOrigenes();
 
@@ -52,7 +55,7 @@ class vuelosController
             $data["error"]=true;
             echo $this->printer->render("view/reservaVuelo.html", $data);
         }else {
-            echo "RESERVASTE EL PASAJE";
+            header("location:http://localhost/vuelos?exito=true");
             // aca poner lo que se haga con el pdf .
         }
     }
@@ -70,5 +73,6 @@ class vuelosController
     public function agregarReservaEnEspera(){
         $idVuelo=$_GET['id'];
         $this->model->agregarReservaEnEspera($idVuelo,$_SESSION['id']);
+        header("location:http://localhost/vuelos?exito=true");
     }
 }

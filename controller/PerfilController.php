@@ -17,10 +17,14 @@ class PerfilController
     }
 
     public function show(){
+        if(isset($_GET['exito'])){
+        }
         $this->data=$this->sesion->obtenerPermisos();
         $this->cargarDatos();
         if($this->data["sesion"]){
-
+            if(isset($_GET['exito'])){
+                $this->data["exito"]=$_GET['exito'];
+            }
             echo $this->printer->render( "view/perfil.html", $this->data);
         }else{
             header("Location: /home");
@@ -43,15 +47,14 @@ class PerfilController
 
     public function acreditarPago(){
 
-        $this->model->acreditarPago($_POST["idReserva"]);
         $this->data=$this->sesion->obtenerPermisos();
-        $this->cargarDatos();
-
-        //Falta validar los datos y enviar un mensaje de exito o error
-
         if($this->data["sesion"]){
+
+            $this->model->acreditarPago($_GET["idReserva"]);
+        $this->cargarDatos();
+        //Falta validar los datos y enviar un mensaje de exito o error
             echo $this->printer->render( "view/perfil.html", $this->data);
-            die();
+
         }else{
             header("Location: /home");
         }
@@ -68,10 +71,12 @@ class PerfilController
         $asiento=$_GET['asiento'];
         $idVuelo=$_GET['idVuelo'];
         $this->model->darDeBajaReserva($idReserva,$cabina,$aeronave,$asiento,$idVuelo);
+        header("location:http://localhost/perfil?exito=true");
     }
     public function darDeBajaReservaEnEspera(){
         $idReserva=$_GET['id'];
         $this->model->darDeBajaReservaEnEspera($idReserva);
+        header("location:http://localhost/perfil?exito=true");
     }
 
 }

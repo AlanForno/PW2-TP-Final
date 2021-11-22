@@ -18,28 +18,29 @@ class PerfilModel
     }
 
     public function obtenerReservasAcreditadas($id){
-        $sql='SELECT * FROM reservavuelo JOIN vuelo ON vuelo.idVuelo=reservavuelo.idVuelo WHERE reservavuelo.idUsuario='.$id.' AND Acreditada=true';
+        $sql='SELECT * FROM reservavuelo JOIN vuelo ON vuelo.idVuelo=reservavuelo.idVuelo join origen on origen.id=vuelo.origen join destinos on destinos.id=vuelo.destino  WHERE reservavuelo.idUsuario='.$id.' AND Acreditada=true';
         $resultado=$this->database->query($sql);
         return $resultado;
     }
     public function obtenerReservasNoAcreditadas($id){
-        $sql='SELECT * FROM reservavuelo JOIN vuelo ON vuelo.idVuelo=reservavuelo.idVuelo WHERE reservavuelo.idUsuario='.$id.' AND Acreditada=false and enEspera=false';
+       // "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id join `origen` as o on vuelo.origen=o.id join `destinos`  as d on vuelo.destino=d.id where idVuelo='$idVuelo'"
+        $sql='SELECT * FROM reservavuelo JOIN vuelo ON vuelo.idVuelo=reservavuelo.idVuelo join origen on origen.id=vuelo.origen join destinos on destinos.id=vuelo.destino  WHERE reservavuelo.idUsuario='.$id.' AND Acreditada=false and enEspera=false';
         $resultado=$this->database->query($sql);
         return $resultado;
     }
     public function obtenerReservasEnEspera($id){
-        $sql='SELECT * FROM reservavuelo JOIN vuelo ON vuelo.idVuelo=reservavuelo.idVuelo WHERE reservavuelo.idUsuario='.$id.' AND Acreditada=false and enEspera=true';
+        $sql='SELECT * FROM reservavuelo JOIN vuelo ON vuelo.idVuelo=reservavuelo.idVuelo  join origen on origen.id=vuelo.origen join destinos on destinos.id=vuelo.destino WHERE reservavuelo.idUsuario='.$id.'  AND Acreditada=false and enEspera=true';
         $resultado=$this->database->query($sql);
         return $resultado;
     }
 
     public function acreditarPago($id){
-        $sql='UPDATE `reservavuelo` SET `Acreditada` = 1 WHERE `reservavuelo`.`id` = '.$id;
+        $sql="UPDATE `reservavuelo` SET `Acreditada` = 1 WHERE `idReserva` = '$id'";
         $this->database->insert($sql);
     }
     public function darDeBajaReserva($idReserva,$cabina,$aeronave,$asiento,$idVuelo){
 
-        $sql="delete from `reservavuelo` WHERE `id` = '$idReserva'";
+        $sql="delete from `reservavuelo` WHERE `idReserva` = '$idReserva'";
         $this->database->insert($sql);
         $sql="update aeronave set $cabina=$cabina+1 where id='$aeronave'";
         $this->database->insert($sql);
@@ -49,7 +50,7 @@ class PerfilModel
     }
     public function darDeBajaReservaEnEspera($idReserva){
 
-        $sql="delete from `reservavuelo` WHERE `id` = '$idReserva'";
+        $sql="delete from `reservavuelo` WHERE `idReserva` = '$idReserva'";
         $this->database->insert($sql);
     }
     public function consultarListaDeEspera($aeronave,$cabina,$asiento,$idVuelo){
