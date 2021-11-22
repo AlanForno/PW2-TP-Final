@@ -8,12 +8,14 @@ class PerfilController
     private $sesion;
     private $data;
     private $PDFPrinter;
+    private $mail;
 
-    public function __construct($model, $printer, $sesion, $PDFPrinter){
+    public function __construct($model, $printer, $sesion, $PDFPrinter, $mail){
         $this->model = $model;
         $this->printer = $printer;
         $this->sesion = $sesion;
         $this->PDFPrinter = $PDFPrinter;
+        $this->mail = $mail;
     }
 
     public function show(){
@@ -58,8 +60,15 @@ class PerfilController
     }
 
     public function generarComprobante(){
-        $id=$_GET["id"];
-        $this->PDFPrinter->render("HOLA IAN - ".$id, "documento.pdf", 1);
+        $id=$_SESSION["id"];
+        $attachment = $this->model->CargaDatosDeComprobante($id);
+        $data = $this->model->obtenerUsuario($id);
+        $body ="Boarding Pass";
+
+        $this->mail->EnviarMailConArchivo($data[0]["email"],"Boarding Pass",
+        $body, $data[0]["usuario"] ,$attachment, "Boarding Pass.pdf");
+        $this->show();
+
     }
     public function darDeBajaReserva(){
         $idReserva=$_GET['id'];
