@@ -156,4 +156,28 @@
          $this->database->insert($sql);
      }
 
+     public function ProcesarPdfReserva($idVuelo){
+        $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id 
+        join `origen` as o on vuelo.origen=o.id 
+        join `destinos`  as d on vuelo.destino=d.id where idVuelo='$idVuelo'";
+        $data = $this->database->query($sql);
+        
+        $PDFPrinter = new PDFPrinter();
+        
+        $html ="<h1>Comprobante reserva de vuelo</h1><br>
+             Se reservo el vuelo: ".$data[0]["nombreVuelo"].
+             "<br> Con origen en: ".$data[0]["origen"].
+             " y destino: ".$data[0]["destino"]." , duracion: ".
+            $data[0]["duracion"]." horas <br>
+            Valor: $".$data[0]["precio"];
+
+        return $PDFPrinter->generarOutput($html);
+     }
+
+     public function datosUsuario($idUsuario){
+        $sql="select * from usuario where usuario.id=$idUsuario";
+        $data = $this->database->query($sql);
+        return $data;
+     }
+
  }
