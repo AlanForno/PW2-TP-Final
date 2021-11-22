@@ -30,7 +30,7 @@ class Configuration{
     public function  createVuelosController()
     {
         require_once ("controller/vuelosController.php");
-        return new vuelosController($this->createVuelosModel(),$this->createPrinter(), $this->createManejoDeSession());
+        return new vuelosController($this->createVuelosModel(),$this->createPrinter(), $this->createManejoDeSession(), $this->createMailer());
     }
     public function  createLoginController()
     {
@@ -92,6 +92,7 @@ class Configuration{
     }
     private  function createVuelosModel(){
         require_once("model/vuelosModel.php");
+        require_once ('helpers/PDFPrinter.php');
         $database=$this->getDatabase();
         return new vuelosModel($database);
     }
