@@ -14,6 +14,8 @@ class ManejoDeSession{
             $data["sesion"]=true;
             if($_SESSION["rol"]=="admin"){
                 $data["admin"]=true;
+            }else{
+                $data["cliente"]=true;
             }
         }
 

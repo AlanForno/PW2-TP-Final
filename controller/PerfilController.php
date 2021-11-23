@@ -53,6 +53,7 @@ class PerfilController
 
             if($this->validarDatos($_POST["cardname"], $_POST["cardnumber"], $_POST["expmonth"], $_POST["expyear"], $_POST["cvv"] )){
                 $this->model->acreditarPago($_POST["idReserva"]);
+                $this->generarComprobante($_POST["idReserva"]);
                 $this->data["exitoCompra"]=true;
             }else{
                 $this->data["errorCompra"]=true;
@@ -65,16 +66,22 @@ class PerfilController
         }
     }
 
-    public function generarComprobante(){
+    public function generarComprobante($idReserva){
         $idUsuario=$_SESSION["id"];
-        $idReserva=$_GET["idReserva"];
         $attachment = $this->model->CargaDatosDeComprobante($idUsuario,$idReserva);
         $data = $this->model->obtenerUsuario($idUsuario);
         $body ="Boarding Pass";
 
         $this->mail->EnviarMailConArchivo($data[0]["email"],"Boarding Pass",
         $body, $data[0]["usuario"] ,$attachment, "Boarding Pass.pdf");
-        $this->show();
+
+    }
+
+    public function imprimirBoardingPass(){
+        //$idReserva= $_GET["idReserva"];
+        //$idUsuario=$_SESSION["id"];
+        //$this->model->CargaDatosDeComprobante($idUsuario,$idReserva);
+
 
     }
     public function darDeBajaReserva(){
