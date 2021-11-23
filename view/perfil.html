@@ -207,14 +207,14 @@
         <div class="w3-table w3-bordered w3-centered w3-topbar w3-border-top w3-border-bottom">
             <table class="w3-table w3-bordered w3-centered ">
                 <h4>Aqui puede ver sus reservas En ESPERA y administrarlas</h4>
-                <td>
+                <tr>
 
                     <th>Vuelo</th>
                     <th>Origen</th>
                     <th>Destino</th>
                     <th>Fecha</th>
                     <th>Dar de Baja</th>
-                </td>
+                </tr>
 
                 {{#reservasEnEspera}}
                 <tr>
@@ -224,8 +224,7 @@
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
                     <td>{{fecha}}</td>
-
-                    <td><a href="/perfil/darDeBajaReservaEnEspera?id={{id}}"><i class="fas fa-minus-circle"></i></a></td>
+                    <td><a href="/perfil/darDeBajaReservaEnEspera?id={{idReserva}}"><i class="fas fa-minus-circle"></i></a></td>
 
 
                 </tr>
