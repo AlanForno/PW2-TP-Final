@@ -85,7 +85,7 @@ span.price {
     }
 }
 
-#pago-div span{
-    color: rgba(255, 0, 0, 0.7);
+.error{
+    color: rgb(255, 0, 0);
 }
 

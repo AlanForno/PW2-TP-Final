@@ -27,6 +27,24 @@
         </div>
     </div>
 {{/exito}}
+{{#errorCompra}}
+<div>
+    <div class="w3-panel w3-red w3-display-container w3-round" style="width: 30%; margin-left: auto; margin-right: auto">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
+        <p class="w3-center">SUCEDIO UN ERROR AL PROCESAR EL PAGO, VUELVA A INTENTARLO MAS TARDE PORFAVOR</p>
+
+    </div>
+</div>
+{{/errorCompra}}
+{{#exitoCompra}}
+<div>
+    <div class="w3-panel w3-green w3-display-container w3-round" style="width: 30%; margin-left: auto; margin-right: auto">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
+        <p class="w3-center">SU PAGO FUE REALIZADO CON EXITO</p>
+
+    </div>
+</div>
+{{/exitoCompra}}
 <div id="perfil-div" class="w3-container w3-card w3-content w3-center w3-padding-64 w3-text-black w3-2020-navy-blazer w3-margin-top">
 
     {{#infoUsuario}}
@@ -114,33 +132,36 @@
                                                     <i class="fa fa-cc-mastercard" style="color:red;"></i>
                                                     <i class="fa fa-cc-discover" style="color:orange;"></i>
                                                 </div>
-                                                <label for="cname">Name on Card</label>
-                                                <input type="text" id="cname" name="cardname" placeholder="John More Doe" required>
-                                                <span>(obligatorio)</span>
-                                                <label for="ccnum">Credit card number</label>
-                                                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
-                                                <span>(obligatorio)</span>
-                                                <label for="expmonth">Exp Month</label>
-                                                <input type="text" id="expmonth" name="expmonth" placeholder="September" required>
-                                                <span>(obligatorio)</span>
+
+                                                <label for="cname">Name on Card *</label>
+                                                <input type="text" id="cname" name="cardname" placeholder="John More Doe" >
+                                                <span class="error" id="cname-error" style="font-weight: bolder; visibility: hidden">(incorrecto, no se admiten numeros)</span>
+                                                <label for="ccnum">Credit card number *</label>
+                                                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" >
+                                                <span class="error" id="ccnum-error" style="font-weight: bolder; visibility: hidden">(incorrecto, deben ser 16 digitos)</span>
+                                                <label for="expmonth">Exp Month *</label>
+                                                <input type="text" id="expmonth" name="expmonth" placeholder="September" >
+                                                <span class="error" id="expmonth-error" style="font-weight: bolder; visibility: hidden">(incorrecto, no se admiten numeros)</span>
+
 
                                                 <div class="row">
                                                     <div class="col-50">
-                                                        <label for="expyear">Exp Year</label>
-                                                        <input type="text" id="expyear" name="expyear" placeholder="2018" required>
-                                                        <span>(obligatorio)</span>
+                                                        <label for="expyear">Exp Year *</label>
+                                                        <input type="text" id="expyear" name="expyear" placeholder="2018" >
+                                                        <span class="error" id="expyear-error" style="font-weight: bolder; visibility: hidden">(incorrecto, no se adminten letras)</span>
                                                     </div>
                                                     <div class="col-50">
-                                                        <label for="cvv">CVV</label>
-                                                        <input type="text" id="cvv" name="cvv" placeholder="352" required>
-                                                        <span>(obligatorio)</span>
+                                                        <label for="cvv">CVV *</label>
+                                                        <input type="text" id="cvv" name="cvv" placeholder="352" >
+                                                        <span class="error" id="cvv-error" style="font-weight: bolder; visibility: hidden">(incorrecto, deben ser 3 digitos)</span>
                                                     </div>
+
                                                 </div>
                                             </div>
 
                                         </div>
                                         <label>
-                                            <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+                                            <span class="error" style="font-weight: bolder">* obligatorio</span>
                                         </label>
 
                                         <footer class="w3-container w3-light-blue w3-center">
@@ -219,89 +240,9 @@
 
 </div>
 </body>
-<script src="third-party/jquery-3.6.0.min.js" type="text/javascript"></script>
-<script src="../third-party/jquery-3.6.0.min.js" type="text/javascript"></script>
-<script>
-    /*$(document).ready(function() {
-        $("#pago-form").validate({
-            rules: {
-                cname : {
-                    required: true
-                },
-                cardnumber: {
-                    required: true,
-                    number: true,
-                    min: 16
-                },
-                expmonth: {
-                    required: true
-                },
-                expyear: {
-                    required: true,
-                    number: true,
-                    min: 4,
-                    max: 4
-                    },
-                cvv: {
-                    required: true,
-                    min: 3,
-                    max: 3
-                }
-            },
-            messages : {
-                cardnumber: {
-                    minlength: "Name should be at least 16 characters"
-                }
-            }
-        });
-    });
-
-    $(document).ready(function() {
-        $("#basic-form").validate({
-            rules: {
-                name : {
-                    required: true,
-                    minlength: 3
-                },
-                age: {
-                    required: true,
-                    number: true,
-                    min: 18
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-                weight: {
-                    required: {
-                        depends: function(elem) {
-                            return $("#age").val() > 50
-                        }
-                    },
-                    number: true,
-                    min: 0
-                }
-            },
-            messages : {
-                name: {
-                    minlength: "Name should be at least 3 characters"
-                },
-                age: {
-                    required: "Please enter your age",
-                    number: "Please enter your age as a numerical value",
-                    min: "You must be at least 18 years old"
-                },
-                email: {
-                    email: "The email should be in the format: abc@domain.tld"
-                },
-                weight: {
-                    required: "People with age over 50 have to enter their weight",
-                    number: "Please enter your weight as a numerical value"
-                }
-            }
-        });
-    });
-*/
-</script>
+<script src="../public/js/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script src="public/js/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script src="../public/js/pago-validaciones.js" type="text/javascript"></script>
+<script src="public/js/pago-validaciones.js" type="text/javascript"></script>
 {{>footer}}
 
