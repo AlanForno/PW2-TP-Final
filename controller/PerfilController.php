@@ -68,7 +68,7 @@ class PerfilController
 
     public function generarComprobante($idReserva){
         $idUsuario=$_SESSION["id"];
-        $attachment = $this->model->CargaDatosDeComprobante($idUsuario,$idReserva, 0); /**FALTA $OPCIONES */
+        $attachment = $this->model->CargaDatosDeComprobante($idUsuario,$idReserva, 0); 
         $data = $this->model->obtenerUsuario($idUsuario);
         $body ="Boarding Pass";
 
