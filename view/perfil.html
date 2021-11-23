@@ -65,7 +65,7 @@
             <table class="w3-table w3-bordered w3-centered">
                 <h4>Aqui puede ver sus reservas no acreditadas y pagarlas o darlas de baja</h4>
                 <tr>
-
+                    <th>Cod</th>
                     <th>Vuelo</th>
                     <th>Origen</th>
                     <th>Destino</th>
@@ -75,6 +75,7 @@
                 </tr>
                 {{#reservasNoAcreditadas}}
                 <tr>
+                    <td>{{codAlfanumerico}}</td>
                     <td>{{nombreVuelo}}</td>
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
@@ -182,7 +183,7 @@
             <table class="w3-table w3-bordered w3-centered ">
                 <h4>Aqui puede ver sus reservas acreditadas y administrarlas</h4>
                 <tr>
-
+                    <th>Cod</th>
                     <th>Vuelo</th>
                     <th>Origen</th>
                     <th>Destino</th>
@@ -193,7 +194,7 @@
                 {{#reservasAcreditadas}}
                 <tr>
 
-
+                    <td>{{codAlfanumerico}}</td>
                     <td>{{nombreVuelo}}</td>
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
@@ -208,7 +209,7 @@
             <table class="w3-table w3-bordered w3-centered ">
                 <h4>Aqui puede ver sus reservas En ESPERA y administrarlas</h4>
                 <tr>
-
+                    <th>Cod</th>
                     <th>Vuelo</th>
                     <th>Origen</th>
                     <th>Destino</th>
@@ -219,7 +220,7 @@
                 {{#reservasEnEspera}}
                 <tr>
 
-
+                    <td>{{codAlfanumerico}}</td>
                     <td>{{nombreVuelo}}</td>
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
