@@ -36,6 +36,7 @@ class AdminModel
         if(!$this->database->query($sql)){
             $sql= "INSERT INTO `vuelo` (`nombreVuelo`,`origen`,`destino`,`fecha`,`duracion`,`precio`,`idAeronave`) VALUES ('$nombreVuelo','$origen','$destino','$fecha','$duracion','$precio','$idAeronave')";
             $this->database->insert($sql);
+            return true; 
         }else{
             return false;
         }
