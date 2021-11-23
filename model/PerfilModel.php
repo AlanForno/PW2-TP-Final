@@ -12,7 +12,7 @@ class PerfilModel
     }
 
     public function obtenerUsuario($id){
-        $sql="SELECT * FROM usuario WHERE usuario.id=$id";
+        $sql="SELECT * FROM usuario WHERE usuario.id=".$id;
         $resultado=$this->database->query($sql);
         return $resultado;
     }
@@ -73,15 +73,18 @@ class PerfilModel
         }
     }
 
-    public function CargaDatosDeComprobante($idUsuario,$idReserva){
+    public function CargaDatosDeComprobante($idUsuario,$idReserva, $opcion){
         
         $PDFPrinter = new PDFPrinter();
         $sql = "select * from `vuelo` join `aeronave` as a on vuelo.idAeronave=a.id 
         join `origen` as o on vuelo.origen=o.id 
         join `destinos`  as d on vuelo.destino=d.id 
         join `reservavuelo` as r on vuelo.idVuelo=r.idVuelo 
-        where r.idUsuario='$idUsuario' and r.codAlfanumerico='$idReserva'";
+        where r.idUsuario='$idUsuario' and r.idReserva='$idReserva'";
+        echo $sql;
         $data=$this->database->query($sql);
+        echo "<br>";
+        echo var_dump($data);
 
         /** CODIGO QR  */
         $tempDir = 'public/';
@@ -112,6 +115,10 @@ class PerfilModel
         "<br>Destino: ".$data[0]["destino"].
         "<br>Duracion: ".$data[0]["duracion"]." horas 
         <br>Valor Acreditado: $".$data[0]["precio"];
-        return $PDFPrinter->generarOutput($html);
+        if($opcion == 0){
+            return $PDFPrinter->generarOutput($html);
+        }else{
+            $PDFPrinter->render($html, "BoardinPass.pdf", 1);
+        }
     }
 }

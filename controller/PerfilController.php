@@ -51,9 +51,14 @@ class PerfilController
         $this->data=$this->sesion->obtenerPermisos();
         if($this->data["sesion"]){
 
-            $this->model->acreditarPago($_GET["idReserva"]);
-        $this->cargarDatos();
-        //Falta validar los datos y enviar un mensaje de exito o error
+            if($this->validarDatos($_POST["cardname"], $_POST["cardnumber"], $_POST["expmonth"], $_POST["expyear"], $_POST["cvv"] )){
+                $this->model->acreditarPago($_POST["idReserva"]);
+                $this->generarComprobante($_POST["idReserva"]);
+                $this->data["exitoCompra"]=true;
+            }else{
+                $this->data["errorCompra"]=true;
+            }
+            $this->cargarDatos();
             echo $this->printer->render( "view/perfil.html", $this->data);
 
         }else{
@@ -61,16 +66,22 @@ class PerfilController
         }
     }
 
-    public function generarComprobante(){
+    public function generarComprobante($idReserva){
         $idUsuario=$_SESSION["id"];
-        $idReserva=$_GET["idReserva"];
         $attachment = $this->model->CargaDatosDeComprobante($idUsuario,$idReserva);
         $data = $this->model->obtenerUsuario($idUsuario);
         $body ="Boarding Pass";
 
         $this->mail->EnviarMailConArchivo($data[0]["email"],"Boarding Pass",
         $body, $data[0]["usuario"] ,$attachment, "Boarding Pass.pdf");
-        $this->show();
+
+    }
+
+    public function imprimirBoardingPass(){
+        //$idReserva= $_GET["idReserva"];
+        //$idUsuario=$_SESSION["id"];
+        //$this->model->CargaDatosDeComprobante($idUsuario,$idReserva);
+
 
     }
     public function darDeBajaReserva(){
@@ -80,12 +91,39 @@ class PerfilController
         $asiento=$_GET['asiento'];
         $idVuelo=$_GET['idVuelo'];
         $this->model->darDeBajaReserva($idReserva,$cabina,$aeronave,$asiento,$idVuelo);
-        header("location:http://localhost/perfil?exito=true");
+        header("location: /perfil?exito=true");
     }
     public function darDeBajaReservaEnEspera(){
         $idReserva=$_GET['id'];
         $this->model->darDeBajaReservaEnEspera($idReserva);
-        header("location:http://localhost/perfil?exito=true");
+        header("location: /perfil?exito=true");
     }
+
+    private function validarDatos($cardname, $cardnumber, $expmonth, $expyear, $cvv)
+    {
+        $validacion=0;
+        if(strcmp($cardname, "Agustin Martinez") == 0){
+            $validacion++;
+        }
+        if($cardnumber == 5031755734538923){
+            $validacion++;
+        }
+        if(strcmp($expmonth, "Diciembre") == 0){
+            $validacion++;
+        }
+        if($expyear == 2025){
+            $validacion++;
+        }
+        if($cvv == 590){
+            $validacion++;
+        }
+
+        if ($validacion == 5){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 }

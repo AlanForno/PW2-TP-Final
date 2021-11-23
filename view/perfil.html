@@ -1,14 +1,13 @@
 {{>header}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link rel="stylesheet" href="public/css/estilos-general.css">
-<link rel="stylesheet" href="../public/css/estilos-general.css">
+<link rel="stylesheet" href="public/css/pagoEstilos.css">
+<link rel="stylesheet" href="../public/css/pagoEstilos.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2018.css">
 
 <!-- Fuentes -->
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="public/css/pagoEstilos.css">
 <body>
 {{#error}}
 <div>
@@ -28,6 +27,24 @@
         </div>
     </div>
 {{/exito}}
+{{#errorCompra}}
+<div>
+    <div class="w3-panel w3-red w3-display-container w3-round" style="width: 30%; margin-left: auto; margin-right: auto">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
+        <p class="w3-center">SUCEDIO UN ERROR AL PROCESAR EL PAGO, VUELVA A INTENTARLO MAS TARDE PORFAVOR</p>
+
+    </div>
+</div>
+{{/errorCompra}}
+{{#exitoCompra}}
+<div>
+    <div class="w3-panel w3-green w3-display-container w3-round" style="width: 30%; margin-left: auto; margin-right: auto">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-red w3-round-xlarge w3-display-right">X</span>
+        <p class="w3-center">SU PAGO FUE REALIZADO CON EXITO</p>
+
+    </div>
+</div>
+{{/exitoCompra}}
 <div id="perfil-div" class="w3-container w3-card w3-content w3-center w3-padding-64 w3-text-black w3-2020-navy-blazer w3-margin-top">
 
     {{#infoUsuario}}
@@ -66,24 +83,25 @@
                     <td><a href="/perfil/darDeBajaReserva?id={{idReserva}}&cabina={{cabina}}&asiento={{asiento}}&aeronave={{aeronave}}&idVuelo={{idVuelo}}"><i class="fas fa-minus-circle"></i></a></td>
                 </tr>
 
-                <div id="pago" class="w3-modal w3-padding-16">
-                    <div class="w3-modal-content w3-animate-top w3-card-4" style="width: 60%; margin-top: 10%">
+                <div id="pago" class="w3-modal w3-padding-16" >
+                    <div class="w3-modal-content w3-animate-top w3-card-4" style="width: 60%; margin-top: 10%;">
                         <header class="w3-container w3-blue">
                         <span onclick="document.getElementById('pago').style.display='none'"
                               class="w3-button w3-display-topright">&times;</span>
                             <h4>Introduzca los datos para acreditar el pago</h4>
                         </header>
                         <!-- Form del Pago -->
-                        <div class="row">
+                        <div id="pago-div" class="row">
                             <div class="col-75">
                                 <div class="container">
-                                    <form  action="/perfil/acreditarPago" method="get"
+
+                                    <form id="pago-form" action="/perfil/acreditarPago" method="post"
                                            enctype="application/x-www-form-urlencoded">
 
                                         <div class="row">
                                             <div class="col-50">
                                                 <h3>Billing Address</h3>
-                                                <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                                                <label for="fname"><i class="fa fa-user"></i> Full Name </label>
                                                 <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
                                                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
                                                 <input type="text" id="email" name="email" placeholder="john@example.com">
@@ -114,28 +132,36 @@
                                                     <i class="fa fa-cc-mastercard" style="color:red;"></i>
                                                     <i class="fa fa-cc-discover" style="color:orange;"></i>
                                                 </div>
-                                                <label for="cname">Name on Card</label>
-                                                <input type="text" id="cname" name="cardname" placeholder="John More Doe">
-                                                <label for="ccnum">Credit card number</label>
-                                                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-                                                <label for="expmonth">Exp Month</label>
-                                                <input type="text" id="expmonth" name="expmonth" placeholder="September">
+
+                                                <label for="cname">Name on Card *</label>
+                                                <input type="text" id="cname" name="cardname" placeholder="John More Doe" >
+                                                <span class="error" id="cname-error" style="font-weight: bolder; visibility: hidden">(incorrecto, no se admiten numeros)</span>
+                                                <label for="ccnum">Credit card number *</label>
+                                                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" >
+                                                <span class="error" id="ccnum-error" style="font-weight: bolder; visibility: hidden">(incorrecto, deben ser 16 digitos)</span>
+                                                <label for="expmonth">Exp Month *</label>
+                                                <input type="text" id="expmonth" name="expmonth" placeholder="September" >
+                                                <span class="error" id="expmonth-error" style="font-weight: bolder; visibility: hidden">(incorrecto, no se admiten numeros)</span>
+
 
                                                 <div class="row">
                                                     <div class="col-50">
-                                                        <label for="expyear">Exp Year</label>
-                                                        <input type="text" id="expyear" name="expyear" placeholder="2018">
+                                                        <label for="expyear">Exp Year *</label>
+                                                        <input type="text" id="expyear" name="expyear" placeholder="2018" >
+                                                        <span class="error" id="expyear-error" style="font-weight: bolder; visibility: hidden">(incorrecto, no se adminten letras)</span>
                                                     </div>
                                                     <div class="col-50">
-                                                        <label for="cvv">CVV</label>
-                                                        <input type="text" id="cvv" name="cvv" placeholder="352">
+                                                        <label for="cvv">CVV *</label>
+                                                        <input type="text" id="cvv" name="cvv" placeholder="352" >
+                                                        <span class="error" id="cvv-error" style="font-weight: bolder; visibility: hidden">(incorrecto, deben ser 3 digitos)</span>
                                                     </div>
+
                                                 </div>
                                             </div>
 
                                         </div>
                                         <label>
-                                            <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+                                            <span class="error" style="font-weight: bolder">* obligatorio</span>
                                         </label>
 
                                         <footer class="w3-container w3-light-blue w3-center">
@@ -172,7 +198,7 @@
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
                     <td>{{fecha}}</td>
-                    <td><a href="/perfil/generarComprobante?idReserva={{idReserva}}"><i class="fas fa-file-alt"></i></a></td>
+                    <td><a href="/perfil/imprimirBoardingPass?idReserva={{idReserva}}"><i class="fas fa-file-alt"></i></a></td>
                 </tr>
                 {{/reservasAcreditadas}}
 
@@ -213,7 +239,10 @@
     {{/infoUsuario}}
 
 </div>
-
-
-{{>footer}}
 </body>
+<script src="../public/js/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script src="public/js/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script src="../public/js/pago-validaciones.js" type="text/javascript"></script>
+<script src="public/js/pago-validaciones.js" type="text/javascript"></script>
+{{>footer}}
+

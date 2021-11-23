@@ -61,7 +61,7 @@ class vuelosController
             $data = $this->model->datosUsuario($idUsuario);
             $this->mail->EnviarMailConArchivo($data[0]["email"],"Comprobante reserva",
                 "Comprobate de reserva del vuelo",$data[0]["usuario"] ,$attachment, "Comprobante reserva.pdf");
-            header("location:http://localhost/vuelos?exito=true");
+            header("location: /vuelos?exito=true");
         }
     }
     public function buscarVuelosFiltrados(){
@@ -78,6 +78,6 @@ class vuelosController
     public function agregarReservaEnEspera(){
         $idVuelo=$_GET['id'];
         $this->model->agregarReservaEnEspera($idVuelo,$_SESSION['id']);
-        header("location:http://localhost/vuelos?exito=true");
+        header("location: /vuelos?exito=true");
     }
 }
