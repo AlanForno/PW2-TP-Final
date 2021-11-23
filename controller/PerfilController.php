@@ -68,7 +68,7 @@ class PerfilController
 
     public function generarComprobante($idReserva){
         $idUsuario=$_SESSION["id"];
-        $attachment = $this->model->CargaDatosDeComprobante($idUsuario,$idReserva);
+        $attachment = $this->model->CargaDatosDeComprobante($idUsuario,$idReserva, 0); 
         $data = $this->model->obtenerUsuario($idUsuario);
         $body ="Boarding Pass";
 
@@ -78,9 +78,9 @@ class PerfilController
     }
 
     public function imprimirBoardingPass(){
-        //$idReserva= $_GET["idReserva"];
-        //$idUsuario=$_SESSION["id"];
-        //$this->model->CargaDatosDeComprobante($idUsuario,$idReserva);
+        $idReserva= $_GET["idReserva"];
+        $idUsuario=$_SESSION["id"];
+        $this->model->CargaDatosDeComprobante($idUsuario,$idReserva, 1);
 
 
     }
