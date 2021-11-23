@@ -122,7 +122,7 @@
              return false;
          }
      }
-      private function chequearDisponibiladDeAsiento($idVuelo,$asiento,$cabina)
+      public function chequearDisponibiladDeAsiento($idVuelo,$asiento,$cabina)
      {
          $sql = "select asiento,cabina from `reservavuelo` where `idVuelo`='$idVuelo'";
             $result = $this->database->query($sql);

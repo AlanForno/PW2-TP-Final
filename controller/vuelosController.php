@@ -19,7 +19,7 @@ class vuelosController
 
        public function show(){
         $data=$this->sesion->obtenerPermisos();
-        if(isset($_GET['exito'])){
+        if(isset($_GET['exito'])&&isset($_SESSION['id'])){
             $data["exito"]=$_GET['exito'];
         }
         $data["vuelos"]=$this->model->obtenerVuelos();
@@ -55,6 +55,9 @@ class vuelosController
 
         if(!$this->model->procesarReserva($idVuelo,$idUsuario,$asiento,$cabina)){
             $data["error"]=true;
+            if(!$this->consultarDisponibleAsiento($idVuelo,$asiento,$cabina)){
+                $data["disponible"]=true;
+            }
             echo $this->printer->render("view/reservaVuelo.html", $data);
         }else {
             $attachment = $this->model->ProcesarPdfReserva($idVuelo);
@@ -79,5 +82,8 @@ class vuelosController
         $idVuelo=$_GET['id'];
         $this->model->agregarReservaEnEspera($idVuelo,$_SESSION['id']);
         header("location: /vuelos?exito=true");
+    }
+    private function consultarDisponibleAsiento($idVuelo,$asiento,$cabina){
+       return $this->model->chequearDisponibiladDeAsiento($idVuelo,$asiento,$cabina);
     }
 }
