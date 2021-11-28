@@ -64,14 +64,11 @@ class AdminModel
             foreach ($reserva as $reservaDatos){
 
                 $cabina=$reservaDatos['cabina'];
-                $asiento=$reservaDatos['asiento'];
                 $aeronave=$reservaDatos['aeronave'];
-                $idUsuario=$reservaDatos['idUsuario'];
                 $sql="update aeronave set $cabina=$cabina+1 where id='$aeronave'";
                 $this->database->insert($sql);
                 $sql="update aeronave set capacidad=capacidad+1 where id='$aeronave'";
                 $this->database->insert($sql);
-                //agregar el update a tabla mis reservas.
 
             }
             return $reserva;

@@ -10,8 +10,6 @@ class LoginModel
         $this->database = $database;
     }
 
-
-    /* METER VALIDACIONES Y DEMAS METODOS DE LOGIN*/
     public function logearUsuario($usuario,$password){
         $sql="SELECT * FROM usuario";
         $this->resultado=$this->database->query($sql);
@@ -38,8 +36,6 @@ class LoginModel
             $_SESSION["id"]=$usuarioRecorrido["id"];
             $_SESSION["rol"]=$usuarioRecorrido["rol"];
             $_SESSION["usuario"]=$usuarioRecorrido["usuario"];
-            //$_SESSION["id"]=$usuarioRecorrido["idUsuario"];
-            // en las tablas tengamos solo ID, en todos los identificadores
         }
     }
 

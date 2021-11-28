@@ -14,10 +14,6 @@
          return $this->database->query($sql);
      }
 
-     //         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-     //        echo substr(str_shuffle($permitted_chars), 0, 16);
-     // Para la generacion de codigos alfanumericos
-
      public function obtenerDestinos(){
          $sql="select * from `destinos` ";
          return $this->database->query($sql);
@@ -116,7 +112,7 @@
          foreach ($tipoUsuario as $tipoActual){
              $tipoUsuario=$tipoActual['tipoAceptado'];
          }
-         if(intval($tipoVuelo)== intval($tipoUsuario)||intval($tipoVuelo) <= intval($tipoUsuario)){
+         if(intval($tipoVuelo) <= intval($tipoUsuario)){
              return true;
          }else{
              return false;
@@ -185,6 +181,41 @@
         $sql="select * from usuario where usuario.id=$idUsuario";
         $data = $this->database->query($sql);
         return $data;
+     }
+
+     public function darDeBajaReserva($idReserva,$cabina,$aeronave,$asiento,$idVuelo){
+
+         $sql="delete from `reservavuelo` WHERE `idReserva` = '$idReserva'";
+         $this->database->insert($sql);
+         $sql="update aeronave set $cabina=$cabina+1 where id='$aeronave'";
+         $this->database->insert($sql);
+         $sql="update aeronave set capacidad=capacidad+1 where id='$aeronave'";
+         $this->database->insert($sql);
+         $this->consultarListaDeEspera($aeronave,$cabina,$asiento,$idVuelo);
+     }
+     public function darDeBajaReservaEnEspera($idReserva){
+
+         $sql="delete from `reservavuelo` WHERE `idReserva` = '$idReserva'";
+         $this->database->insert($sql);
+     }
+     public function consultarListaDeEspera($aeronave,$cabina,$asiento,$idVuelo){
+         $sql="select * from reservaVuelo where enEspera=true and idVuelo='$idVuelo'";
+         if($reservaEnEspera=$this->database->query($sql)){
+             $sql="update aeronave set $cabina=$cabina-1 where id='$aeronave'";
+             $this->database->insert($sql);
+             $sql="update aeronave set capacidad=capacidad-1 where id='$aeronave'";
+             $this->database->insert($sql);
+             foreach ($reservaEnEspera as $reserva) {
+                 $idReserva = $reserva['idReserva'];
+                 $sql = "update reservavuelo set cabina='$cabina' where idReserva='$idReserva'";
+                 $this->database->insert($sql);
+                 $sql = "update reservavuelo set asiento='$asiento'where idReserva='$idReserva'";
+                 $this->database->insert($sql);
+                 $sql = "update reservavuelo set enEspera=false where idReserva='$idReserva'";
+                 $this->database->insert($sql);
+                 break;
+             }
+         }
      }
 
  }

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function validarFormulario(evento) {
     evento.preventDefault();
     var regexpNumber = /^\d+$/;
-    var regexpString = /[a-zA-Z ]{5,254}/
+    var regexpString = /[a-zA-Z ]{3,254}/
     var x=0;
     if($('#cname').val()=="" || !regexpString.test($('#cname').val()) ) {
         $('#cname-error').css("visibility", "visible");

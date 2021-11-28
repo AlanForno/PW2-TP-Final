@@ -32,7 +32,7 @@ class TurnosController{
         $hospital=$_POST['hospital'];
         $fecha= $_POST['turno'];
         $this->model->procesarTurno($hospital,$fecha,$usuario);
-        //ENVIO DE MAIL
+
         $this->enviarMailMedico();
 
         $this->mostrarResultado();

@@ -38,7 +38,6 @@ class LoginController{
 
     public function iniciarSesion($usuario){
         $this->loginModel->iniciarSesion($usuario);
-
     }
 
     public function cerrarSesion(){

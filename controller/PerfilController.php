@@ -2,19 +2,18 @@
 
 class PerfilController
 {
-
-    private $model;
+    private $PerfilModel;
+    private $VuelosModel;
     private $printer;
     private $sesion;
     private $data;
-    private $PDFPrinter;
     private $mail;
 
-    public function __construct($model, $printer, $sesion, $PDFPrinter, $mail){
-        $this->model = $model;
+    public function __construct($PerfilModel, $printer, $sesion, $mail, $VuelosModel){
+        $this->PerfilModel = $PerfilModel;
+        $this->VuelosModel = $VuelosModel;
         $this->printer = $printer;
         $this->sesion = $sesion;
-        $this->PDFPrinter = $PDFPrinter;
         $this->mail = $mail;
     }
 
@@ -33,13 +32,13 @@ class PerfilController
     }
 
     public function cargarDatos(){
-        $usuario=$this->model->obtenerUsuario($_SESSION["id"]);
+        $usuario=$this->PerfilModel->obtenerUsuario($_SESSION["id"]);
         if(is_null($usuario[0]["tipoAceptado"])){
             $usuario[0]["tipoAceptado"]='Realize su chequeo medico';
         }
-        $reservasAcreditadas=$this->model->obtenerReservasAcreditadas($_SESSION["id"]);
-        $reservasNoAcreditadas=$this->model->obtenerReservasNoAcreditadas($_SESSION["id"]);
-        $reservasEnEspera=$this->model->obtenerReservasEnEspera($_SESSION["id"]);
+        $reservasAcreditadas=$this->PerfilModel->obtenerReservasAcreditadas($_SESSION["id"]);
+        $reservasNoAcreditadas=$this->PerfilModel->obtenerReservasNoAcreditadas($_SESSION["id"]);
+        $reservasEnEspera=$this->PerfilModel->obtenerReservasEnEspera($_SESSION["id"]);
         $this->data["reservasEnEspera"]=$reservasEnEspera;
         $this->data["reservasAcreditadas"]=$reservasAcreditadas;
         $this->data["reservasNoAcreditadas"]=$reservasNoAcreditadas;
@@ -52,7 +51,7 @@ class PerfilController
         if($this->data["sesion"]){
 
             if($this->validarDatos($_POST["cardname"], $_POST["cardnumber"], $_POST["expmonth"], $_POST["expyear"], $_POST["cvv"] )){
-                $this->model->acreditarPago($_POST["idReserva"]);
+                $this->PerfilModel->acreditarPago($_POST["idReserva"]);
                 $this->generarComprobante($_POST["idReserva"]);
                 $this->data["exitoCompra"]=true;
             }else{
@@ -68,8 +67,8 @@ class PerfilController
 
     public function generarComprobante($idReserva){
         $idUsuario=$_SESSION["id"];
-        $attachment = $this->model->CargaDatosDeComprobante($idUsuario,$idReserva, 0); 
-        $data = $this->model->obtenerUsuario($idUsuario);
+        $attachment = $this->PerfilModel->CargaDatosDeComprobante($idUsuario,$idReserva, 0);
+        $data = $this->PerfilModel->obtenerUsuario($idUsuario);
         $body ="Boarding Pass";
 
         $this->mail->EnviarMailConArchivo($data[0]["email"],"Boarding Pass",
@@ -80,9 +79,7 @@ class PerfilController
     public function imprimirBoardingPass(){
         $idReserva= $_GET["idReserva"];
         $idUsuario=$_SESSION["id"];
-        $this->model->CargaDatosDeComprobante($idUsuario,$idReserva, 1);
-
-
+        $this->PerfilModel->CargaDatosDeComprobante($idUsuario,$idReserva, 1);
     }
     public function darDeBajaReserva(){
         $idReserva=$_GET['id'];
@@ -90,12 +87,12 @@ class PerfilController
         $aeronave=$_GET['aeronave'];
         $asiento=$_GET['asiento'];
         $idVuelo=$_GET['idVuelo'];
-        $this->model->darDeBajaReserva($idReserva,$cabina,$aeronave,$asiento,$idVuelo);
+        $this->VuelosModel->darDeBajaReserva($idReserva,$cabina,$aeronave,$asiento,$idVuelo);
         header("location: /perfil?exito=true");
     }
     public function darDeBajaReservaEnEspera(){
         $idReserva=$_GET['id'];
-        $this->model->darDeBajaReservaEnEspera($idReserva);
+        $this->VuelosModel->darDeBajaReservaEnEspera($idReserva);
         header("location: /perfil?exito=true");
     }
 

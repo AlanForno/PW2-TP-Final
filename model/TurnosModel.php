@@ -11,7 +11,6 @@ class TurnosModel
         $this->database = $database;
     }
 
-    /*falta agregar el usuario que reserva CON SESSIONES */
     public function procesarTurno($idHospital, $fecha, $idUsuario)
     {
         $sql = "SELECT * FROM `turnos` where hospital='$idHospital' and fecha='$fecha'";
@@ -44,7 +43,7 @@ class TurnosModel
 
     private function validacionDeTurno($turnosActuales, $cantidadTurnosDiarios, $idHospital, $fecha, $idUsuario)
     {
-        if ($this->contarTurnos($turnosActuales) <= $this->extraerTurnosDiarios($cantidadTurnosDiarios)) {
+        if ($this->contarTurnos($turnosActuales) < $this->extraerTurnosDiarios($cantidadTurnosDiarios)) {
             $resultado = $this->generarResultado();
             $sql = "INSERT INTO `turnos` ( `fecha`, `hospital`, `usuario`,`resultado`) VALUES ( '$fecha', '$idHospital', '$idUsuario','$resultado')";
             $sql2 = "update `usuario` set `tipoAceptado`='$resultado' where `id`='$idUsuario'";
@@ -57,13 +56,21 @@ class TurnosModel
 
     private function generarResultado()
     {
-        return rand(1, 3);
+        $resultado= rand(0, 100);
+
+        if($resultado<11){
+            return 1;
+        }
+        if($resultado<41){
+            return 2;
+        }
+        return 3;
     }
 
 
-    public function buscarTurno($nombre)
+    public function buscarTurno($id)
     {
-        $sql = 'select * from turnos join hospitales on turnos.hospital=hospitales.id join usuario on turnos.usuario=usuario.id where turnos.usuario="' . $nombre . '"';
+        $sql = 'select * from turnos join hospitales on turnos.hospital=hospitales.id join usuario on turnos.usuario=usuario.id where turnos.usuario="' . $id . '"';
 
         return $this->database->query($sql);
     }
@@ -78,10 +85,10 @@ class TurnosModel
         return false;
     }
 
-    public function buscarTurnoConMail($nombre){
+    public function buscarTurnoConMail($id){
         $sql='select * from turnos join hospitales on turnos.hospital=hospitales.id 
         join usuario on usuario.id = turnos.usuario 
-        where turnos.usuario="'.$nombre.'"';
+        where turnos.usuario="'.$id.'"';
 
         $data=$this->database->query($sql);
         return $data;

@@ -68,9 +68,7 @@ class RegistrarController{
         $this->registrarModel->validarUsuario( $data["validacion"], $data["email"]);
         echo $this->printer->render("view/validacionExitosa.html", $data);
         die();
-        /*
-        header("Location: /home");
-        die();*/
+
     }
 
 

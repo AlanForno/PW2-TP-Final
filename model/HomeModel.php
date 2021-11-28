@@ -10,6 +10,4 @@ class HomeModel
 
     }
 
-    /* DEMAS METODOS DE Home*/
-
 }

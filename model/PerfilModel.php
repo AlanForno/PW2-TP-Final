@@ -38,40 +38,7 @@ class PerfilModel
         $sql="UPDATE `reservavuelo` SET `Acreditada` = 1 WHERE `idReserva` = '$id'";
         $this->database->insert($sql);
     }
-    public function darDeBajaReserva($idReserva,$cabina,$aeronave,$asiento,$idVuelo){
 
-        $sql="delete from `reservavuelo` WHERE `idReserva` = '$idReserva'";
-        $this->database->insert($sql);
-        $sql="update aeronave set $cabina=$cabina+1 where id='$aeronave'";
-        $this->database->insert($sql);
-        $sql="update aeronave set capacidad=capacidad+1 where id='$aeronave'";
-        $this->database->insert($sql);
-        $this->consultarListaDeEspera($aeronave,$cabina,$asiento,$idVuelo);
-    }
-    public function darDeBajaReservaEnEspera($idReserva){
-
-        $sql="delete from `reservavuelo` WHERE `idReserva` = '$idReserva'";
-        $this->database->insert($sql);
-    }
-    public function consultarListaDeEspera($aeronave,$cabina,$asiento,$idVuelo){
-        $sql="select * from reservaVuelo where enEspera=true and idVuelo='$idVuelo'";
-        if($reservaEnEspera=$this->database->query($sql)){
-            $sql="update aeronave set $cabina=$cabina-1 where id='$aeronave'";
-            $this->database->insert($sql);
-            $sql="update aeronave set capacidad=capacidad-1 where id='$aeronave'";
-            $this->database->insert($sql);
-            foreach ($reservaEnEspera as $reserva) {
-                $idReserva = $reserva['idReserva'];
-                $sql = "update reservavuelo set cabina='$cabina' where idReserva='$idReserva'";
-                $this->database->insert($sql);
-                $sql = "update reservavuelo set asiento='$asiento'where idReserva='$idReserva'";
-                $this->database->insert($sql);
-                $sql = "update reservavuelo set enEspera=false where idReserva='$idReserva'";
-                $this->database->insert($sql);
-                break;
-            }
-        }
-    }
 
     public function CargaDatosDeComprobante($idUsuario,$idReserva, $opcion){
         
@@ -100,7 +67,6 @@ class PerfilModel
         $urlRelativeFilePath = $tempDir.$fileName;
         if (!file_exists($pngAbsoluteFilePath)) {
             QRcode::png($codeContents, $pngAbsoluteFilePath, QR_ECLEVEL_L, 3);
-        } else {
         }
         $imageData = base64_encode(file_get_contents($urlRelativeFilePath));           
         $src = 'data:'.mime_content_type($urlRelativeFilePath).';base64,'.$imageData;

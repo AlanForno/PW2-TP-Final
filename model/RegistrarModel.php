@@ -32,8 +32,6 @@ class RegistrarModel
         $this->resultado=$this->database->query($sql);
         if($this->verificar($email,$validacion,$this->resultado)){
             $this->validacionCorrecta($email);
-        }else{
-            // AQUI DEBERIA ENVIAR UN MENSAJE DE ERROR
         }
     }
 
