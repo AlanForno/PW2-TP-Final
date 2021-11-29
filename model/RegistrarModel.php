@@ -32,7 +32,9 @@ class RegistrarModel
         $this->resultado=$this->database->query($sql);
         if($this->verificar($email,$validacion,$this->resultado)){
             $this->validacionCorrecta($email);
+            return true;
         }
+        return false;
     }
 
     public function verificar($email,$validacion,$resultado){
