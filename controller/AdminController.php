@@ -18,6 +18,19 @@ class AdminController{
 
         echo $this->printer->render( "view/menuAdmin.html", $data);
     }
+
+    public function reportes(){
+        $data= $this->sesion->obtenerPermisos();
+
+        $reservasCabinas=$this->vuelosModel->obtenerCabinasReservadas();
+
+        $data["cabinaSuiteReservadas"]=$reservasCabinas["suite"];
+        $data["cabinaFamiliarReservadas"]=$reservasCabinas["familiar"];
+        $data["cabinaGeneralReservadas"]=$reservasCabinas["general"];
+
+        echo $this->printer->render( "view/reportes.html", $data);
+    }
+
     public function lista(){
         $data=$this->sesion->obtenerPermisos();
         if($data["admin"]){
