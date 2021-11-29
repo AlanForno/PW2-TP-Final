@@ -219,7 +219,7 @@
      }
 
      public function obtenerCabinasReservadas(){
-         $sql='SELECT * FROM reservavuelo';
+         $sql='SELECT * FROM reservavuelo WHERE enEspera = 0';
          $reservas=$this->database->query($sql);
 
          $cabinasCantidad=["suite"=>0, "general"=>0, "familiar"=>0];
