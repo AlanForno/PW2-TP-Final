@@ -27,6 +27,28 @@
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
             chart.draw(data, {width: 400, height: 240});
+
+                /** CHART HOSPITALES */
+            var data2 = new google.visualization.arrayToDataTable([
+                ['Hospitales', 'Cantidad de turnos dados'],
+                ['Hospital de Buenos Aires', parseInt('{{bsas}}')],
+                ['Hospital de Shangai', parseInt('{{shangai}}')],
+                ['Hospital de Ankara', parseInt('{{ankara}}')],
+            ],
+            false);
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+        chart.draw(data2, {width: 600, height: 340});
+
+                /** CHART TIPOS  */
+            var data3 = new google.visualization.arrayToDataTable([
+                ['Tipos', 'cantidad'],
+                ['Aeronaves Tipo 1', parseInt('{{tipo1}}')],
+                ['Aeronaves Tipo 2', parseInt('{{tipo2}}')],
+                ['Aeronaves Tipo 3', parseInt('{{tipo3}}')],
+            ],
+            false);
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div3'));
+        chart.draw(data3, {width: 600, height: 340});
         }
 
 
@@ -36,8 +58,19 @@
 
 <body>
 <!--Div that will hold the pie chart-->
-<h1>Cabinas mas populares</h1>
-<div id="chart_div"></div>
-
+<div class="w3-container w3-center w3-text-white w3-margin ">
+    <div class="w3-bar w3-2020-navy-blazer " style="width: 75%">
+        <h2 class="w3-margin-bottom w3-padding ">Cabinas mas populares</h2>
+        <div id="chart_div" class="w3-show-inline-block"></div>
+        <br>
+        <h2 class="w3-margin-bottom w3-padding w3-topbar">Turnos dados por hospitales</h2>
+        <div id="chart_div2" class="w3-show-inline-block"></div>
+        <br>
+        <h2 class="w3-margin-bottom w3-padding w3-topbar">Numero de tipos de aeronave</h2>
+        <div id="chart_div3" class="w3-show-inline-block w3-margin-bottom"></div>
+    </div>
+    <br>
+    <a href="/admin" class="w3-btn w3-container w3-2020-navy-blazer w3-margin w3-padding ">Volver</a>
+</div>
 </body>
 </html>
