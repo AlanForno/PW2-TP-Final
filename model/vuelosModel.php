@@ -263,7 +263,7 @@
                 $cantTurnosHospitales["bsas"]++;
             if(strcmp($turnoActual["hospital"], "2")==0)
                 $cantTurnosHospitales["shangai"]++;
-            if(strcmp($turnoActual["hospital"], "3")==0)
+            if(strcmp($turnoActual["hospital"], "7")==0)
                 $cantTurnosHospitales["ankara"]++;
         }
         return $cantTurnosHospitales;
