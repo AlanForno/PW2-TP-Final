@@ -55,7 +55,7 @@ class vuelosController
 
         if(!$this->model->procesarReserva($idVuelo,$idUsuario,$asiento,$cabina)){
             $data["error"]=true;
-            if(!$this->consultarDisponibleAsiento($idVuelo,$asiento,$cabina)){
+            if(!$this->consultarDisponibleAsiento($idVuelo,$asiento,$cabina)&&$this->model->chequearCompatibilidadDeTipo($idUsuario,$idVuelo)){
                 $data["disponible"]=true;
             }
             echo $this->printer->render("view/reservaVuelo.html", $data);

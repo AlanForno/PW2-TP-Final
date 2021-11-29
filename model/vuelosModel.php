@@ -101,7 +101,7 @@
                  break;
          }
      }
-     private function chequearCompatibilidadDeTipo($idUsuario,$idVuelo){
+     public function chequearCompatibilidadDeTipo($idUsuario,$idVuelo){
          $sql="select tipo from `vuelo` inner join `aeronave` on vuelo.idAeronave=aeronave.id where idVuelo='$idVuelo'";
          $tipoVuelo= $this->database->query($sql);
          foreach ($tipoVuelo as $tipoActual){
@@ -117,6 +117,7 @@
          }else{
              return false;
          }
+
      }
       public function chequearDisponibiladDeAsiento($idVuelo,$asiento,$cabina)
      {
