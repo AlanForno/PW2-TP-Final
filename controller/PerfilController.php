@@ -21,7 +21,7 @@ class PerfilController
 
         $this->data=$this->sesion->obtenerPermisos();
         $this->cargarDatos();
-        if($this->data["sesion"]){
+        if($this->data["sesion"] && $this->data["cliente"]){
             if(isset($_GET['exito'])){
                 $this->data["exito"]=$_GET['exito'];
             }

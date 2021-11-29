@@ -16,7 +16,11 @@ class AdminController{
     public function show(){
         $data= $this->sesion->obtenerPermisos();
 
-        echo $this->printer->render( "view/menuAdmin.html", $data);
+        if($data["sesion"] && $data["admin"]){
+            echo $this->printer->render( "view/menuAdmin.html", $data);
+        }else{
+            header("Location: /home");
+        }
     }
 
     public function reportes(){

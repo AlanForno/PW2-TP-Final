@@ -19,7 +19,7 @@ class vuelosController
 
        public function show(){
         $data=$this->sesion->obtenerPermisos();
-        if(isset($_GET['exito'])&&isset($_SESSION['id'])){
+        if(isset($_GET['exito']) && $data["sesion"]){
             $data["exito"]=$_GET['exito'];
         }
         $data["vuelos"]=$this->model->obtenerVuelos();
