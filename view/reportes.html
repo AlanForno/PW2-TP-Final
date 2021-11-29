@@ -1,0 +1,76 @@
+{{>header}}
+<head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../public/js/jquery-3.6.0.min.js" type="text/javascript"></script>
+    <script src="public/js/jquery-3.6.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        // Load the Visualization API and the piechart package.
+        google.charts.load('current', {'packages':['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            // Create our data table out of JSON data loaded from server.
+
+            var data = new google.visualization.arrayToDataTable([
+                    ['Cabina', 'Reservas Hechas'],
+                    ['Suite', parseInt('{{cabinaSuiteReservadas}}')],
+                    ['Familiar', parseInt('{{cabinaFamiliarReservadas}}')],
+                    ['General', parseInt('{{cabinaGeneralReservadas}}')]
+                ],
+                false);
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, {width: 400, height: 240});
+
+                /** CHART HOSPITALES */
+            var data2 = new google.visualization.arrayToDataTable([
+                ['Hospitales', 'Cantidad de turnos dados'],
+                ['Hospital de Buenos Aires', parseInt('{{bsas}}')],
+                ['Hospital de Shangai', parseInt('{{shangai}}')],
+                ['Hospital de Ankara', parseInt('{{ankara}}')],
+            ],
+            false);
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+        chart.draw(data2, {width: 600, height: 340});
+
+                /** CHART TIPOS  */
+            var data3 = new google.visualization.arrayToDataTable([
+                ['Tipos', 'cantidad'],
+                ['Aeronaves Tipo 1', parseInt('{{tipo1}}')],
+                ['Aeronaves Tipo 2', parseInt('{{tipo2}}')],
+                ['Aeronaves Tipo 3', parseInt('{{tipo3}}')],
+            ],
+            false);
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div3'));
+        chart.draw(data3, {width: 600, height: 340});
+        }
+
+
+
+    </script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div class="w3-container w3-center w3-text-white w3-margin ">
+    <div class="w3-bar w3-2020-navy-blazer " style="width: 75%">
+        <h2 class="w3-margin-bottom w3-padding ">Cabinas mas populares</h2>
+        <div id="chart_div" class="w3-show-inline-block"></div>
+        <br>
+        <h2 class="w3-margin-bottom w3-padding w3-topbar">Turnos dados por hospitales</h2>
+        <div id="chart_div2" class="w3-show-inline-block"></div>
+        <br>
+        <h2 class="w3-margin-bottom w3-padding w3-topbar">Numero de tipos de aeronave</h2>
+        <div id="chart_div3" class="w3-show-inline-block w3-margin-bottom"></div>
+    </div>
+    <br>
+    <a href="/admin" class="w3-btn w3-container w3-2020-navy-blazer w3-margin w3-padding ">Volver</a>
+</div>
+</body>
+</html>

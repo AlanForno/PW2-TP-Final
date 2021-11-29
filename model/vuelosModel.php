@@ -218,4 +218,54 @@
          }
      }
 
+     public function obtenerCabinasReservadas(){
+         $sql='SELECT * FROM reservavuelo WHERE enEspera = 0';
+         $reservas=$this->database->query($sql);
+
+         $cabinasCantidad=["suite"=>0, "general"=>0, "familiar"=>0];
+
+         foreach ($reservas as $reservaActual){
+             if(strcmp($reservaActual["cabina"], "cabinaSuite") == 0){
+                 $cabinasCantidad["suite"]++;
+             }
+             if(strcmp($reservaActual["cabina"], "cabinaGeneral") == 0){
+                 $cabinasCantidad["general"]++;
+             }
+             if(strcmp($reservaActual["cabina"], "cabinaFamiliar") == 0){
+                 $cabinasCantidad["familiar"]++;
+             }
+         }
+
+         return $cabinasCantidad;
+     }
+     public function obtenerTiposAeronave(){
+        $sql='SELECT * FROM aeronave';
+        $vuelos=$this->database->query($sql);
+        $cantTipoDeVuelos=["tipo1"=>0, "tipo2"=>0, "tipo3"=>0];
+
+        foreach($vuelos as $vueloActual){
+            if(strcmp($vueloActual["tipo"], "1")==0)
+                $cantTipoDeVuelos["tipo1"]++;
+            if(strcmp($vueloActual["tipo"], "2")==0)
+                $cantTipoDeVuelos["tipo2"]++;
+            if(strcmp($vueloActual["tipo"], "3")==0)
+                $cantTipoDeVuelos["tipo3"]++;
+        }
+        return $cantTipoDeVuelos;
+    }
+    public function obtenerTurnosHospitales(){
+        $sql='SELECT * FROM turnos';
+        $turnosHospitales=$this->database->query($sql);
+        $cantTurnosHospitales=["bsas"=>0, "shangai"=>0, "ankara"=>0];
+
+        foreach($turnosHospitales as $turnoActual){
+            if(strcmp($turnoActual["hospital"], "1")==0)
+                $cantTurnosHospitales["bsas"]++;
+            if(strcmp($turnoActual["hospital"], "2")==0)
+                $cantTurnosHospitales["shangai"]++;
+            if(strcmp($turnoActual["hospital"], "7")==0)
+                $cantTurnosHospitales["ankara"]++;
+        }
+        return $cantTurnosHospitales;
+    }
  }

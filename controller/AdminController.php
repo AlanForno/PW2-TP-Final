@@ -18,6 +18,30 @@ class AdminController{
 
         echo $this->printer->render( "view/menuAdmin.html", $data);
     }
+
+    public function reportes(){
+        $data= $this->sesion->obtenerPermisos();
+        /**Busqueda cantidad cavinas reservadas */
+        $reservasCabinas=$this->vuelosModel->obtenerCabinasReservadas();
+        $data["cabinaSuiteReservadas"]=$reservasCabinas["suite"];
+        $data["cabinaFamiliarReservadas"]=$reservasCabinas["familiar"];
+        $data["cabinaGeneralReservadas"]=$reservasCabinas["general"];
+
+        /**Busqueda tipos de aeronave */
+        $cantTipoDeVuelos = $this->vuelosModel->obtenerTiposAeronave();
+        $data["tipo1"]=$cantTipoDeVuelos["tipo1"];
+        $data["tipo2"]=$cantTipoDeVuelos["tipo2"];
+        $data["tipo3"]=$cantTipoDeVuelos["tipo3"];
+        
+        /**Busqueda turnos dados por hospital */
+        $cantTurnosHospitales = $this->vuelosModel->obtenerTurnosHospitales();
+        $data["bsas"]=$cantTurnosHospitales["bsas"];
+        $data["shangai"]=$cantTurnosHospitales["shangai"];
+        $data["ankara"]=$cantTurnosHospitales["ankara"];
+
+        echo $this->printer->render( "view/reportes.html", $data);
+    }
+
     public function lista(){
         $data=$this->sesion->obtenerPermisos();
         if($data["admin"]){

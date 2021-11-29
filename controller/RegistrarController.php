@@ -65,10 +65,12 @@ class RegistrarController{
         $data["validacion"] = $_GET["validacion"];
         $data["email"]=$_GET["email"];
 
-        $this->registrarModel->validarUsuario( $data["validacion"], $data["email"]);
-        echo $this->printer->render("view/validacionExitosa.html", $data);
-        die();
-
+        if($this->registrarModel->validarUsuario( $data["validacion"], $data["email"])){
+            echo $this->printer->render("view/validacionExitosa.html", $data);
+            die();
+        } else{
+            header("Location: /home");
+        }
     }
 
 
